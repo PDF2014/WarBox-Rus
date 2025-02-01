@@ -11,3 +11,5 @@ riderModule.iml
 !.gitattributes
 *.sln
 *.sln*
+*.zsh
+files.md

@@ -1,12 +1,11 @@
 {
-    "name": "Example-Mod",
-    "author": "Inmny",
-    "version": "1.0.0",
-    "description": "An example mod for NeoModLoader.",
+    "name": "ErexMod",
+    "author": "Erex_147",
+    "version": "0.1.1",
+    "description": "A mod wip",
+    "GUID": "erex147ErexMod",
     "iconPath": "icon.png",
     "Dependencies": [],
-    "OptionalDependencies": [
-        "一米.中文名"
-    ],
+    "OptionalDependencies": [],
     "IncompatibleWith": []
 }
