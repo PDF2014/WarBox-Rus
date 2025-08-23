@@ -1,10 +1,11 @@
 {
-    "name": "ErexMod",
-    "author": "Erex_147",
-    "version": "0.1.1",
+    "name": "WarBox",
+    "author": "Erex147",
+    "version": "0.2.0",
     "description": "A mod wip",
-    "GUID": "erex147ErexMod",
+    "GUID": "Erex147WarBox",
     "iconPath": "icon.png",
+    "RepoUrl": "https://github.com/Erex147/WarBox",
     "Dependencies": [],
     "OptionalDependencies": [],
     "IncompatibleWith": []
