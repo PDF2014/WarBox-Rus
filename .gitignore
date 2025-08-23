@@ -13,5 +13,3 @@ riderModule.iml
 *.sln*
 *.zsh
 files.md
-Assemblies/*
-*.dll
