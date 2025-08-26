@@ -9,6 +9,13 @@ internal static class WarBoxGodPowers
 {
     public static void Init()
     {
+        AddDrops();
+        AddPowers();
+        Cache();
+    }
+
+    private static void AddDrops()
+    {
         DropAsset drop = new DropAsset
         {
             id = $"spawn_metal_spawner",
@@ -21,32 +28,33 @@ internal static class WarBoxGodPowers
             action_landed = DropsLibrary.action_spawn_building
         };
         AssetManager.drops.add(drop);
+    }
 
+    private static void AddPowers()
+    {
         GodPower metal_spawner = AssetManager.powers.clone("metal_spawner", "$template_drop_building$");
         metal_spawner.name = "Metal Spawner";
         metal_spawner.rank = PowerRank.Rank0_free;
-        metal_spawner.drop_id = drop.id;
-        metal_spawner.falling_chance = 0.5f;
-        metal_spawner.click_power_action = Stuff_Drop;
+        metal_spawner.drop_id = "spawn_metal_spawner";
+        metal_spawner.falling_chance = 0f;
+        metal_spawner.force_brush = "circ_0";
+        metal_spawner.click_power_action = StuffDrop;
         metal_spawner.click_power_brush_action = new PowerAction((pTile, pPower) =>
         {
             return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
         });
-
-        FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (dropField != null)
-            dropField.SetValue(metal_spawner, drop);
     }
 
-    private static bool Stuff_Drop(WorldTile pTile, GodPower pPower)
+    private static void Cache()
+    {
+        FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (dropField != null)
+            dropField.SetValue(AssetManager.powers.get("metal_spawner"), AssetManager.drops.get("spawn_metal_spawner"));
+    }
+
+    private static bool StuffDrop(WorldTile pTile, GodPower pPower)
     {
         AssetManager.powers.CallMethod("spawnDrops", pTile, pPower);
         return true;
-    }
-    
-    public static void action_MOABClick(WorldTile pTile, string pPowerID)
-    {
-        EffectsLibrary.spawn("fx_nuke_flash", pTile, "moab");
-        //World.world.startShake(pIntensity: 2.5f, pShakeX: true);
     }
 }

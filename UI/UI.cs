@@ -11,6 +11,7 @@ internal static class WarBoxUI
 {
     public static void Init()
     {
+        // Bigger TODO: do not use any builder
         // TODO: do not use tab builder
         new TabBuilder()
         .SetTabID("warbox_tab")
