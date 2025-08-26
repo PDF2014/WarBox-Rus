@@ -16,10 +16,7 @@ internal static class WarBoxGuns
     {
         AddProjectiles();
         AddGuns();
-        // add_preferences();
         AddNameGenerators();
-        // var attack_speed_global = AssetManager.base_stats_library.get("attack_speed");
-        // attack_speed_global.normalize_max = 1000;
     }
 
     private static void AddGuns()
@@ -35,6 +32,7 @@ internal static class WarBoxGuns
         EquipmentAsset pistol = CreateGun(
             id: "pistol",
             stats: stats_pistol,
+            equipment_value: 60,
             name: "Pistol",
             description: "A very handy semi-automatic firearm",
             goldCost: 0,
@@ -52,6 +50,7 @@ internal static class WarBoxGuns
         EquipmentAsset smg = CreateGun(
             id: "smg",
             stats: stats_smg,
+            equipment_value: 65,
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
@@ -70,6 +69,7 @@ internal static class WarBoxGuns
         EquipmentAsset rifle = CreateGun(
             id: "rifle",
             stats: stats_rifle,
+            equipment_value: 75,
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
@@ -88,6 +88,7 @@ internal static class WarBoxGuns
         EquipmentAsset autorifle = CreateGun(
             id: "autorifle",
             stats: stats_autorifle,
+            equipment_value: 70,
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
@@ -107,6 +108,7 @@ internal static class WarBoxGuns
         EquipmentAsset sniperrifle = CreateGun(
             id: "sniperrifle",
             stats: stats_sniperrifle,
+            equipment_value: 65,
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,
@@ -125,6 +127,7 @@ internal static class WarBoxGuns
         EquipmentAsset shotgun = CreateGun(
             id: "shotgunreplace",
             stats: stats_shotgun,
+            equipment_value: 55,
             name: "Shotgun",
             description: "A shotgun firing many pellets, dangerous up close",
             goldCost: 0,
@@ -143,6 +146,7 @@ internal static class WarBoxGuns
         EquipmentAsset rpg = CreateGun(
             id: "rpg",
             stats: stats_rpg,
+            equipment_value: 55,
             name: "Rocket Launcher",
             projectile: "rpg_projectile",
             description: "A launcher firing rocket propelled grenades",
@@ -209,15 +213,15 @@ internal static class WarBoxGuns
         {
             id = "gun_name"
         };
-        gun_namegenerator.addPartGroup("M,MG,SG,G,MP,AK,XM,P,HK,RPG,FIM");
+        gun_namegenerator.addPartGroup("M,MG,SG,G,MP,AK,XM,P,HK,RPG,FIM,AEK,AN,FAMAS,UMP");
         gun_namegenerator.addPartGroup("-");
         gun_namegenerator.addPartGroup("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100");
-        gun_namegenerator.addPartGroup("A1,A2,A3,A4,MK1,MK2,MK3,MK4,J");
+        gun_namegenerator.addPartGroup("A1,A2,A3,A4,MK1,MK2,MK3,MK4,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z");
         gun_namegenerator.addTemplate("Part_group");
         AssetManager.name_generator.add(gun_namegenerator);
     }
 
-    private static EquipmentAsset CreateGun(string id, BaseStats stats, string projectile = "shotgun_bullet", string name = "", string description = "", int goldCost = 0, string resource1 = "none", int resource1Cost = 0, string resource2 = "none", int resource2Cost = 0)
+    private static EquipmentAsset CreateGun(string id, BaseStats stats, string projectile = "shotgun_bullet", int equipment_value = 100, string name = "", string description = "", int goldCost = 0, string resource1 = "none", int resource1Cost = 0, string resource2 = "none", int resource2Cost = 0)
     {
         EquipmentAsset gun = AssetManager.items.clone(id, "$range");
         gun.material = "steel";
@@ -230,15 +234,12 @@ internal static class WarBoxGuns
         gun.translation_key = gun.id;
         gun.path_icon = "ui/icons/items/icon_" + gun.id;
 
-        gun.quality = Rarity.R3_Legendary;
         gun.equipment_type = EquipmentType.Weapon;
         gun.projectile = projectile;
         gun.metallic = true;
-        //gun.is_pool_weapon = true;
 
-        gun.equipment_value = 500;
+        gun.equipment_value = equipment_value;
         gun.minimum_city_storage_resource_1 = 1;
-        //gun.pool_rate = 15;
         gun.rigidity_rating = 1;
 
         gun.setCost(goldCost, resource1, resource1Cost, resource2, resource2Cost);

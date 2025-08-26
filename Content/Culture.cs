@@ -23,13 +23,6 @@ internal static class WarBoxCulture
             is_weapon_trait = true,
             priority = -2,
         };
-        // firearms.addWeaponSpecial("rifle");
-        // firearms.addWeaponSpecial("pistol");
-        // firearms.addWeaponSpecial("smg");
-        // firearms.addWeaponSpecial("autorifle");
-        // firearms.addWeaponSpecial("sniperrifle");
-        // firearms.addWeaponSpecial("rpg");
-        // firearms.addWeaponSpecial("shotgunreplace");
         firearms.addWeaponSubtype("gun");
         AssetManager.culture_traits.add(firearms);
         LM.Add("en", "culture_trait_craft_firearms", "Firearms");

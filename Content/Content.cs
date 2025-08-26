@@ -14,7 +14,7 @@ internal static class WarBoxContent//, IReloadable, IUnloadable
 
         WarBoxGuns.Init();
         WarBoxCulture.Init();
-        //ErexModGodPowers.init();
-        //ErexModVehicles.init();
+        WarBoxBuildings.Init();
+        WarBoxGodPowers.Init();
     }
 }
