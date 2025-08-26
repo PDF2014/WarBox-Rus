@@ -29,6 +29,12 @@ internal static class WarBoxUI
             tab.transform,
             new Vector2(14, 0)
         );
+        PowerButton gold_spawner_button = PowerButtonCreator.CreateGodPowerButton(
+            "gold_spawner",
+            WarBoxUtils.FetchSingleSprite("ui/icons/items/icon_rifle")[0],
+            tab.transform,
+            new Vector2(14, 0)
+        );
         // ((UnityEvent)(object)metal_spawner_button._button.onClick).AddListener(() =>
         // {
 

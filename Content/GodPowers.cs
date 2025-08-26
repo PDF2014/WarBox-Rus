@@ -16,9 +16,9 @@ internal static class WarBoxGodPowers
 
     private static void AddDrops()
     {
-        DropAsset drop = new DropAsset
+        DropAsset metal_drop = new DropAsset
         {
-            id = $"spawn_metal_spawner",
+            id = "spawn_metal_spawner",
             path_texture = "ui/icon",
             default_scale = 0.2f,
             random_frame = true,
@@ -27,7 +27,11 @@ internal static class WarBoxGodPowers
             building_asset = "metal_spawner",
             action_landed = DropsLibrary.action_spawn_building
         };
-        AssetManager.drops.add(drop);
+        AssetManager.drops.add(metal_drop);
+
+        DropAsset gold_drop = AssetManager.drops.clone("spawn_gold_spawner", metal_drop.id);
+        gold_drop.building_asset = "gold_spawner";
+        AssetManager.drops.add(gold_drop);
     }
 
     private static void AddPowers()
@@ -43,6 +47,10 @@ internal static class WarBoxGodPowers
         {
             return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
         });
+
+        GodPower gold_spawner = AssetManager.powers.clone("gold_spawner", metal_spawner.id);
+        gold_spawner.name = "Gold Spawner";
+        gold_spawner.drop_id = "spawn_gold_spawner";
     }
 
     private static void Cache()
@@ -50,6 +58,7 @@ internal static class WarBoxGodPowers
         FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
         if (dropField != null)
             dropField.SetValue(AssetManager.powers.get("metal_spawner"), AssetManager.drops.get("spawn_metal_spawner"));
+            dropField.SetValue(AssetManager.powers.get("gold_spawner"), AssetManager.drops.get("spawn_gold_spawner"));
     }
 
     private static bool StuffDrop(WorldTile pTile, GodPower pPower)

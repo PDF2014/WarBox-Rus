@@ -1,3 +1,5 @@
+using System.Net.Mime;
+
 namespace WarBox.Content;
 
 internal static class WarBoxBuildings
@@ -39,5 +41,10 @@ internal static class WarBoxBuildings
         metal_spawner.spawn_drop_max_radius = 12.5f;
         metal_spawner.spawn_drop_max_height = 20f;
         metal_spawner.spawn_drop_start_height = 10f;
+
+        BuildingAsset gold_spawner = AssetManager.buildings.clone("gold_spawner", metal_spawner.id);
+        gold_spawner.sprite_path = "buildings/gold_spawner";
+        gold_spawner.spawn_drop_id = "gold";
+        gold_spawner.spawn_drop_max_radius = 8.5f;
     }
 }
