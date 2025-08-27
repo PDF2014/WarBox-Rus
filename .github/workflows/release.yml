@@ -1,0 +1,81 @@
+name: Build & Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.0)'
+        required: true
+      title:
+        description: 'Release title'
+        required: true
+      body:
+        description: 'Custom release notes (leave empty to auto-generate)'
+        required: false
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Build release zip
+        run: python release_packager.py ${{ github.event.inputs.tag }}
+
+      - name: Find release file name
+        id: get_zip
+        run: |
+          version="${{ github.event.inputs.tag }}"
+          version="${version#v}"   # strip leading v
+          echo "zip=WarBox${version}.zip" >> $GITHUB_OUTPUT
+
+      - name: Decide release body
+        id: notes
+        run: |
+          if [ -z "${{ github.event.inputs.body }}" ]; then
+            echo "body=__AUTO__" >> $GITHUB_OUTPUT
+          else
+            echo "body=${{ github.event.inputs.body }}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release (manual notes)
+        if: steps.notes.outputs.body != '__AUTO__'
+        id: create_release_manual
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: ${{ github.event.inputs.title }}
+          body: ${{ steps.notes.outputs.body }}
+          draft: false
+          prerelease: false
+
+      - name: Create GitHub Release (auto notes)
+        if: steps.notes.outputs.body == '__AUTO__'
+        id: create_release_auto
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: ${{ github.event.inputs.title }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release_manual.outputs.upload_url || steps.create_release_auto.outputs.upload_url }}
+          asset_path: ./${{ steps.get_zip.outputs.zip }}
+          asset_name: ${{ steps.get_zip.outputs.zip }}
+          asset_content_type: application/zip
