@@ -27,7 +27,7 @@ jobs:
           python-version: "3.x"
 
       - name: Build release zip
-        run: python release_packager.py ${{ github.event.inputs.tag }}
+        run: python misc/release.py ${{ github.event.inputs.tag }}
 
       - name: Find release file name
         id: get_zip
