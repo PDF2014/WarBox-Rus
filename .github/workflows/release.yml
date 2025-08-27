@@ -43,6 +43,7 @@ jobs:
             echo "body=__AUTO__" >> $GITHUB_OUTPUT
           else
             echo "body=${{ github.event.inputs.body }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create GitHub Release (manual notes)
         if: steps.notes.outputs.body != '__AUTO__'
