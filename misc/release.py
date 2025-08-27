@@ -7,7 +7,7 @@ def make_release(tag, output_dir="."):
     zip_name = f"WarBox{version}.zip"
     output_path = os.path.join(output_dir, zip_name)
 
-    include = ["Code", "GameResource", "icon.png"]  # what to include
+    include = ["Content", "UI", "GameResources", "Locales", "mod.json", "icon.png"]  # what to include
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for item in include:
             if os.path.isdir(item):
