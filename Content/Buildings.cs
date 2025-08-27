@@ -6,10 +6,10 @@ internal static class WarBoxBuildings
 {
     public static void Init()
     {
-        AddBuildings();
+        AddSpawners();
     }
 
-    private static void AddBuildings()
+    private static void AddSpawners()
     {
         BuildingAsset metal_spawner = AssetManager.buildings.clone("metal_spawner", "$building$");
         metal_spawner.building_type = BuildingType.Building_Nature;

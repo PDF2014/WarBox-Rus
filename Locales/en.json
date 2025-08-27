@@ -1,0 +1,29 @@
+{
+    "culture_trait_craft_firearms": "Gun",
+    "culture_trait_craft_firearms_info": "Allows for the production of guns",
+
+    "warbox_tab": "WarBox",
+    "warbox_tab Description": "Spawners, Vehicles, and more",
+    "warbox_tab Description2": "EHEHEHEHHEHEH",
+
+    "metal_spawner": "Metal Spawner Node",
+    "metal_spawner_description": "Spawn a node that spews metal ore",
+
+    "gold_spawner": "Gold Spawner Node",
+    "gold_spawner_description": "Spawn a node that spews gold ore",
+
+    "pistol": "Pistol",
+    "pistol_description": "A very handy semi-automatic firearm",
+    "smg": "SMG",
+    "smg_description": "A fast firing sub-machine gun, not very accurate",
+    "rifle": "Rifle",
+    "rifle_description": "A standard bolt-action rifle",
+    "shotgunreplace": "Shotgun",
+    "shotgunreplace_description": "A shotgun firing many pellets, dangerous up close",
+    "autorifle": "Automatic Rifle",
+    "autorifle_description": "A repeating rifle, hits fast and hard",
+    "sniperrifle": "Sniper Rifle",
+    "sniperrifle_description": "A very accurate bolt-action rifle, hits VERY hard",
+    "rpg": "Rocket Launcher",
+    "rpg_description": "A launcher firing rocket propelled grenades"
+}

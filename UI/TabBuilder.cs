@@ -63,7 +63,7 @@ namespace WarBox.UI
             TipButton tipButton = newTabButton.GetComponent<TipButton>();
             tipButton.textOnClick = buttonID;
             tipButton.textOnClickDescription = $"{buttonID} Description";
-            tipButton.text_description_2 = "warbox_tab";
+            tipButton.text_description_2 = $"{buttonID} Description2";
             newTabButton.transform.localPosition = new Vector3(xPos, 49.57f);
             newTabButton.transform.localScale = Vector3.one;
             if (icon != null)
@@ -83,7 +83,8 @@ namespace WarBox.UI
             GameObject newTab = GameObject.Instantiate(otherTab);
             foreach (Transform child in newTab.transform)
             {
-                if (child.gameObject.name == "tabBackButton" || child.gameObject.name == "-space")
+                string name = child.gameObject.name;
+                if (name == "tab_back_button" || name == "_space" || name == "pause" || name == "clock")
                 {
                     child.gameObject.SetActive(true);
                     continue;
@@ -107,7 +108,7 @@ namespace WarBox.UI
             var asset = new PowerTabAsset
             {
                 id = tabID,
-                locale_key = "tab_modernbox",
+                locale_key = "tab_warbox",
                 tab_type_main = true,
                 get_power_tab = () => powersTabComponent
             };

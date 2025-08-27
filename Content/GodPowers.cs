@@ -31,7 +31,7 @@ internal static class WarBoxGodPowers
 
         DropAsset gold_drop = AssetManager.drops.clone("spawn_gold_spawner", metal_drop.id);
         gold_drop.building_asset = "gold_spawner";
-        AssetManager.drops.add(gold_drop);
+        //AssetManager.drops.add(gold_drop);
     }
 
     private static void AddPowers()

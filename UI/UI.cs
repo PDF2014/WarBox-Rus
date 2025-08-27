@@ -35,10 +35,6 @@ internal static class WarBoxUI
             tab.transform,
             new Vector2(14, 0)
         );
-        // ((UnityEvent)(object)metal_spawner_button._button.onClick).AddListener(() =>
-        // {
-
-        // });
     }
 
     public static PowersTab getPowersTab(string id)

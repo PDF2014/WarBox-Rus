@@ -243,9 +243,6 @@ internal static class WarBoxGuns
         gun.rigidity_rating = 1;
 
         gun.setCost(goldCost, resource1, resource1Cost, resource2, resource2Cost);
-        LM.Add("en", gun.id, name);
-        LM.Add("en", gun.id + "_description", description);
-
         gun.gameplay_sprites = WarBoxUtils.FetchSingleSprite("weapons/" + id);
 
         return gun;

@@ -25,13 +25,14 @@ internal static class WarBoxCulture
         };
         firearms.addWeaponSubtype("gun");
         AssetManager.culture_traits.add(firearms);
-        LM.Add("en", "culture_trait_craft_firearms", "Firearms");
-        LM.Add("en", "culture_trait_craft_firearms_info", "Allows for the production of guns.");
-        //LM.Add("en", "culture_trait_craft_firearms_info2", "These pointy boom sticks sure hit hard");
+        EnableForAll(firearms.id);
+    }
 
+    private static void EnableForAll(string id)
+    {
         foreach (ActorAsset race in AssetManager.actor_library.list.Where(race => race.canBecomeSapient() == true))
         {
-            race.addCultureTrait(firearms.id);
+            race.addCultureTrait(id);
         }
     }
 }
