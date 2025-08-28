@@ -243,7 +243,7 @@ internal static class WarBoxGuns
         gun.rigidity_rating = 1;
 
         gun.setCost(goldCost, resource1, resource1Cost, resource2, resource2Cost);
-        gun.gameplay_sprites = WarBoxUtils.FetchSingleSprite("weapons/" + id);
+        gun.gameplay_sprites = new Sprite[] { SpriteTextureLoader.getSprite("weapons/" + id) };
 
         return gun;
     }

@@ -7,6 +7,8 @@ using NeoModLoader.api;
 using NeoModLoader.api.attributes;
 using NeoModLoader.General;
 using UnityEngine;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace WarBox;
 
@@ -29,16 +31,16 @@ namespace WarBox;
 ///     <para><see cref="IReloadable" /> 让模组可以重载. 是可选的. 如果你实现了这个接口, 你可在模组列表里看到模组重载按钮</para>
 ///     <para><see cref="IUnloadable"/> 让模组可以卸载. 是可选的. 如果你实现了这个接口, 你可以在禁用模组时即使"卸载"该模组</para>
 /// </summary>
-public class WarBox: BasicMod<WarBox>, IReloadable//, IReloadable, IUnloadable
+public class WarBox : BasicMod<WarBox>, IReloadable//, IReloadable, IUnloadable
 {
     internal static Transform prefab_library;
 
     [Hotfixable]
     public void Reload()
     {
-        
+
     }
-    
+
     public void OnUnload()
     {
 
@@ -53,6 +55,16 @@ public class WarBox: BasicMod<WarBox>, IReloadable//, IReloadable, IUnloadable
 
         WarBoxContent.Init();
         WarBoxUI.Init();
+
+        // FieldInfo fieldInfo = typeof(ScrollWindow).GetField("_all_windows", BindingFlags.NonPublic | BindingFlags.Instance);
+        // if (fieldInfo != null)
+        // {
+        //     var dict = (Dictionary<int, DragOrderElement>)fieldInfo.GetValue(ScrollWindow);
+        //     foreach (var kvp in dict)
+        //     {
+        //         WarBoxUtils.WarBoxLog($"Key: {kvp.Key}, Value: {kvp.Value}");
+        //     }
+        // }
     }
 
     public static void Called()

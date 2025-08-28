@@ -7,9 +7,9 @@ internal static class WarBoxContent//, IReloadable, IUnloadable
 {
     public static void Init()
     {
+        WarBoxBuildings.Init();
         WarBoxGuns.Init();
         WarBoxCulture.Init();
-        WarBoxBuildings.Init();
         WarBoxGodPowers.Init();
     }
 }

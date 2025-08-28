@@ -2,9 +2,9 @@
     "culture_trait_craft_firearms": "Gun",
     "culture_trait_craft_firearms_info": "Allows for the production of guns",
 
-    "warbox_tab": "WarBox",
-    "warbox_tab Description": "Spawners, Vehicles, and more",
-    "warbox_tab Description2": "EHEHEHEHHEHEH",
+    "warbox_tab_name": "WarBox",
+    "warbox_tab_description": "Spawners, Vehicles, and more",
+    "warbox_auto_layout_window_title": "Auto layout window",
 
     "metal_spawner": "Metal Spawner Node",
     "metal_spawner_description": "Spawn a node that spews metal ore",

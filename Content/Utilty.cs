@@ -13,11 +13,12 @@ namespace WarBox.Content;
 
 internal static class WarBoxUtils
 {
-    public static Sprite[] FetchSingleSprite(string path)
-    {
-        var sprite = Resources.Load<Sprite>(path);
-        return new Sprite[] { sprite };
-    }
+    // public static Sprite FetchSingleSprite(string path)
+    // {
+    //     return SpriteTextureLoader.getSprite(path);
+    //     //var sprite = Resources.Load<Sprite>(path);
+    //     //return new Sprite[] { sprite };
+    // }
 
     public static void WarBoxLog(string message)
     {

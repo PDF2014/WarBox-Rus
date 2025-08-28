@@ -31,8 +31,10 @@ internal static class WarBoxBuildings
         metal_spawner.has_sprites_spawn = true;
         metal_spawner.has_sprites_main = true;
         metal_spawner.has_sprites_ruin = true;
-        metal_spawner.has_sprites_special = true;
+        metal_spawner.has_sprites_special = false;
+        metal_spawner.has_sprites_main_disabled = false;
         metal_spawner.sprite_path = "buildings/metal_spawner";
+        metal_spawner.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         metal_spawner.spawn_drops = true;
         metal_spawner.spawn_drop_id = "metals";
         metal_spawner.spawn_drop_interval = 1f;
@@ -41,10 +43,13 @@ internal static class WarBoxBuildings
         metal_spawner.spawn_drop_max_radius = 12.5f;
         metal_spawner.spawn_drop_max_height = 20f;
         metal_spawner.spawn_drop_start_height = 10f;
+        //metal_spawner.loadBuildingSprites();
 
         BuildingAsset gold_spawner = AssetManager.buildings.clone("gold_spawner", metal_spawner.id);
         gold_spawner.sprite_path = "buildings/gold_spawner";
+        gold_spawner.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         gold_spawner.spawn_drop_id = "gold";
         gold_spawner.spawn_drop_max_radius = 8.5f;
+       // gold_spawner.loadBuildingSprites();
     }
 }
