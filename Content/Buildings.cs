@@ -43,13 +43,11 @@ internal static class WarBoxBuildings
         metal_spawner.spawn_drop_max_radius = 12.5f;
         metal_spawner.spawn_drop_max_height = 20f;
         metal_spawner.spawn_drop_start_height = 10f;
-        //metal_spawner.loadBuildingSprites();
 
         BuildingAsset gold_spawner = AssetManager.buildings.clone("gold_spawner", metal_spawner.id);
         gold_spawner.sprite_path = "buildings/gold_spawner";
         gold_spawner.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         gold_spawner.spawn_drop_id = "gold";
         gold_spawner.spawn_drop_max_radius = 8.5f;
-       // gold_spawner.loadBuildingSprites();
     }
 }

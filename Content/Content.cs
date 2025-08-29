@@ -3,7 +3,7 @@ using NeoModLoader.api.attributes;
 
 namespace WarBox.Content;
 
-internal static class WarBoxContent//, IReloadable, IUnloadable
+internal static class WarBoxContent
 {
     public static void Init()
     {

@@ -4,9 +4,6 @@ using NCMS.Utils;
 using NeoModLoader.api.attributes;
 using NeoModLoader.General;
 using NeoModLoader.General.UI.Tab;
-using UnityEngine;
-using UnityEngine.Events;
-using WarBox.Content;
 using WarBox.UI.Windows;
 
 namespace WarBox.UI;
@@ -21,7 +18,7 @@ internal static class WarBoxUI
             "warbox_tab",
             "warbox_tab_name",
             "warbox_tab_description",
-            SpriteTextureLoader.getSprite("ui/icons/iconSteam")//WarBoxUtils.FetchSingleSprite("ui/icon")[0]
+            SpriteTextureLoader.getSprite("ui/icons/warbox_tab_icon")
         );
 
         tab.SetLayout(new List<string>()
@@ -32,30 +29,6 @@ internal static class WarBoxUI
         CreateWindows();
         CreateButtons();
         tab.UpdateLayout();
-        // Bigger TODO: do not use any builder
-        // TODO: do not use tab builder
-        // new TabBuilder()
-        // .SetTabID("warbox_tab")
-        // .SetName("WarBox")
-        // .SetDescription("WarBox Tab")
-        // .SetPosition(200)
-        // .SetIcon("ui/icon")
-        // .Build();
-
-        // PowersTab tab = getPowersTab("warbox_tab");
-
-        // PowerButton metal_spawner_button = PowerButtonCreator.CreateGodPowerButton(
-        //     "metal_spawner",
-        //     WarBoxUtils.FetchSingleSprite("ui/icons/items/icon_pistol")[0],
-        //     tab.transform,
-        //     new Vector2(14, 0)
-        // );
-        // PowerButton gold_spawner_button = PowerButtonCreator.CreateGodPowerButton(
-        //     "gold_spawner",
-        //     WarBoxUtils.FetchSingleSprite("ui/icons/items/icon_rifle")[0],
-        //     tab.transform,
-        //     new Vector2(14, 0)
-        // );
     }
 
     private static void CreateWindows()
@@ -65,22 +38,14 @@ internal static class WarBoxUI
 
     private static void CreateButtons()
     {
-        //tab.AddPowerButton
-
         tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
             "metal_spawner",
-            SpriteTextureLoader.getSprite("ui/icons/items/icon_pistol")
+            SpriteTextureLoader.getSprite("ui/icons/buttons/metal_spawner")
         ));
 
         tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
             "gold_spawner",
-            SpriteTextureLoader.getSprite("ui/icons/items/icon_rifle")
+            SpriteTextureLoader.getSprite("ui/icons/buttons/gold_spawner")
         ));
     }
-
-    // public static PowersTab getPowersTab(string id)
-    // {
-    //     GameObject gameObject = GameObjects.FindEvenInactive(id);
-    //     return gameObject.GetComponent<PowersTab>();
-    // }
 }
