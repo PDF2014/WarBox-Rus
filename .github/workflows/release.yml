@@ -71,7 +71,7 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.tag }}
           release_name: ${{ github.event.inputs.title }}
-          generate_release_notes: true
+          body: "**Full Changelog**: https://github.com/Erex147/WarBox/commits/${{ github.event.inputs.tag }}"
           draft: false
           prerelease: false
 
