@@ -49,5 +49,25 @@ internal static class WarBoxBuildings
         gold_spawner.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         gold_spawner.spawn_drop_id = "gold";
         gold_spawner.spawn_drop_max_radius = 8.5f;
+
+        BuildingAsset watch_tower = AssetManager.buildings.get("watch_tower_human");
+        watch_tower.upgrade_level = 0;
+        watch_tower.can_be_upgraded = true;
+        watch_tower.upgrade_to = "bunker";
+
+        BuildingAsset bunker = AssetManager.buildings.clone("bunker", "watch_tower_human");
+        bunker.sprite_path = "buildings/bunker";
+        bunker.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        bunker.tower_projectile_reload = 0.025f;
+        bunker.base_stats["health"] = 9000f;
+        bunker.base_stats["attack_speed"] = 10f;
+        bunker.base_stats["damage"] = 55f;
+        bunker.fundament = new BuildingFundament(1, 1, 0, 0);
+        bunker.cost = new ConstructionCost(0, 30, 15, 10);
+        bunker.upgrade_level = 1;
+        bunker.tower_projectile = "shotgun_bullet";
+        bunker.tower_projectile_amount = 1;
+        bunker.tower_projectile_offset = 0;
+        AssetManager.buildings.add(bunker);
     }
 }
