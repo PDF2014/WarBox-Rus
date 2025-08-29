@@ -19,7 +19,7 @@ internal static class WarBoxGodPowers
         DropAsset metal_drop = new DropAsset
         {
             id = "spawn_metal_spawner",
-            path_texture = "ui/icon",
+            path_texture = "drops/drop_stone",
             default_scale = 0.2f,
             random_frame = true,
             random_flip = true,
