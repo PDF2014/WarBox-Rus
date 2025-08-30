@@ -10,6 +10,5 @@ internal static class WarBoxContent
         WarBoxBuildings.Init();
         WarBoxGuns.Init();
         WarBoxCulture.Init();
-        WarBoxGodPowers.Init();
     }
 }
