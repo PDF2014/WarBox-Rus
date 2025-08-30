@@ -63,11 +63,11 @@ internal static class WarBoxBuildings
         bunker.base_stats["attack_speed"] = 10f;
         bunker.base_stats["damage"] = 55f;
         bunker.fundament = new BuildingFundament(1, 1, 0, 0);
-        bunker.cost = new ConstructionCost(0, 30, 15, 10);
+        bunker.cost = new ConstructionCost(0, 0, 0, 0);
+        bunker.priority = 9999;
         bunker.upgrade_level = 1;
         bunker.tower_projectile = "shotgun_bullet";
         bunker.tower_projectile_amount = 1;
         bunker.tower_projectile_offset = 0;
-        AssetManager.buildings.add(bunker);
     }
 }

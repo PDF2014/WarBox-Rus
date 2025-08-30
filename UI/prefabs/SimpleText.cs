@@ -1,6 +1,7 @@
 using NeoModLoader.General.UI.Prefabs;
 using UnityEngine;
 using UnityEngine.UI;
+using WarBox;
 
 namespace WarBox.UI.Prefabs;
 
