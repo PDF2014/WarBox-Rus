@@ -1,10 +1,5 @@
 using System.Collections.Generic;
 using NeoModLoader.api.attributes;
-using NeoModLoader.General;
-using NeoModLoader.services;
-using NeoModLoader.utils.Builders;
-using NCMS.Utils;
-using System.Data.SqlClient;
 using UnityEngine;
 
 namespace WarBox.Content;
@@ -69,7 +64,7 @@ internal static class WarBoxGuns
         EquipmentAsset rifle = CreateGun(
             id: "rifle",
             stats: stats_rifle,
-            equipment_value: 75,
+            equipment_value: 70,
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
@@ -81,7 +76,7 @@ internal static class WarBoxGuns
         BaseStats stats_autorifle = new BaseStats();
         stats_autorifle["projectiles"] = 1;
         stats_autorifle["accuracy"] = 10f;
-        stats_autorifle["range"] = 65f;
+        stats_autorifle["range"] = 20f;
         stats_autorifle["damage"] = 60f;
         stats_autorifle["attack_speed"] = 3.5f;
 
@@ -160,6 +155,16 @@ internal static class WarBoxGuns
             AssetManager.items.equipment_by_subtypes.Add("gun", new List<EquipmentAsset>());
         }
 
+        if (!AssetManager.items.pot_equipment_by_groups_all.ContainsKey("firearm"))
+        {
+            AssetManager.items.pot_equipment_by_groups_all.Add("firearm", new List<EquipmentAsset>());
+        }
+
+        if (!AssetManager.items.pot_equipment_by_groups_unlocked.ContainsKey("firearm"))
+        {
+            AssetManager.items.pot_equipment_by_groups_unlocked.Add("firearm", new List<EquipmentAsset>());
+        }
+
         AssetManager.items.equipment_by_subtypes["gun"].Add(pistol);
         AssetManager.items.equipment_by_subtypes["gun"].Add(smg);
         AssetManager.items.equipment_by_subtypes["gun"].Add(rifle);
@@ -167,6 +172,22 @@ internal static class WarBoxGuns
         AssetManager.items.equipment_by_subtypes["gun"].Add(sniperrifle);
         AssetManager.items.equipment_by_subtypes["gun"].Add(shotgun);
         AssetManager.items.equipment_by_subtypes["gun"].Add(rpg);
+
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(pistol);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(smg);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(rifle);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(autorifle);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(sniperrifle);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(shotgun);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(rpg);
+
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(pistol);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(smg);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(rifle);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(autorifle);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(sniperrifle);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(shotgun);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(rpg);
     }
 
     private static void AddProjectiles()
@@ -204,6 +225,24 @@ internal static class WarBoxGuns
             terraform_option = "rpg",
             terraform_range = 4,
             can_be_blocked = true,
+        });
+
+        AssetManager.projectiles.add(new ProjectileAsset
+        {
+            id = "cannon_shell",
+            speed = 45f,
+            texture = "pr_shell",
+            look_at_target = true,
+            texture_shadow = "shadows/projectiles/shadow_arrow",
+            end_effect = "fx_fireball_explosion",
+            hit_shake = false,
+            scale_start = 0.08f,
+            scale_target = 0.08f,
+            draw_light_area = false,
+            sound_launch = "event:/SFX/WEAPONS/WeaponStartThrow",
+            terraform_option = "grenade",
+            terraform_range = 6,
+            can_be_blocked = false,
         });
     }
 

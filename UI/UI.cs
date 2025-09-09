@@ -38,14 +38,14 @@ internal static class WarBoxUI
 
     private static void CreateButtons()
     {
-        // tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
-        //     "metal_spawner",
-        //     SpriteTextureLoader.getSprite("ui/icons/buttons/metal_spawner")
-        // ));
+        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+            "bunker_builder",
+            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+        ));
 
-        // tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
-        //     "gold_spawner",
-        //     SpriteTextureLoader.getSprite("ui/icons/buttons/gold_spawner")
-        // ));
+        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+            "artillery_bunker_builder",
+            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+        ));
     }
 }

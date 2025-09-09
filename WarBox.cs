@@ -8,12 +8,14 @@ using NeoModLoader.General;
 using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
+using HarmonyLib;
 
 namespace WarBox;
 
 public class WarBox : BasicMod<WarBox>, IReloadable
 {
     public static Transform prefab_library;
+    internal static Harmony harmony;
 
     [Hotfixable]
     public void Reload()
@@ -30,7 +32,7 @@ public class WarBox : BasicMod<WarBox>, IReloadable
     {
         prefab_library = new GameObject("PrefabLibrary").transform;
         prefab_library.SetParent(transform);
-        
+
         if (Environment.UserName == "sourojeetshyam")
         {
             Config.isEditor = true;
@@ -38,6 +40,11 @@ public class WarBox : BasicMod<WarBox>, IReloadable
 
         WarBoxContent.Init();
         WarBoxUI.Init();
+
+        harmony = new Harmony("com.Erex147.WarBox");
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        harmony.PatchAll(assembly);
+        
     }
 
     public static void Called()

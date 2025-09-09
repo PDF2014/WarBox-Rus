@@ -16,48 +16,68 @@ internal static class WarBoxGodPowers
 
     private static void AddDrops()
     {
-        // DropAsset metal_drop = new DropAsset
-        // {
-        //     id = "spawn_metal_spawner",
-        //     path_texture = "drops/drop_stone",
-        //     default_scale = 0.2f,
-        //     random_frame = true,
-        //     random_flip = true,
-        //     type = DropType.DropBuilding,
-        //     building_asset = "metal_spawner",
-        //     action_landed = DropsLibrary.action_spawn_building
-        // };
-        // AssetManager.drops.add(metal_drop);
+        DropAsset bunker_drop = new DropAsset
+        {
+            id = "spawn_bunker",
+            path_texture = "drops/drop_stone",
+            default_scale = 0.2f,
+            random_frame = true,
+            random_flip = true,
+            type = DropType.DropBuilding,
+            building_asset = "bunker",
+            action_landed = DropsLibrary.action_spawn_building
+        };
+        AssetManager.drops.add(bunker_drop);
 
-        // DropAsset gold_drop = AssetManager.drops.clone("spawn_gold_spawner", metal_drop.id);
-        // gold_drop.building_asset = "gold_spawner";
+        DropAsset artillery_bunker_drop = new DropAsset
+        {
+            id = "spawn_artillery_bunker",
+            path_texture = "drops/drop_stone",
+            default_scale = 0.2f,
+            random_frame = true,
+            random_flip = true,
+            type = DropType.DropBuilding,
+            building_asset = "artillery_bunker",
+            action_landed = DropsLibrary.action_spawn_building
+        };
+        AssetManager.drops.add(artillery_bunker_drop);
     }
 
     private static void AddPowers()
     {
-        // GodPower metal_spawner = AssetManager.powers.clone("metal_spawner", "$template_drop_building$");
-        // metal_spawner.name = "Metal Spawner";
-        // metal_spawner.rank = PowerRank.Rank0_free;
-        // metal_spawner.drop_id = "spawn_metal_spawner";
-        // metal_spawner.falling_chance = 0f;
-        // metal_spawner.force_brush = "circ_0";
-        // metal_spawner.click_power_action = StuffDrop;
-        // metal_spawner.click_power_brush_action = new PowerAction((pTile, pPower) =>
-        // {
-        //     return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
-        // });
+        GodPower bunker_builder = AssetManager.powers.clone("bunker_builder", "$template_drop_building$");
+        bunker_builder.name = "Bunker";
+        bunker_builder.rank = PowerRank.Rank0_free;
+        bunker_builder.drop_id = "spawn_bunker";
+        bunker_builder.falling_chance = 0f;
+        bunker_builder.force_brush = "circ_0";
+        bunker_builder.click_power_action = StuffDrop;
+        bunker_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
+        {
+            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
+        });
 
-        // GodPower gold_spawner = AssetManager.powers.clone("gold_spawner", metal_spawner.id);
-        // gold_spawner.name = "Gold Spawner";
-        // gold_spawner.drop_id = "spawn_gold_spawner";
+        GodPower artillery_bunker_builder = AssetManager.powers.clone("artillery_bunker_builder", "$template_drop_building$");
+        artillery_bunker_builder.name = "Bunker";
+        artillery_bunker_builder.rank = PowerRank.Rank0_free;
+        artillery_bunker_builder.drop_id = "spawn_bunker";
+        artillery_bunker_builder.falling_chance = 0f;
+        artillery_bunker_builder.force_brush = "circ_0";
+        artillery_bunker_builder.click_power_action = StuffDrop;
+        artillery_bunker_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
+        {
+            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
+        });
     }
 
     private static void Cache()
     {
-        // FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
-        // if (dropField != null)
-        //     dropField.SetValue(AssetManager.powers.get("metal_spawner"), AssetManager.drops.get("spawn_metal_spawner"));
-        //     dropField.SetValue(AssetManager.powers.get("gold_spawner"), AssetManager.drops.get("spawn_gold_spawner"));
+        FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (dropField != null)
+        {
+            dropField.SetValue(AssetManager.powers.get("bunker_builder"), AssetManager.drops.get("spawn_bunker"));
+            dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
+        }
     }
 
     private static bool StuffDrop(WorldTile pTile, GodPower pPower)
