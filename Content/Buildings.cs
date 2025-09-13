@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System.Linq;
 
 namespace WarBox.Content;
 
@@ -18,9 +19,9 @@ internal static class WarBoxBuildings
 
     private static void AddBuildings()
     {
-        foreach (string civ in civs)
+        foreach (ActorAsset race in AssetManager.actor_library.list.Where(race => race.architecture_id != string.Empty && race.canBecomeSapient() == true)) // this does double work for actors that have both non-spaient and sapient
         {
-            BuildingAsset watch_tower = AssetManager.buildings.get($"watch_tower_{civ}");
+            BuildingAsset watch_tower = AssetManager.buildings.get($"watch_tower_{race.architecture_id}");
             if (watch_tower != null)
             {
                 watch_tower.can_be_upgraded = true;
@@ -72,7 +73,7 @@ internal static class WarBoxBuildings
         artillery_bunker.sprite_path = "buildings/artillery_bunker";
         artillery_bunker.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         artillery_bunker.priority = 50;
-        artillery_bunker.cost = new ConstructionCost(0, 15, 15, 10);
+        artillery_bunker.cost = new ConstructionCost(0, 12, 8, 5);
         artillery_bunker.base_stats["damage"] = 1000f;
         artillery_bunker.tower_projectile = "cannon_shell";
         artillery_bunker.tower_projectile_offset = 4f;

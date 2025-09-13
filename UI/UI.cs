@@ -47,5 +47,10 @@ internal static class WarBoxUI
             "artillery_bunker_builder",
             SpriteTextureLoader.getSprite("ui/icons/iconSteam")
         ));
+
+        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+            "spawn_tank",
+            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+        ));
     }
 }

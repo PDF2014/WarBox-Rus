@@ -17,6 +17,8 @@ public class WarBox : BasicMod<WarBox>, IReloadable
     public static Transform prefab_library;
     internal static Harmony harmony;
 
+    public static bool warbox_factories = true;
+
     [Hotfixable]
     public void Reload()
     {
@@ -36,6 +38,7 @@ public class WarBox : BasicMod<WarBox>, IReloadable
         if (Environment.UserName == "sourojeetshyam")
         {
             Config.isEditor = true;
+            //DebugConfig.
         }
 
         WarBoxContent.Init();
@@ -44,7 +47,6 @@ public class WarBox : BasicMod<WarBox>, IReloadable
         harmony = new Harmony("com.Erex147.WarBox");
         Assembly assembly = Assembly.GetExecutingAssembly();
         harmony.PatchAll(assembly);
-        
     }
 
     public static void Called()

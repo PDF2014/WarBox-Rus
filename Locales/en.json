@@ -2,6 +2,9 @@
     "warbox_tab_name": "WarBox",
     "warbox_tab_description": "Spawners, Vehicles, and more",
     "warbox_auto_layout_window_title": "Auto layout window",
+    "warbox_config": "WarBox Config",
+    "warbox_enable_factories": "Enable factories",
+    "warbox_enable_factories Description": "Toggle the production of military units in cities",
 
     "culture_trait_craft_firearms": "Gun",
     "culture_trait_craft_firearms_info": "Allows for the production of guns",
@@ -22,5 +25,13 @@
     "rpg_description": "A launcher firing rocket propelled grenades",
 
     "bunker": "Bunker",
-    "bunker_description": "Spawn a bunker fortification"
+    "bunker_description": "Spawn a bunker fortification",
+    "artillery_bunker": "Artillery Bunker",
+    "artillery_bunker_description": "Spawn a bunker fortification with an artillery cannon",
+    "spawn_tank": "Tank",
+    "spawn_tank_description": "Spawn a heavily armored tank vehicle",
+
+    "auto_layout_window_text_1_key": "i dont know what to put here",
+    "auto_layout_window_text_2_key": "so heres some filler text",
+    "cant_spawn_vehicle_kingdom": "You must spawn this vehicle within a kingdom."
 }

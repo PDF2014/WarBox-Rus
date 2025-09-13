@@ -3,6 +3,9 @@ using NeoModLoader.General.Event.Listeners;
 using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection;
+using ai.behaviours;
+using System;
+using UnityEngine.UI;
 
 
 namespace WarBox.Content;
@@ -11,67 +14,164 @@ internal static class WarBoxActors
 {
     public static void Init()
     {
-        ActorAsset tank = new ActorAsset();
-        tank.id = "warbox_tank";
-    }
-}
+        var baseWarUnit = AssetManager.actor_library.clone("baseWarUnit", "$basic_unit$");
+        baseWarUnit.is_humanoid = false;
+        baseWarUnit.civ = false;
+        baseWarUnit.experience_given = 20;
+        baseWarUnit.actor_size = ActorSize.S13_Human;
+        baseWarUnit.die_in_lava = true;
+        baseWarUnit.can_have_subspecies = false;
+        baseWarUnit.base_stats["mass_2"] = 600f;
+        baseWarUnit.base_stats["stamina"] = 500f;
+        baseWarUnit.base_stats["lifespan"] = 15f;
+        baseWarUnit.base_stats["scale"] = 0.2f;
+        baseWarUnit.base_stats["size"] = 1f;
+        baseWarUnit.base_stats["mass"] = 1000f;
+        baseWarUnit.base_stats["health"] = 300f;
+        baseWarUnit.base_stats["speed"] = 10f;
+        baseWarUnit.base_stats["armor"] = 20f;
+        baseWarUnit.base_stats["attack_speed"] = 1f;
+        baseWarUnit.base_stats["damage"] = 30f;
+        baseWarUnit.base_stats["knockback"] = 2f;
+        baseWarUnit.base_stats["accuracy"] = 1f;
+        baseWarUnit.base_stats["targets"] = 1f;
+        baseWarUnit.base_stats["area_of_effect"] = 0.5f;
+        baseWarUnit.base_stats["range"] = 1f;
+        baseWarUnit.base_stats["critical_damage_multiplier"] = 2f;
+        baseWarUnit.base_stats["multiplier_supply_timer"] = 1f;
+        baseWarUnit.sound_hit = "event:/SFX/HIT/HitWood";
+        baseWarUnit.base_throwing_range = 7f;
+        baseWarUnit.affected_by_dust = false;
+        baseWarUnit.inspect_children = false;
+        baseWarUnit.default_attack = "base_attack";
+        //baseWarUnit.icon = "iconBoat";
+        baseWarUnit.shadow_texture = "unitShadow_6";
+        baseWarUnit.texture_asset = new ActorTextureSubAsset("actors/tank/", false);
+        baseWarUnit.special = true;
+        baseWarUnit.has_advanced_textures = false;
+        baseWarUnit.cost = new ConstructionCost(1, 0, 0, 1);
+        baseWarUnit.animation_walk = ActorAnimationSequences.walk_0_3;
+        baseWarUnit.animation_idle = ActorAnimationSequences.walk_0;
+        baseWarUnit.animation_swim = ActorAnimationSequences.swim_0_3;
+        baseWarUnit.name_template_sets = AssetLibrary<ActorAsset>.a<string>("assimilator_set");
+        baseWarUnit.kingdom_id_civilization = string.Empty;
+        baseWarUnit.build_order_template_id = string.Empty;
+        baseWarUnit.disable_jump_animation = true;
+        baseWarUnit.inspect_sex = false;
+        baseWarUnit.inspect_show_species = false;
+        baseWarUnit.inspect_generation = false;
+        baseWarUnit.immune_to_injuries = true;
+        baseWarUnit.show_on_meta_layer = true;
+        baseWarUnit.show_in_knowledge_window = false;
+        baseWarUnit.show_in_taxonomy_tooltip = false;
+        baseWarUnit.needs_to_be_explored = false;
+        baseWarUnit.need_colored_sprite = true;
+        baseWarUnit.allowed_status_tiers = StatusTier.Basic;
+        baseWarUnit.render_status_effects = false;
+        baseWarUnit.inspect_avatar_scale = 1.5f;
+        baseWarUnit.force_land_creature = true;
+        baseWarUnit.inspect_home = true;
+        baseWarUnit.can_edit_traits = true;
+        baseWarUnit.disable_jump_animation = true;
+        baseWarUnit.can_receive_traits = true;
+        baseWarUnit.flying = false;
+        //baseoffensiveunit.tech = "baseoffensiveunits";
+        baseWarUnit.very_high_flyer = false;
+        baseWarUnit.die_on_blocks = true;
+        baseWarUnit.ignore_blocks = false;
+        baseWarUnit.inspect_experience = true;
+        baseWarUnit.inspect_kills = true;
+        baseWarUnit.use_items = false;
+        baseWarUnit.has_baby_form = false;
+        baseWarUnit.take_items = false;
+        baseWarUnit.job_citizen = Toolbox.a<string>("attacker");
+        baseWarUnit.job_kingdom = Toolbox.a<string>("attacker");
+        baseWarUnit.job_attacker = Toolbox.a<string>("attacker");
+        baseWarUnit.job = AssetLibrary<ActorAsset>.a<string>("decision");
+        baseWarUnit.addDecision("check_swearing");
+        baseWarUnit.addDecision("warrior_try_join_army_group");
+        baseWarUnit.addDecision("city_walking_to_danger_zone");
+        baseWarUnit.addDecision("warrior_army_captain_idle_walking_city");
+        baseWarUnit.addDecision("warrior_army_captain_waiting");
+        baseWarUnit.addDecision("warrior_army_leader_move_random");
+        baseWarUnit.addDecision("warrior_army_leader_move_to_attack_target");
+        baseWarUnit.addDecision("warrior_army_follow_leader");
+        baseWarUnit.addDecision("warrior_random_move");
+        baseWarUnit.addDecision("check_warrior_transport");
+        baseWarUnit.addDecision("swim_to_island");
+        baseWarUnit.collective_term = "group_gang";
+        baseWarUnit.prevent_unconscious_rotation = true;
+        baseWarUnit.use_phenotypes = false;
+        baseWarUnit.unit_other = true;
+        baseWarUnit.can_be_surprised = false;
+        baseWarUnit.has_skin = false;
+        baseWarUnit.disable_jump_animation = true;
+        baseWarUnit.can_turn_into_mush = false;
+        baseWarUnit.can_turn_into_tumor = false;
+        baseWarUnit.can_turn_into_zombie = false;
+        baseWarUnit.use_tool_items = false;
+        baseWarUnit.kingdom_id_wild = "neutral_animals";
+        baseWarUnit.can_flip = true;
+        baseWarUnit.check_flip = (BaseSimObject _, WorldTile _) => true;
+        baseWarUnit.allow_possession = true;
+        baseWarUnit.can_talk_with = false;
+        baseWarUnit.control_can_backstep = true;
+        baseWarUnit.control_can_jump = true;
+        baseWarUnit.control_can_kick = true;
+        baseWarUnit.control_can_dash = true;
+        baseWarUnit.control_can_talk = false;
+        baseWarUnit.control_can_swear = true;
+        baseWarUnit.control_can_steal = true;
+        baseWarUnit.show_controllable_tip = true;
+        baseWarUnit.update_z = true;
+        baseWarUnit.can_be_killed_by_stuff = true;
+        baseWarUnit.can_be_killed_by_life_eraser = true;
+        baseWarUnit.can_attack_buildings = true;
+        baseWarUnit.can_be_moved_by_powers = true;
+        baseWarUnit.can_be_hurt_by_powers = true;
+        baseWarUnit.effect_damage = true;
+        baseWarUnit.immune_to_slowness = true;
+        baseWarUnit.death_animation_angle = true;
+        baseWarUnit.can_be_inspected = true;
+        baseWarUnit.visible_on_minimap = false;
+        baseWarUnit.color = new UnityEngine.Color(1f, 1f, 1f);
+        baseWarUnit.addTrait("warbox_unit");
+        baseWarUnit.addTrait("immune");
 
-[HarmonyPatch(typeof(City), "update")]
-public static class CityUpdate_Patch //adding units according to population
-{
-    static Dictionary<long, float> times = new Dictionary<long, float>();
-    static void Prefix(City __instance, float pElapsed)
-    {
-        if (!times.ContainsKey(__instance.id)) times[__instance.id] = 20f;
-
-        if (times[__instance.id] > 0)
-        {
-            times[__instance.id] -= pElapsed;
-            return;
-        }
-
-        times[__instance.id] = 20f;
-
-        List<string> can_produce = new List<string> { };
-
-        foreach (Building building in __instance.buildings)
-        {
-            FieldInfo fieldInfo = typeof(Building).GetField("asset", BindingFlags.NonPublic | BindingFlags.Instance);
-            BuildingAsset buildingAsset = fieldInfo?.GetValue(building) as BuildingAsset;
-            if (buildingAsset == null) continue;
-
-            string type = buildingAsset.type;
-            switch (type)
-            {
-                case "type_tankfactory":
-                    can_produce.Add("warbox_tank");
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (can_produce.Count == 0) return;
-
-        int people = __instance.getPopulationPeople();
-        int total_vehicles = 0;
-
-        int vehicle_count;
-        if (people > 100)  vehicle_count = people / 100;
-        else return;
-
-        foreach (Actor actor in __instance.units)
-        {
-            if (actor.hasTrait("warbox_unit"))
-            {
-                total_vehicles++;
-            }
-        }
-
-        if (total_vehicles < vehicle_count)
-        {
-            string to_produce = Randy.getRandom<string>(can_produce);
-            WarBox.LogInfo(to_produce);
-        }
+        ActorAsset tank = AssetManager.actor_library.clone("warbox_tank", "baseWarUnit");
+        tank.texture_asset = new ActorTextureSubAsset("actors/tank/", false);
+        tank.shadow_texture = "unitShadow_6";
+        tank.sound_hit = "event:/SFX/HIT/HitMetal";
+        tank.special = true;
+        tank.has_advanced_textures = false;
+        tank.animation_walk = ActorAnimationSequences.walk_0_3;
+        tank.animation_idle = Toolbox.a("idle_0");
+        tank.animation_swim = ActorAnimationSequences.swim_0_3;
+        tank.die_in_lava = false;
+        tank.default_attack = "tank_attack";
+        tank.base_stats["mass_2"] = 5000f;
+        tank.base_stats["stamina"] = 500f;
+        tank.base_stats["scale"] = 0.2f;
+        tank.base_stats["size"] = 3f;
+        tank.base_stats["mass"] = 1000f;
+        tank.base_stats["health"] = 2500f;
+        tank.base_stats["speed"] = 17f;
+        tank.base_stats["armor"] = 30f;
+        tank.base_stats["attack_speed"] = 0f;
+        tank.base_stats["damage"] = 300f;
+        tank.base_stats["knockback"] = 2f;
+        tank.base_stats["accuracy"] = 1f;
+        tank.base_stats["targets"] = 1f;
+        tank.base_stats["area_of_effect"] = 2f;
+        tank.base_stats["range"] = 12f;
+        tank.color = new UnityEngine.Color(1f, 1f, 1f);
+        tank.cost = new ConstructionCost(0, 0, 5, 0);
+        tank.death_animation_angle = false;
+        tank.name_locale = "spawn_tank";
+        tank.power_id = "spawn_tank";
+        tank.name_template_sets = AssetLibrary<ActorAsset>.a<string>("tank_set");
+        tank.addTrait("block");
+        tank.addTrait("deflect_projectile");
+        tank.addTrait("fire_blood");
     }
 }

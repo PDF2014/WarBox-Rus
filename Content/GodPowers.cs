@@ -58,9 +58,9 @@ internal static class WarBoxGodPowers
         });
 
         GodPower artillery_bunker_builder = AssetManager.powers.clone("artillery_bunker_builder", "$template_drop_building$");
-        artillery_bunker_builder.name = "Bunker";
+        artillery_bunker_builder.name = "Artillery Bunker";
         artillery_bunker_builder.rank = PowerRank.Rank0_free;
-        artillery_bunker_builder.drop_id = "spawn_bunker";
+        artillery_bunker_builder.drop_id = "spawn_artillery_bunker";
         artillery_bunker_builder.falling_chance = 0f;
         artillery_bunker_builder.force_brush = "circ_0";
         artillery_bunker_builder.click_power_action = StuffDrop;
@@ -68,6 +68,11 @@ internal static class WarBoxGodPowers
         {
             return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
         });
+
+        GodPower spawn_tank = AssetManager.powers.clone("spawn_tank", "$template_spawn_actor$");
+        spawn_tank.name = "spawn_tank";
+        spawn_tank.actor_asset_id = "warbox_tank";
+        spawn_tank.click_action = new PowerActionWithID(SpawnVehicle);
     }
 
     private static void Cache()
@@ -83,6 +88,42 @@ internal static class WarBoxGodPowers
     private static bool StuffDrop(WorldTile pTile, GodPower pPower)
     {
         AssetManager.powers.CallMethod("spawnDrops", pTile, pPower);
+        return true;
+    }
+
+    private static bool SpawnVehicle(WorldTile pTile, string pPowerID)
+    {
+        City pCity = pTile.zone.city;
+        if (pTile.zone.city == null)
+        {
+            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            return false;
+        }
+
+        Kingdom kingdom = pCity.kingdom;
+        if (kingdom == null)
+        {
+            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            return false;
+        }
+
+        GodPower pPower = AssetManager.powers.get(pPowerID);
+        if (pPower == null) return false;
+
+        Actor unit = World.world.units.createNewUnit(
+               pPower.actor_asset_id,
+               pTile,
+               pMiracleSpawn: false,
+               0f,
+               null,
+               null,
+               pSpawnWithItems: false
+        );
+        unit.makeWait(1f);
+        unit.setKingdom(kingdom);
+        unit.setCity(pCity);
+
+        //AssetManager.powers.CallMethod("spawnActor", pTile, pPower);
         return true;
     }
 }

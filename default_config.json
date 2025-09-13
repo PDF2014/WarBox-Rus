@@ -1,0 +1,11 @@
+{
+    "warbox_config": [
+        {
+            "Id": "warbox_enable_factories",
+            "Type": "SWITCH",
+            "IconPath": "ui/icons/iconHideUI",
+            "BoolVal": true,
+            "Callback": "WarBoxActions:ToggleFactories"
+        }
+    ]
+}
