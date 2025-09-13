@@ -38,7 +38,6 @@ public class WarBox : BasicMod<WarBox>, IReloadable
         if (Environment.UserName == "sourojeetshyam")
         {
             Config.isEditor = true;
-            //DebugConfig.
         }
 
         WarBoxContent.Init();
