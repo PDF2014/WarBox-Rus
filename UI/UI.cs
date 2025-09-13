@@ -23,6 +23,7 @@ internal static class WarBoxUI
 
         tab.SetLayout(new List<string>()
         {
+            "builders",
             "spawners"
         });
 
@@ -38,19 +39,19 @@ internal static class WarBoxUI
 
     private static void CreateButtons()
     {
-        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+        tab.AddPowerButton("builders", PowerButtonCreator.CreateGodPowerButton(
             "bunker_builder",
-            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+            SpriteTextureLoader.getSprite("ui/icons/buttons/bunker_spawner")
         ));
 
-        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+        tab.AddPowerButton("builders", PowerButtonCreator.CreateGodPowerButton(
             "artillery_bunker_builder",
-            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+            SpriteTextureLoader.getSprite("ui/icons/buttons/artillery_bunker_spawner")
         ));
 
         tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
             "spawn_tank",
-            SpriteTextureLoader.getSprite("ui/icons/iconSteam")
+            SpriteTextureLoader.getSprite("ui/icons/buttons/spawn_tank")
         ));
     }
 }
