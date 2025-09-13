@@ -41,6 +41,19 @@ internal static class WarBoxGodPowers
             action_landed = DropsLibrary.action_spawn_building
         };
         AssetManager.drops.add(artillery_bunker_drop);
+
+        DropAsset tank_factory_drop = new DropAsset
+        {
+            id = "spawn_tank_factory",
+            path_texture = "drops/drop_stone",
+            default_scale = 0.2f,
+            random_frame = true,
+            random_flip = true,
+            type = DropType.DropBuilding,
+            building_asset = "tank_factory",
+            action_landed = DropsLibrary.action_spawn_building
+        };
+        AssetManager.drops.add(tank_factory_drop);
     }
 
     private static void AddPowers()
@@ -69,6 +82,18 @@ internal static class WarBoxGodPowers
             return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
         });
 
+        GodPower tank_factory_builder = AssetManager.powers.clone("tank_factory_builder", "$template_drop_building$");
+        tank_factory_builder.name = "Tank Factory";
+        tank_factory_builder.rank = PowerRank.Rank0_free;
+        tank_factory_builder.drop_id = "spawn_tank_factory";
+        tank_factory_builder.falling_chance = 0f;
+        tank_factory_builder.force_brush = "circ_0";
+        tank_factory_builder.click_power_action = StuffDrop;
+        tank_factory_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
+        {
+            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
+        });
+
         GodPower spawn_tank = AssetManager.powers.clone("spawn_tank", "$template_spawn_actor$");
         spawn_tank.name = "spawn_tank";
         spawn_tank.actor_asset_id = "warbox_tank";
@@ -82,6 +107,7 @@ internal static class WarBoxGodPowers
         {
             dropField.SetValue(AssetManager.powers.get("bunker_builder"), AssetManager.drops.get("spawn_bunker"));
             dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
+            dropField.SetValue(AssetManager.powers.get("tank_factory_builder"), AssetManager.drops.get("spawn_tank_factory"));
         }
     }
 

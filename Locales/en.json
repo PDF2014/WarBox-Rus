@@ -9,6 +9,8 @@
     "culture_trait_craft_firearms": "Gun",
     "culture_trait_craft_firearms_info": "Allows for the production of guns",
 
+    "trait_warbox_unit": "WarBox Unit",
+
     "pistol": "Pistol",
     "pistol_description": "A very handy semi-automatic firearm",
     "smg": "SMG",
@@ -30,6 +32,8 @@
     "artillery_bunker_description": "Spawn a bunker fortification with an artillery cannon",
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",
+    "tank_factory": "Tank Factory",
+    "tank_factory_description": "Spawn a tank factory",
 
     "auto_layout_window_text_1_key": "i dont know what to put here",
     "auto_layout_window_text_2_key": "so heres some filler text",

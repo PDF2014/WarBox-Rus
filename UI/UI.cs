@@ -53,5 +53,10 @@ internal static class WarBoxUI
             "spawn_tank",
             SpriteTextureLoader.getSprite("ui/icons/buttons/spawn_tank")
         ));
+
+        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+            "tank_factory_builder",
+            SpriteTextureLoader.getSprite("ui/icons/buttons/tank_factory_spawner")
+        ));
     }
 }
