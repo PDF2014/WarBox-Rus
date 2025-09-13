@@ -333,19 +333,3 @@ public static class Patch_ItemCrafting_ExcludeWarBoxUnit
         return true;
     }
 }
-
-[HarmonyPatch(typeof(CityBehBuild), "upgradeBuilding")]
-public static class Patch_CityBehBuild
-{
-    static bool Prefix(Building pBuilding, City pCity)
-    {
-        string upgrade_to = pBuilding.asset.upgrade_to;
-        BuildingAsset buildingAsset = AssetManager.buildings.get(upgrade_to);
-        if (buildingAsset == null)
-        {
-            WarBox.LogInfo("Building asset is null for upgrade_to: " + pBuilding.asset.id);
-            WarBox.LogInfo("Building asset is null for upgrade_to: " + pBuilding.asset.type);
-        }
-        return true;
-    }
-}

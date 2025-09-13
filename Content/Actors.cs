@@ -1,13 +1,3 @@
-using NeoModLoader.General.Event.Handlers;
-using NeoModLoader.General.Event.Listeners;
-using HarmonyLib;
-using System.Collections.Generic;
-using System.Reflection;
-using ai.behaviours;
-using System;
-using UnityEngine.UI;
-
-
 namespace WarBox.Content;
 
 internal static class WarBoxActors
