@@ -4,6 +4,11 @@ internal static class WarBoxActors
 {
     public static void Init()
     {
+        AddVehicles();
+    }
+
+    private static void AddVehicles()
+    {
         var baseWarUnit = AssetManager.actor_library.clone("baseWarUnit", "$basic_unit$");
         baseWarUnit.is_humanoid = false;
         baseWarUnit.civ = false;

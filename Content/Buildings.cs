@@ -101,7 +101,7 @@ internal static class WarBoxBuildings
         tank_factory.priority = 9999;
         tank_factory.type = "type_tankfactory";
         tank_factory.fundament = new BuildingFundament(2, 2, 1, 1);
-        tank_factory.cost = new ConstructionCost(0, 1, 1, 0);
+        tank_factory.cost = new ConstructionCost(0, 0, 0, 0);
         tank_factory.tower = false;
         tank_factory.sprite_path = "buildings/tank_factory";
         tank_factory.build_place_borders = true;
