@@ -98,6 +98,14 @@ internal static class WarBoxGodPowers
         spawn_tank.name = "spawn_tank";
         spawn_tank.actor_asset_id = "warbox_tank";
         spawn_tank.click_action = new PowerActionWithID(SpawnVehicle);
+
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_pistol", "pistol"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_smg", "smg"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_shotgunreplace", "shotgunreplace"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_rifle", "rifle"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_autorifle", "autorifle"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_sniperrifle", "sniperrifle"));
+        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_rpg", "rpg"));
     }
 
     private static void Cache()
@@ -119,25 +127,28 @@ internal static class WarBoxGodPowers
 
     private static bool SpawnVehicle(WorldTile pTile, string pPowerID)
     {
-        City pCity = pTile.zone.city;
+        City city = pTile.zone.city;
         if (pTile.zone.city == null)
         {
             WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
             return false;
         }
 
-        Kingdom kingdom = pCity.kingdom;
+        Kingdom kingdom = city.kingdom;
         if (kingdom == null)
         {
             WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
             return false;
         }
 
-        GodPower pPower = AssetManager.powers.get(pPowerID);
-        if (pPower == null) return false;
+        GodPower power = AssetManager.powers.get(pPowerID);
+        if (power == null) return false;
+
+        MusicBox.playSound("event:/SFX/UNIQUE/SpawnWhoosh", (float)pTile.pos.x, (float)pTile.pos.y, false, false);
+        EffectsLibrary.spawn("fx_spawn", pTile, null, null, 0f, -1f, -1f);
 
         Actor unit = World.world.units.createNewUnit(
-               pPower.actor_asset_id,
+               power.actor_asset_id,
                pTile,
                pMiracleSpawn: false,
                0f,
@@ -147,9 +158,75 @@ internal static class WarBoxGodPowers
         );
         unit.makeWait(1f);
         unit.setKingdom(kingdom);
-        unit.setCity(pCity);
+        unit.setCity(city);
 
         //AssetManager.powers.CallMethod("spawnActor", pTile, pPower);
         return true;
+    }
+
+    private static bool SpawnWarrior(WorldTile pTile, string item)
+    {
+        City city = pTile.zone.city;
+        if (pTile.zone.city == null)
+        {
+            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            return false;
+        }
+
+        Kingdom kingdom = city.kingdom;
+        if (kingdom == null)
+        {
+            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            return false;
+        }
+
+        MusicBox.playSound("event:/SFX/UNIQUE/SpawnWhoosh", (float)pTile.pos.x, (float)pTile.pos.y, false, false);
+        EffectsLibrary.spawn("fx_spawn", pTile, null, null, 0f, -1f, -1f);
+
+        Subspecies subspecies = city.getMainSubspecies();
+        Actor unit = World.world.units.createNewUnit(
+            subspecies.getActorAsset().id,
+            pTile,
+            pMiracleSpawn: false,
+            0f,
+            subspecies,
+            null,
+            false,
+            true
+        );
+
+        EquipmentAsset equipmentAsset = AssetManager.items.get(item);
+        Item item_asset = World.world.items.generateItem(equipmentAsset);
+        unit.equipment.setItem(item_asset, unit);
+
+        unit.makeWait(1f);
+        unit.setKingdom(kingdom);
+        unit.setCity(city);
+        city.makeWarrior(unit);
+
+        return true;
+    }
+
+    private static GodPower CreateWarriorPower(string id, string equipment_id)
+    {
+        GodPower spawn_warrior = new GodPower()
+        {
+            id = id,
+            type = PowerActionType.PowerSpecial,
+            rank = PowerRank.Rank0_free,
+            unselect_when_window = true,
+            show_spawn_effect = true,
+            actor_spawn_height = 3f,
+            multiple_spawn_tip = true,
+            show_unit_stats_overview = true,
+            set_used_camera_drag_on_long_move = true
+        };
+        spawn_warrior.name = id;
+        spawn_warrior.click_action = new PowerActionWithID((pTile, pPower) =>
+        {
+            return SpawnWarrior(pTile, equipment_id);
+        });
+
+        return spawn_warrior;
     }
 }

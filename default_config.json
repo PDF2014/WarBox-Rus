@@ -6,6 +6,13 @@
             "IconPath": "ui/icons/iconHideUI",
             "BoolVal": true,
             "Callback": "WarBoxActions:ToggleFactories"
+        },
+        {
+            "Id": "warbox_army_limits",
+            "Type": "SWITCH",
+            "IconPath": "ui/Icons/iconArmyList",
+            "BoolVal": true,
+            "Callback": "WarBoxActions:ToggleArmyLimit"
         }
     ]
 }

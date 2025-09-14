@@ -24,7 +24,8 @@ internal static class WarBoxUI
         tab.SetLayout(new List<string>()
         {
             "builders",
-            "spawners"
+            "spawners",
+            "warriors"
         });
 
         CreateWindows();
@@ -57,6 +58,22 @@ internal static class WarBoxUI
         tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
             "tank_factory_builder",
             SpriteTextureLoader.getSprite("ui/icons/buttons/tank_factory_spawner")
+        ));
+
+        CreateWarriorButton("pistol");
+        CreateWarriorButton("smg");
+        CreateWarriorButton("shotgunreplace");
+        CreateWarriorButton("rifle");
+        CreateWarriorButton("autorifle");
+        CreateWarriorButton("sniperrifle");
+        CreateWarriorButton("rpg");
+    }
+
+    private static void CreateWarriorButton(string equipment_id)
+    {
+        tab.AddPowerButton("warriors", PowerButtonCreator.CreateGodPowerButton(
+            "spawn_warrior_" + equipment_id,
+            SpriteTextureLoader.getSprite("ui/icons/items/icon_" + equipment_id)
         ));
     }
 }

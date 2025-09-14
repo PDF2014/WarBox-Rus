@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace WarBox.Content;
 
 [HarmonyPatch(typeof(City), "update")]
-public static class CityUpdate_Patch //adding units according to population
+public static class Patch_CityUpdate //adding units according to population
 {
     static readonly Dictionary<long, float> times = new Dictionary<long, float>();
 
@@ -85,6 +85,16 @@ public static class CityUpdate_Patch //adding units according to population
     }
 }
 
+[HarmonyPatch(typeof(City), "checkIfWarriorStillOk")]
+public static class Patch_CityCheckWarrior
+{
+    static bool Prefix()
+    {
+        if (WarBox.warbox_army_limits == true) return true;
+        return false;
+    }
+}
+
 [HarmonyPatch(typeof(ActorAnimationLoader), nameof(ActorAnimationLoader.loadAnimationBoat))]
 public static class Patch_ActorAnimationLoader_Fix
 {
@@ -95,7 +105,6 @@ public static class Patch_ActorAnimationLoader_Fix
         return true;
     }
 }
-
 
 [HarmonyPatch(typeof(Actor), "setFamily")]
 public static class Patch_Actor_Exclude_WarBoxUnit_Family
@@ -108,7 +117,6 @@ public static class Patch_Actor_Exclude_WarBoxUnit_Family
     }
 }
 
-
 [HarmonyPatch(typeof(Kingdom), "setKing")]
 public static class Patch_Kingdom_Exclude_WarBoxUnit_King
 {
@@ -120,8 +128,6 @@ public static class Patch_Kingdom_Exclude_WarBoxUnit_King
     }
 }
 
-
-
 [HarmonyPatch(typeof(City), "setLeader")]
 public static class Patch_City_Exclude_WarBoxUnit_Leader
 {
@@ -132,8 +138,6 @@ public static class Patch_City_Exclude_WarBoxUnit_Leader
         return true;
     }
 }
-
-
 
 [HarmonyPatch(typeof(TileZone), nameof(TileZone.canBeClaimedByCity))]
 public static class Patch_TileZone_CanBeClaimedByCity_WarBoxUnit
@@ -148,7 +152,6 @@ public static class Patch_TileZone_CanBeClaimedByCity_WarBoxUnit
         return true;
     }
 }
-
 
 [HarmonyPatch(typeof(TileZone), "isGoodForNewCity", new[] { typeof(Actor) })]
 public static class Patch_TileZone_IsGoodForNewCity_WarBoxUnit
@@ -173,7 +176,6 @@ public static class Patch_Clan_NewClan
         return pFounder != null && !pFounder.hasTrait("warbox_unit");
     }
 }
-
 
 [HarmonyPatch(typeof(ai.behaviours.BehFightCheckEnemyIsOk), "execute")]
 public static class BehFightCheckEnemyIsOk_Patch
@@ -263,8 +265,6 @@ public static class BehFightCheckEnemyIsOk_Patch
     }
 }
 
-
-
 [HarmonyPatch(typeof(UtilityBasedDecisionSystem), "registerBasicDecisionLists")]
 public static class Patch_UtilityBasedDecisionSystem_RegisterBasicDecisionLists
 {
@@ -300,7 +300,6 @@ public class Patch_TryToCraftRandomWeapon
         return true;
     }
 }
-
 
 [HarmonyPatch]
 public static class Patch_ItemCrafting_ExcludeWarBoxUnit

@@ -18,16 +18,23 @@ public class WarBox : BasicMod<WarBox>, IReloadable
     internal static Harmony harmony;
 
     public static bool warbox_factories = true;
+    public static bool warbox_army_limits = true;
 
     [Hotfixable]
     public void Reload()
     {
-
-    }
-
-    public void OnUnload()
-    {
-
+        var locale_dir = GetLocaleFilesDirectory(GetDeclaration());
+        foreach (var file in Directory.GetFiles(locale_dir))
+        {
+            if (file.EndsWith(".json"))
+            {
+                LM.LoadLocale(Path.GetFileNameWithoutExtension(file), file);
+            }
+            else if (file.EndsWith(".csv"))
+            {
+                LM.LoadLocales(file);
+            }
+        }
     }
 
     protected override void OnModLoad()

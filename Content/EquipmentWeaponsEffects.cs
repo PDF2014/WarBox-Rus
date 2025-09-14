@@ -25,6 +25,7 @@ internal static class WarBoxGuns
         stats_pistol["range"] = 35f;
         stats_pistol["damage"] = 35f;
         stats_pistol["attack_speed"] = 0f;
+        stats_pistol["speed"] = 7.5f;
 
         EquipmentAsset pistol = CreateGun(
             id: "pistol",
@@ -43,6 +44,7 @@ internal static class WarBoxGuns
         stats_smg["range"] = 15f;
         stats_smg["damage"] = 25f;
         stats_smg["attack_speed"] = 20f;
+        stats_smg["speed"] = 5f;
 
         EquipmentAsset smg = CreateGun(
             id: "smg",
@@ -139,6 +141,7 @@ internal static class WarBoxGuns
         stats_rpg["range"] = 40f;
         stats_rpg["damage"] = 10f;
         stats_rpg["attack_speed"] = -10f;
+        stats_rpg["speed"] = -10f;
 
         EquipmentAsset rpg = CreateGun(
             id: "rpg",
