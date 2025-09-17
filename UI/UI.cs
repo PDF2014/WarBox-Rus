@@ -4,6 +4,7 @@ using NCMS.Utils;
 using NeoModLoader.api.attributes;
 using NeoModLoader.General;
 using NeoModLoader.General.UI.Tab;
+using UnityEngine;
 using WarBox.UI.Windows;
 
 namespace WarBox.UI;
@@ -25,11 +26,12 @@ internal static class WarBoxUI
         {
             "builders",
             "spawners",
-            "warriors"
+            "warriors",
         });
 
         CreateWindows();
         CreateButtons();
+
         tab.UpdateLayout();
     }
 
@@ -40,25 +42,13 @@ internal static class WarBoxUI
 
     private static void CreateButtons()
     {
-        tab.AddPowerButton("builders", PowerButtonCreator.CreateGodPowerButton(
-            "bunker_builder",
-            SpriteTextureLoader.getSprite("ui/icons/buttons/bunker_spawner")
-        ));
+        CreateBuilderButton("bunker_builder");
+        CreateBuilderButton("artillery_bunker_builder");
+        CreateBuilderButton("tank_factory_builder");
+        CreateBuilderButton("recon_car_factory_builder");
 
-        tab.AddPowerButton("builders", PowerButtonCreator.CreateGodPowerButton(
-            "artillery_bunker_builder",
-            SpriteTextureLoader.getSprite("ui/icons/buttons/artillery_bunker_spawner")
-        ));
-
-        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
-            "spawn_tank",
-            SpriteTextureLoader.getSprite("ui/icons/buttons/spawn_tank")
-        ));
-
-        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
-            "tank_factory_builder",
-            SpriteTextureLoader.getSprite("ui/icons/buttons/tank_factory_spawner")
-        ));
+        CreateVehicleButton("spawn_tank");
+        CreateVehicleButton("spawn_recon_car");
 
         CreateWarriorButton("pistol");
         CreateWarriorButton("smg");
@@ -67,6 +57,7 @@ internal static class WarBoxUI
         CreateWarriorButton("autorifle");
         CreateWarriorButton("sniperrifle");
         CreateWarriorButton("rpg");
+
     }
 
     private static void CreateWarriorButton(string equipment_id)
@@ -75,5 +66,21 @@ internal static class WarBoxUI
             "spawn_warrior_" + equipment_id,
             SpriteTextureLoader.getSprite("ui/icons/items/icon_" + equipment_id)
         ));
+    }
+
+    private static void CreateVehicleButton(string id)
+    {
+        tab.AddPowerButton("spawners", PowerButtonCreator.CreateGodPowerButton(
+            id,
+            SpriteTextureLoader.getSprite("ui/icons/buttons/" + id)
+        ));
+    }
+
+    private static void CreateBuilderButton(string building_id)
+    {
+        tab.AddPowerButton("builders", PowerButtonCreator.CreateGodPowerButton(
+            building_id,
+            SpriteTextureLoader.getSprite("ui/icons/buttons/" + building_id)
+        )); ;
     }
 }

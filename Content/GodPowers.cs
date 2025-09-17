@@ -16,96 +16,29 @@ internal static class WarBoxGodPowers
 
     private static void AddDrops()
     {
-        DropAsset bunker_drop = new DropAsset
-        {
-            id = "spawn_bunker",
-            path_texture = "drops/drop_stone",
-            default_scale = 0.2f,
-            random_frame = true,
-            random_flip = true,
-            type = DropType.DropBuilding,
-            building_asset = "bunker",
-            action_landed = DropsLibrary.action_spawn_building
-        };
-        AssetManager.drops.add(bunker_drop);
-
-        DropAsset artillery_bunker_drop = new DropAsset
-        {
-            id = "spawn_artillery_bunker",
-            path_texture = "drops/drop_stone",
-            default_scale = 0.2f,
-            random_frame = true,
-            random_flip = true,
-            type = DropType.DropBuilding,
-            building_asset = "artillery_bunker",
-            action_landed = DropsLibrary.action_spawn_building
-        };
-        AssetManager.drops.add(artillery_bunker_drop);
-
-        DropAsset tank_factory_drop = new DropAsset
-        {
-            id = "spawn_tank_factory",
-            path_texture = "drops/drop_stone",
-            default_scale = 0.2f,
-            random_frame = true,
-            random_flip = true,
-            type = DropType.DropBuilding,
-            building_asset = "tank_factory",
-            action_landed = DropsLibrary.action_spawn_building
-        };
-        AssetManager.drops.add(tank_factory_drop);
+        CreateDrop("spawn_bunker", "bunker");
+        CreateDrop("spawn_artillery_bunker", "artillery_bunker");
+        CreateDrop("spawn_tank_factory", "tank_factory");
+        CreateDrop("spawn_recon_car_factory", "recon_car_factory");
     }
 
     private static void AddPowers()
     {
-        GodPower bunker_builder = AssetManager.powers.clone("bunker_builder", "$template_drop_building$");
-        bunker_builder.name = "Bunker";
-        bunker_builder.rank = PowerRank.Rank0_free;
-        bunker_builder.drop_id = "spawn_bunker";
-        bunker_builder.falling_chance = 0f;
-        bunker_builder.force_brush = "circ_0";
-        bunker_builder.click_power_action = StuffDrop;
-        bunker_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
-        {
-            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
-        });
+        CreateBuilder("bunker_builder", "Bunker", "spawn_bunker");
+        CreateBuilder("artillery_bunker_builder", "Artillery Bunker", "spawn_artillery_bunker");
+        CreateBuilder("tank_factory_builder", "Tank Factory", "spawn_tank_factory");
+        CreateBuilder("recon_car_factory_builder", "Recon Car Factory", "spawn_recon_car_factory");
 
-        GodPower artillery_bunker_builder = AssetManager.powers.clone("artillery_bunker_builder", "$template_drop_building$");
-        artillery_bunker_builder.name = "Artillery Bunker";
-        artillery_bunker_builder.rank = PowerRank.Rank0_free;
-        artillery_bunker_builder.drop_id = "spawn_artillery_bunker";
-        artillery_bunker_builder.falling_chance = 0f;
-        artillery_bunker_builder.force_brush = "circ_0";
-        artillery_bunker_builder.click_power_action = StuffDrop;
-        artillery_bunker_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
-        {
-            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
-        });
+        CreateVehiclePower("spawn_tank", "warbox_tank");
+        CreateVehiclePower("spawn_recon_car", "warbox_recon_car");
 
-        GodPower tank_factory_builder = AssetManager.powers.clone("tank_factory_builder", "$template_drop_building$");
-        tank_factory_builder.name = "Tank Factory";
-        tank_factory_builder.rank = PowerRank.Rank0_free;
-        tank_factory_builder.drop_id = "spawn_tank_factory";
-        tank_factory_builder.falling_chance = 0f;
-        tank_factory_builder.force_brush = "circ_0";
-        tank_factory_builder.click_power_action = StuffDrop;
-        tank_factory_builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
-        {
-            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
-        });
-
-        GodPower spawn_tank = AssetManager.powers.clone("spawn_tank", "$template_spawn_actor$");
-        spawn_tank.name = "spawn_tank";
-        spawn_tank.actor_asset_id = "warbox_tank";
-        spawn_tank.click_action = new PowerActionWithID(SpawnVehicle);
-
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_pistol", "pistol"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_smg", "smg"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_shotgunreplace", "shotgunreplace"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_rifle", "rifle"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_autorifle", "autorifle"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_sniperrifle", "sniperrifle"));
-        AssetManager.powers.add(CreateWarriorPower("spawn_warrior_rpg", "rpg"));
+        CreateWarriorPower("spawn_warrior_pistol", "pistol");
+        CreateWarriorPower("spawn_warrior_smg", "smg");
+        CreateWarriorPower("spawn_warrior_shotgunreplace", "shotgunreplace");
+        CreateWarriorPower("spawn_warrior_rifle", "rifle");
+        CreateWarriorPower("spawn_warrior_autorifle", "autorifle");
+        CreateWarriorPower("spawn_warrior_sniperrifle", "sniperrifle");
+        CreateWarriorPower("spawn_warrior_rpg", "rpg");
     }
 
     private static void Cache()
@@ -116,6 +49,7 @@ internal static class WarBoxGodPowers
             dropField.SetValue(AssetManager.powers.get("bunker_builder"), AssetManager.drops.get("spawn_bunker"));
             dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
             dropField.SetValue(AssetManager.powers.get("tank_factory_builder"), AssetManager.drops.get("spawn_tank_factory"));
+            dropField.SetValue(AssetManager.powers.get("recon_car_factory_builder"), AssetManager.drops.get("spawn_recon_car_factory"));
         }
     }
 
@@ -160,7 +94,6 @@ internal static class WarBoxGodPowers
         unit.setKingdom(kingdom);
         unit.setCity(city);
 
-        //AssetManager.powers.CallMethod("spawnActor", pTile, pPower);
         return true;
     }
 
@@ -184,6 +117,13 @@ internal static class WarBoxGodPowers
         EffectsLibrary.spawn("fx_spawn", pTile, null, null, 0f, -1f, -1f);
 
         Subspecies subspecies = city.getMainSubspecies();
+
+        if (subspecies == null)
+        {
+            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            return false;
+        }
+        
         Actor unit = World.world.units.createNewUnit(
             subspecies.getActorAsset().id,
             pTile,
@@ -195,9 +135,14 @@ internal static class WarBoxGodPowers
             true
         );
 
-        EquipmentAsset equipmentAsset = AssetManager.items.get(item);
-        Item item_asset = World.world.items.generateItem(equipmentAsset);
-        unit.equipment.setItem(item_asset, unit);
+        string[] equipmentItems = { item, "armor_steel" };
+
+        foreach (string equipment in equipmentItems)
+        {
+            EquipmentAsset equipmentAsset = AssetManager.items.get(equipment);
+            Item item_asset = World.world.items.generateItem(equipmentAsset);
+            unit.equipment.setItem(item_asset, unit);
+        }
 
         unit.makeWait(1f);
         unit.setKingdom(kingdom);
@@ -207,7 +152,7 @@ internal static class WarBoxGodPowers
         return true;
     }
 
-    private static GodPower CreateWarriorPower(string id, string equipment_id)
+    private static void CreateWarriorPower(string id, string equipment_id)
     {
         GodPower spawn_warrior = new GodPower()
         {
@@ -227,6 +172,45 @@ internal static class WarBoxGodPowers
             return SpawnWarrior(pTile, equipment_id);
         });
 
-        return spawn_warrior;
+        AssetManager.powers.add(spawn_warrior);
+    }
+
+    private static void CreateVehiclePower(string id, string actor_id)
+    {
+        GodPower vehicle = AssetManager.powers.clone(id, "$template_spawn_actor$");
+        vehicle.name = id;
+        vehicle.actor_asset_id = actor_id;
+        vehicle.click_action = new PowerActionWithID(SpawnVehicle);
+        //return vehicle;
+    }
+    
+    private static void CreateBuilder(string id, string name, string drop_id)
+    {
+        GodPower builder = AssetManager.powers.clone(id, "$template_drop_building$");
+        builder.name = name;
+        builder.rank = PowerRank.Rank0_free;
+        builder.drop_id = drop_id;
+        builder.falling_chance = 0f;
+        builder.force_brush = "circ_0";
+        builder.click_power_action = StuffDrop;
+        builder.click_power_brush_action = new PowerAction((pTile, pPower) =>
+        {
+            return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
+        });
+    }
+
+    private static void CreateDrop(string id, string building_id){
+        DropAsset drop = new DropAsset
+        {
+            id = id,
+            path_texture = "drops/drop_stone",
+            default_scale = 0.2f,
+            random_frame = true,
+            random_flip = true,
+            type = DropType.DropBuilding,
+            building_asset = building_id,
+            action_landed = DropsLibrary.action_spawn_building
+        };
+        AssetManager.drops.add(drop);
     }
 }

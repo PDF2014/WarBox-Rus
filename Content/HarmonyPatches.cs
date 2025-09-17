@@ -40,6 +40,9 @@ public static class Patch_CityUpdate //adding units according to population
                 case "type_tankfactory":
                     can_produce.Add(building.current_tile, "warbox_tank");
                     break;
+                case "type_reconcarfactory":
+                    can_produce.Add(building.current_tile, "warbox_recon_car");
+                    break;
                 default:
                     break;
             }

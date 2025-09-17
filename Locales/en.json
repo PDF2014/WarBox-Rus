@@ -36,9 +36,13 @@
     "artillery_bunker_description": "Spawn a bunker fortification with an artillery cannon",
     "tank_factory": "Tank Factory",
     "tank_factory_description": "Spawn a tank factory",
+    "recon_car_factory": "Recon Car Factory",
+    "recon_car_factory_description": "Spawn a recon car factory",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",
+    "spawn_recon_car": "Recon Car",
+    "spawn_recon_car_description": "Spawn a lighly armored reconnaisance vehicle",
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",
     "spawn_warrior_smg": "Raider",

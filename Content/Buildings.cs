@@ -7,7 +7,6 @@ namespace WarBox.Content;
 
 internal static class WarBoxBuildings
 {
-    private static readonly string[] civs = { "human", "orc", "elf", "dwarf" };
     public static void Init()
     {
         AddBuildings();
@@ -51,7 +50,7 @@ internal static class WarBoxBuildings
         bunker.smoke_offset = new Vector2Int(2, 3);
         bunker.priority = 100;
         bunker.type = "type_watch_tower";
-        bunker.fundament = new BuildingFundament(1, 1, 1, 0);
+        bunker.fundament = new BuildingFundament(2, 2, 1, 0);
         bunker.cost = new ConstructionCost(0, 10, 5, 5);
         bunker.tower = true;
         bunker.sprite_path = "buildings/bunker";
@@ -73,6 +72,7 @@ internal static class WarBoxBuildings
         artillery_bunker.sprite_path = "buildings/artillery_bunker";
         artillery_bunker.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         artillery_bunker.priority = 50;
+        artillery_bunker.has_sprite_construction = true;
         artillery_bunker.cost = new ConstructionCost(0, 12, 8, 5);
         artillery_bunker.base_stats["damage"] = 1000f;
         artillery_bunker.tower_projectile = "cannon_shell";
@@ -86,7 +86,7 @@ internal static class WarBoxBuildings
 
         BuildingAsset tank_factory = AssetManager.buildings.clone("tank_factory", "$building_civ_human$");
         tank_factory.can_be_upgraded = false;
-        tank_factory.has_sprite_construction = false;
+        tank_factory.has_sprite_construction = true;
         tank_factory.burnable = false;
         tank_factory.has_sprites_main_disabled = false;
         tank_factory.has_sprites_main = true;
@@ -100,8 +100,8 @@ internal static class WarBoxBuildings
         tank_factory.smoke_offset = new Vector2Int(2, 3);
         tank_factory.priority = 9999;
         tank_factory.type = "type_tankfactory";
-        tank_factory.fundament = new BuildingFundament(2, 2, 1, 1);
-        tank_factory.cost = new ConstructionCost(0, 0, 0, 0);
+        tank_factory.fundament = new BuildingFundament(3, 3, 4, 1);
+        tank_factory.cost = new ConstructionCost(10, 30, 0, 0);
         tank_factory.tower = false;
         tank_factory.sprite_path = "buildings/tank_factory";
         tank_factory.build_place_borders = true;
@@ -113,7 +113,13 @@ internal static class WarBoxBuildings
         tank_factory.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
         tank_factory.has_sprites_special = false;
         tank_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
-        tank_factory.max_houses = 1;
+        tank_factory.construction_progress_needed = 100;
+        tank_factory.max_houses = 2;
+
+        BuildingAsset recon_car_factory = AssetManager.buildings.clone("recon_car_factory", "tank_factory");
+        recon_car_factory.sprite_path = "buildings/recon_car_factory";
+        recon_car_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        recon_car_factory.type = "type_reconcarfactory";
     }
 
     private static void AddBuildingOrders()
@@ -133,6 +139,10 @@ internal static class WarBoxBuildings
             civ.addBuilding("order_tank_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
+
+            civ.addBuilding("order_recon_car_factory", 1);
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
         }
     }
 
@@ -141,8 +151,8 @@ internal static class WarBoxBuildings
         var customOrders = new Dictionary<string, string>
         {
             {"order_artillery_bunker", "artillery_bunker"},
-            {"order_tank_factory", "tank_factory"}
-
+            {"order_tank_factory", "tank_factory"},
+            {"order_recon_car_factory", "recon_car_factory"}
         };
 
         foreach (var arch in AssetManager.architecture_library.list)
