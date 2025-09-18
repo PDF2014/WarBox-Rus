@@ -34,15 +34,18 @@
     "bunker_description": "Spawn a bunker fortification",
     "artillery_bunker": "Artillery Bunker",
     "artillery_bunker_description": "Spawn a bunker fortification with an artillery cannon",
-    "tank_factory": "Tank Factory",
-    "tank_factory_description": "Spawn a tank factory",
-    "recon_car_factory": "Recon Car Factory",
-    "recon_car_factory_description": "Spawn a recon car factory",
+    "heavy_factory": "Heavy Factory",
+    "heavy_factory_description": "Spawn a factory that produces heavy vehicles",
+    "light_factory": "Light Factory",
+    "light_factory_description": "Spawn a factory that produces light vehicles",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",
-    "spawn_recon_car": "Recon Car",
-    "spawn_recon_car_description": "Spawn a lighly armored reconnaisance vehicle",
+    "spawn_apc": "APC",
+    "spawn_apc_description": "Spawn a lightly armored personnel carrier",
+    "spawn_ifv": "IFV",
+    "spawn_ifv_description": "Spawn an armored fighting vehicle",
+
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",
     "spawn_warrior_smg": "Raider",
@@ -60,5 +63,5 @@
 
     "auto_layout_window_text_1_key": "i dont know what to put here",
     "auto_layout_window_text_2_key": "so heres some filler text",
-    "cant_spawn_vehicle_kingdom": "You must spawn this vehicle within a kingdom."
+    "cant_spawn_unit_kingdom": "You must spawn this unit within a kingdom."
 }

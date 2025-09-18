@@ -18,19 +18,20 @@ internal static class WarBoxGodPowers
     {
         CreateDrop("spawn_bunker", "bunker");
         CreateDrop("spawn_artillery_bunker", "artillery_bunker");
-        CreateDrop("spawn_tank_factory", "tank_factory");
-        CreateDrop("spawn_recon_car_factory", "recon_car_factory");
+        CreateDrop("spawn_heavy_factory", "heavy_factory");
+        CreateDrop("spawn_light_factory", "light_factory");
     }
 
     private static void AddPowers()
     {
         CreateBuilder("bunker_builder", "Bunker", "spawn_bunker");
         CreateBuilder("artillery_bunker_builder", "Artillery Bunker", "spawn_artillery_bunker");
-        CreateBuilder("tank_factory_builder", "Tank Factory", "spawn_tank_factory");
-        CreateBuilder("recon_car_factory_builder", "Recon Car Factory", "spawn_recon_car_factory");
+        CreateBuilder("heavy_factory_builder", "Heavy Factory", "spawn_heavy_factory");
+        CreateBuilder("light_factory_builder", "Light Factory", "spawn_light_factory");
 
         CreateVehiclePower("spawn_tank", "warbox_tank");
-        CreateVehiclePower("spawn_recon_car", "warbox_recon_car");
+        CreateVehiclePower("spawn_apc", "warbox_apc");
+        CreateVehiclePower("spawn_ifv", "warbox_ifv");
 
         CreateWarriorPower("spawn_warrior_pistol", "pistol");
         CreateWarriorPower("spawn_warrior_smg", "smg");
@@ -48,8 +49,8 @@ internal static class WarBoxGodPowers
         {
             dropField.SetValue(AssetManager.powers.get("bunker_builder"), AssetManager.drops.get("spawn_bunker"));
             dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
-            dropField.SetValue(AssetManager.powers.get("tank_factory_builder"), AssetManager.drops.get("spawn_tank_factory"));
-            dropField.SetValue(AssetManager.powers.get("recon_car_factory_builder"), AssetManager.drops.get("spawn_recon_car_factory"));
+            dropField.SetValue(AssetManager.powers.get("heavy_factory_builder"), AssetManager.drops.get("spawn_heavy_factory"));
+            dropField.SetValue(AssetManager.powers.get("light_factory_builder"), AssetManager.drops.get("spawn_light_factory"));
         }
     }
 
@@ -64,14 +65,14 @@ internal static class WarBoxGodPowers
         City city = pTile.zone.city;
         if (pTile.zone.city == null)
         {
-            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            WorldTip.showNow("cant_spawn_unit_kingdom", true, "top", 3f);
             return false;
         }
 
         Kingdom kingdom = city.kingdom;
         if (kingdom == null)
         {
-            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            WorldTip.showNow("cant_spawn_unit_kingdom", true, "top", 3f);
             return false;
         }
 
@@ -102,14 +103,14 @@ internal static class WarBoxGodPowers
         City city = pTile.zone.city;
         if (pTile.zone.city == null)
         {
-            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            WorldTip.showNow("cant_spawn_unit_kingdom", true, "top", 3f);
             return false;
         }
 
         Kingdom kingdom = city.kingdom;
         if (kingdom == null)
         {
-            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            WorldTip.showNow("cant_spawn_unit_kingdom", true, "top", 3f);
             return false;
         }
 
@@ -120,7 +121,7 @@ internal static class WarBoxGodPowers
 
         if (subspecies == null)
         {
-            WorldTip.showNow("cant_spawn_vehicle_kingdom", true, "top", 3f);
+            WorldTip.showNow("cant_spawn_unit_kingdom", true, "top", 3f);
             return false;
         }
         

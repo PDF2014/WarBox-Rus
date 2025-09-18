@@ -84,42 +84,41 @@ internal static class WarBoxBuildings
         artillery_bunker.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
         artillery_bunker.max_houses = 1;
 
-        BuildingAsset tank_factory = AssetManager.buildings.clone("tank_factory", "$building_civ_human$");
-        tank_factory.can_be_upgraded = false;
-        tank_factory.has_sprite_construction = true;
-        tank_factory.burnable = false;
-        tank_factory.has_sprites_main_disabled = false;
-        tank_factory.has_sprites_main = true;
-        //tank_factory.has_sprites_ruin = true;
-        tank_factory.draw_light_area = true;
-        tank_factory.draw_light_size = 1f;
-        tank_factory.build_road_to = true;
-        tank_factory.base_stats["health"] = 2000f;
-        tank_factory.smoke = true;
-        tank_factory.smoke_interval = 2.5f;
-        tank_factory.smoke_offset = new Vector2Int(2, 3);
-        tank_factory.priority = 9999;
-        tank_factory.type = "type_tankfactory";
-        tank_factory.fundament = new BuildingFundament(3, 3, 4, 1);
-        tank_factory.cost = new ConstructionCost(10, 30, 0, 0);
-        tank_factory.tower = false;
-        tank_factory.sprite_path = "buildings/tank_factory";
-        tank_factory.build_place_borders = true;
-        tank_factory.build_place_batch = false;
-        tank_factory.build_place_single = true;
-        tank_factory.setShadow(0.7f, 0.32f, 0.38f);
-        tank_factory.sound_idle = "event:/SFX/BUILDINGS_IDLE/IdleTownHall";
-        tank_factory.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingStone";
-        tank_factory.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
-        tank_factory.has_sprites_special = false;
-        tank_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
-        tank_factory.construction_progress_needed = 100;
-        tank_factory.max_houses = 2;
+        BuildingAsset heavy_factory = AssetManager.buildings.clone("heavy_factory", "$building_civ_human$");
+        heavy_factory.can_be_upgraded = false;
+        heavy_factory.has_sprite_construction = true;
+        heavy_factory.burnable = false;
+        heavy_factory.has_sprites_main_disabled = false;
+        heavy_factory.has_sprites_main = true;
+        heavy_factory.draw_light_area = true;
+        heavy_factory.draw_light_size = 1f;
+        heavy_factory.build_road_to = true;
+        heavy_factory.base_stats["health"] = 2000f;
+        heavy_factory.smoke = true;
+        heavy_factory.smoke_interval = 2.5f;
+        heavy_factory.smoke_offset = new Vector2Int(2, 3);
+        heavy_factory.priority = 9999;
+        heavy_factory.type = "type_heavyfactory";
+        heavy_factory.fundament = new BuildingFundament(3, 3, 4, 1);
+        heavy_factory.cost = new ConstructionCost(20, 80, 0, 0);
+        heavy_factory.tower = false;
+        heavy_factory.sprite_path = "buildings/heavy_factory";
+        heavy_factory.build_place_borders = true;
+        heavy_factory.build_place_batch = false;
+        heavy_factory.build_place_single = true;
+        heavy_factory.setShadow(0.7f, 0.32f, 0.38f);
+        heavy_factory.sound_idle = "event:/SFX/BUILDINGS_IDLE/IdleTownHall";
+        heavy_factory.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingStone";
+        heavy_factory.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
+        heavy_factory.has_sprites_special = false;
+        heavy_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        heavy_factory.construction_progress_needed = 100;
+        heavy_factory.max_houses = 2;
 
-        BuildingAsset recon_car_factory = AssetManager.buildings.clone("recon_car_factory", "tank_factory");
-        recon_car_factory.sprite_path = "buildings/recon_car_factory";
-        recon_car_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
-        recon_car_factory.type = "type_reconcarfactory";
+        BuildingAsset light_factory = AssetManager.buildings.clone("light_factory", "heavy_factory");
+        light_factory.sprite_path = "buildings/light_factory";
+        light_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        light_factory.type = "type_lightfactory";
     }
 
     private static void AddBuildingOrders()
@@ -136,11 +135,11 @@ internal static class WarBoxBuildings
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_bonfire", "order_watch_tower");
 
-            civ.addBuilding("order_tank_factory", 1);
+            civ.addBuilding("order_heavy_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
 
-            civ.addBuilding("order_recon_car_factory", 1);
+            civ.addBuilding("order_light_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
         }
@@ -151,8 +150,8 @@ internal static class WarBoxBuildings
         var customOrders = new Dictionary<string, string>
         {
             {"order_artillery_bunker", "artillery_bunker"},
-            {"order_tank_factory", "tank_factory"},
-            {"order_recon_car_factory", "recon_car_factory"}
+            {"order_heavy_factory", "heavy_factory"},
+            {"order_light_factory", "light_factory"}
         };
 
         foreach (var arch in AssetManager.architecture_library.list)

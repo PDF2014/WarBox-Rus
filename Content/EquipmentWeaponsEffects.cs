@@ -195,7 +195,7 @@ internal static class WarBoxGuns
 
     private static void AddVehicleWeapons()
     {
-        EquipmentAsset tank_cannon = AssetManager.items.clone("tank_attack", "$range");
+        EquipmentAsset tank_cannon = AssetManager.items.clone("tank_cannon", "$range");
         tank_cannon.has_locales = false;
         tank_cannon.projectile = "tank_shell";
         tank_cannon.base_stats["projectiles"] = 1f;
@@ -203,8 +203,11 @@ internal static class WarBoxGuns
         tank_cannon.show_in_meta_editor = false;
         tank_cannon.show_in_knowledge_window = false;
 
-        EquipmentAsset auto_cannon = AssetManager.items.clone("auto_cannon", "tank_attack");
+        EquipmentAsset auto_cannon = AssetManager.items.clone("auto_cannon", "tank_cannon");
         auto_cannon.projectile = "autocannon_shell";
+
+        EquipmentAsset machine_gun = AssetManager.items.clone("machine_gun", "auto_cannon");
+        machine_gun.projectile = "shotgun_bullet";
     }
 
     private static void AddTerraformOptions()

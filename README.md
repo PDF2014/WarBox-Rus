@@ -5,6 +5,6 @@ A Worldbox mod that add primarily warfare content.
 # Next update:
 * ~~Gun soldier spawning~~ (FINISHED)
 * ~~Fix annoying ui bug (hopefully)~~ aw dang it
-* More factories and units
+* ~~More factories and units~~ just an artillery factory and we're done
 * Visual improvements
 * Code refactors (Probably)

@@ -37,11 +37,16 @@ public static class Patch_CityUpdate //adding units according to population
 
             switch (buildingAsset.type)
             {
-                case "type_tankfactory":
-                    can_produce.Add(building.current_tile, "warbox_tank");
+                case "type_heavyfactory":
+                    int random = Randy.randomInt(1, 9);
+                    if (random >= 6)
+                        can_produce.Add(building.current_tile, "warbox_ifv");
+                    else
+                        can_produce.Add(building.current_tile, "warbox_tank");
+
                     break;
-                case "type_reconcarfactory":
-                    can_produce.Add(building.current_tile, "warbox_recon_car");
+                case "type_lightfactory":
+                    can_produce.Add(building.current_tile, "warbox_apc");
                     break;
                 default:
                     break;
