@@ -125,6 +125,15 @@ public static class Patch_Actor_Exclude_WarBoxUnit_Family
     }
 }
 
+[HarmonyPatch(typeof(Actor), "addStatusEffect")]
+public static class Patch_Actor_AddStatusEffect_DontGetAngry // idiots shoot each other and then keep shoot each other
+{
+    static bool Prefix(Actor __instance, StatusAsset pStatusAsset, float pOverrideTimer = 0f, bool pColorEffect = true)
+    {
+        return !(__instance.hasTrait("warbox_unit") && pStatusAsset.id == "angry");
+    }
+}
+
 [HarmonyPatch(typeof(Kingdom), "setKing")]
 public static class Patch_Kingdom_Exclude_WarBoxUnit_King
 {

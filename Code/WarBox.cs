@@ -52,7 +52,16 @@ public class WarBox : BasicMod<WarBox>, IReloadable
 
         harmony = new Harmony("com.Erex147.WarBox");
         Assembly assembly = Assembly.GetExecutingAssembly();
-        harmony.PatchAll(assembly);
+
+        try
+        {
+            harmony.PatchAll(assembly);
+        }
+        catch (Exception e)
+        {
+            WarBox.LogError(e.ToString());
+        }
+        
     }
 
     public static void Called()

@@ -182,7 +182,6 @@ internal static class WarBoxGodPowers
         vehicle.name = id;
         vehicle.actor_asset_id = actor_id;
         vehicle.click_action = new PowerActionWithID(SpawnVehicle);
-        //return vehicle;
     }
     
     private static void CreateBuilder(string id, string name, string drop_id)

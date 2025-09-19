@@ -43,7 +43,6 @@ internal static class WarBoxActors
         base_warunit.affected_by_dust = false;
         base_warunit.inspect_children = false;
         base_warunit.default_attack = "base_attack";
-        //base_warunit.icon = "iconBoat";
         base_warunit.shadow_texture = "unitShadow_6";
         base_warunit.texture_asset = new ActorTextureSubAsset("actors/tank/", false);
         base_warunit.special = true;
@@ -73,7 +72,6 @@ internal static class WarBoxActors
         base_warunit.can_edit_traits = true;
         base_warunit.can_receive_traits = true;
         base_warunit.flying = false;
-        //baseoffensiveunit.tech = "baseoffensiveunits";
         base_warunit.very_high_flyer = false;
         base_warunit.die_on_blocks = true;
         base_warunit.ignore_blocks = false;
@@ -160,7 +158,7 @@ internal static class WarBoxActors
         tank.base_stats["accuracy"] = 1f;
         tank.base_stats["targets"] = 1f;
         tank.base_stats["area_of_effect"] = 2f;
-        tank.base_stats["range"] = 24f;
+        tank.base_stats["range"] = 28f;
         tank.cost = new ConstructionCost(0, 0, 5, 0);
         tank.color = white;
         tank.name_locale = "spawn_tank";
@@ -174,15 +172,15 @@ internal static class WarBoxActors
         apc.icon = "apc";
         apc.base_stats["mass"] = 500f;
         apc.base_stats["mass_2"] = 2000f;
-        apc.base_stats["health"] = 700f;
-        apc.base_stats["damage"] = 25f;
+        apc.base_stats["health"] = 800f;
+        apc.base_stats["damage"] = 45f;
         apc.base_stats["area_of_effect"] = 1f;
-        apc.base_stats["knockback"] = 0f;
-        apc.base_stats["attack_speed"] = 10f;
+        apc.base_stats["knockback"] = 0.1f;
+        apc.base_stats["attack_speed"] = 9.25f;
         apc.base_stats["accuracy"] = 0.65f;
         apc.base_stats["armor"] = 10f;
         apc.base_stats["speed"] = 30f;
-        apc.base_stats["range"] = 12f;
+        apc.base_stats["range"] = 16f;
         apc.default_attack = "machine_gun";
         apc.name_locale = "spawn_apc";
         apc.power_id = "spawn_apc";
@@ -206,14 +204,13 @@ internal static class WarBoxActors
         ifv.base_stats["accuracy"] = 0.9f;
         ifv.base_stats["armor"] = 20f;
         ifv.base_stats["speed"] = 23f;
-        ifv.base_stats["range"] = 16f;
+        ifv.base_stats["range"] = 20f;
         ifv.default_attack = "auto_cannon";
         ifv.name_locale = "spawn_ifv";
         ifv.power_id = "spawn_ifv";
         ifv.animation_swim_speed = 0.5f;
         ifv.color = white;
         ifv.addTrait("dodge");
-        ifv.spells = new SpellHolder();
-        ifv.spells.addSpell(AssetManager.spells.get("atgm"));
+        ifv.addTrait("atgm_launcher");
     }
 }

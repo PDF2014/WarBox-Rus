@@ -4,15 +4,36 @@ using UnityEngine;
 
 namespace WarBox.Content;
 
-internal static class WarBoxGuns
+internal static class WarBoxEWE
 {
     public static void Init()
     {
+        AddCombatActions();
         AddTerraformOptions();
         AddProjectiles();
-        AddSpells();
         AddGuns();
         AddVehicleWeapons();
+    }
+
+    private static void AddCombatActions()
+    {
+        CombatActionAsset atgm = new CombatActionAsset
+        {
+            id = "combat_launch_atgm",
+            cost_stamina = 100,
+            chance = 0.1f,
+            cooldown = 10f,
+            rate = 1,
+            action_actor_target_position = WarBoxActions.LaunchATGM,
+            can_do_action = delegate (Actor pSelf, BaseSimObject pAttackTarget)
+            {
+                float num = Toolbox.SquaredDistVec2Float(pSelf.current_position, pAttackTarget.current_position);
+                WarBox.LogInfo((num > 1f && num < 2500f).ToString());
+                return num > 1f && num < 2500f;
+            },
+            pools = AssetLibrary<CombatActionAsset>.a<CombatActionPool>(CombatActionPool.BEFORE_ATTACK_RANGE)
+        };
+        AssetManager.combat_action_library.add(atgm);
     }
 
     private static void AddGuns()
@@ -208,8 +229,6 @@ internal static class WarBoxGuns
         EquipmentAsset auto_cannon = AssetManager.items.clone("auto_cannon", "tank_cannon");
         auto_cannon.projectile = "autocannon_shell";
         auto_cannon.base_stats["recoil"] = 0f;
-        auto_cannon.addSpell("atgm");
-        auto_cannon.linkSpells();
 
         EquipmentAsset machine_gun = AssetManager.items.clone("machine_gun", "auto_cannon");
         machine_gun.projectile = "shotgun_bullet";
@@ -313,23 +332,6 @@ internal static class WarBoxGuns
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             can_be_blocked = false,
         });
-    }
-
-    private static void AddSpells()
-    {
-        SpellAsset atgm = new SpellAsset
-        {
-            id = "atgm",
-            cast_target = CastTarget.Enemy,
-            cast_entity = CastEntity.UnitsOnly,
-            min_distance = 0f,
-            chance = 1f,
-            cost_mana = 3,
-            can_be_used_in_combat = true
-        };
-        atgm.action = WarBoxActions.LaunchATGM;
-
-        AssetManager.spells.add(atgm);
     }
 
     private static EquipmentAsset CreateGun(string id, BaseStats stats, string projectile = "shotgun_bullet", int equipment_value = 100, string name = "", string description = "", int goldCost = 0, string resource1 = "none", int resource1Cost = 0, string resource2 = "none", int resource2Cost = 0)
