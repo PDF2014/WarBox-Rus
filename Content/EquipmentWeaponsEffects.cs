@@ -10,6 +10,7 @@ internal static class WarBoxGuns
     {
         AddTerraformOptions();
         AddProjectiles();
+        AddSpells();
         AddGuns();
         AddVehicleWeapons();
     }
@@ -199,12 +200,16 @@ internal static class WarBoxGuns
         tank_cannon.has_locales = false;
         tank_cannon.projectile = "tank_shell";
         tank_cannon.base_stats["projectiles"] = 1f;
+        tank_cannon.base_stats["recoil"] = 1f;
         tank_cannon.path_slash_animation = "effects/gunshots/shot_gun";
         tank_cannon.show_in_meta_editor = false;
         tank_cannon.show_in_knowledge_window = false;
 
         EquipmentAsset auto_cannon = AssetManager.items.clone("auto_cannon", "tank_cannon");
         auto_cannon.projectile = "autocannon_shell";
+        auto_cannon.base_stats["recoil"] = 0f;
+        auto_cannon.addSpell("atgm");
+        auto_cannon.linkSpells();
 
         EquipmentAsset machine_gun = AssetManager.items.clone("machine_gun", "auto_cannon");
         machine_gun.projectile = "shotgun_bullet";
@@ -308,6 +313,23 @@ internal static class WarBoxGuns
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             can_be_blocked = false,
         });
+    }
+
+    private static void AddSpells()
+    {
+        SpellAsset atgm = new SpellAsset
+        {
+            id = "atgm",
+            cast_target = CastTarget.Enemy,
+            cast_entity = CastEntity.UnitsOnly,
+            min_distance = 0f,
+            chance = 1f,
+            cost_mana = 3,
+            can_be_used_in_combat = true
+        };
+        atgm.action = WarBoxActions.LaunchATGM;
+
+        AssetManager.spells.add(atgm);
     }
 
     private static EquipmentAsset CreateGun(string id, BaseStats stats, string projectile = "shotgun_bullet", int equipment_value = 100, string name = "", string description = "", int goldCost = 0, string resource1 = "none", int resource1Cost = 0, string resource2 = "none", int resource2Cost = 0)

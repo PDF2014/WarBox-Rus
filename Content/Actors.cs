@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace WarBox.Content;
 
 internal static class WarBoxActors
@@ -138,7 +140,7 @@ internal static class WarBoxActors
         ActorAsset tank = AssetManager.actor_library.clone("warbox_tank", "base_warunit");
         tank.texture_asset = new ActorTextureSubAsset("actors/tank/", false);
         tank.shadow_texture = "unitShadow_6";
-        tank.path_icon = "ui/icons/buttons/spawn_tank";
+        tank.icon = "tank";
         tank.sound_hit = "event:/SFX/HIT/HitMetal";
         tank.animation_walk = ActorAnimationSequences.walk_0_3;
         tank.animation_idle = Toolbox.a("idle_0");
@@ -169,7 +171,7 @@ internal static class WarBoxActors
 
         ActorAsset apc = AssetManager.actor_library.clone("warbox_apc", "warbox_tank");
         apc.texture_asset = new ActorTextureSubAsset("actors/apc/", false);
-        apc.path_icon = "ui/icons/buttons/spawn_apc";
+        apc.icon = "apc";
         apc.base_stats["mass"] = 500f;
         apc.base_stats["mass_2"] = 2000f;
         apc.base_stats["health"] = 700f;
@@ -193,7 +195,7 @@ internal static class WarBoxActors
 
         ActorAsset ifv = AssetManager.actor_library.clone("warbox_ifv", "warbox_tank");
         ifv.texture_asset = new ActorTextureSubAsset("actors/ifv/", false);
-        ifv.path_icon = "ui/icons/buttons/spawn_ifv";
+        ifv.icon = "ifv";
         ifv.base_stats["mass"] = 750f;
         ifv.base_stats["mass_2"] = 3500f;
         ifv.base_stats["health"] = 1550f;
@@ -211,6 +213,7 @@ internal static class WarBoxActors
         ifv.animation_swim_speed = 0.5f;
         ifv.color = white;
         ifv.addTrait("dodge");
-        ifv.addTrait("bomberman");
+        ifv.spells = new SpellHolder();
+        ifv.spells.addSpell(AssetManager.spells.get("atgm"));
     }
 }
