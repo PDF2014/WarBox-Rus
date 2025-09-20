@@ -45,9 +45,6 @@ internal static class WarBoxBuildings
         bunker.base_stats["area_of_effect"] = 1f;
         bunker.base_stats["damage"] = 20f;
         bunker.base_stats["knockback"] = 1f;
-        bunker.smoke = true;
-        bunker.smoke_interval = 2.5f;
-        bunker.smoke_offset = new Vector2Int(2, 3);
         bunker.priority = 100;
         bunker.type = "type_watch_tower";
         bunker.fundament = new BuildingFundament(2, 2, 1, 0);
