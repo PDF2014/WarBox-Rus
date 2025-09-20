@@ -32,6 +32,7 @@ internal static class WarBoxGodPowers
         CreateVehiclePower("spawn_tank", "warbox_tank");
         CreateVehiclePower("spawn_apc", "warbox_apc");
         CreateVehiclePower("spawn_ifv", "warbox_ifv");
+        CreateVehiclePower("spawn_spg", "warbox_spg");
 
         CreateWarriorPower("spawn_warrior_pistol", "pistol");
         CreateWarriorPower("spawn_warrior_smg", "smg");

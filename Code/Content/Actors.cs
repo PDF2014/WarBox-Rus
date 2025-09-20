@@ -212,5 +212,41 @@ internal static class WarBoxActors
         ifv.color = white;
         ifv.addTrait("dodge");
         ifv.addTrait("atgm_launcher");
+
+        ActorAsset spg = AssetManager.actor_library.clone("warbox_spg", "warbox_tank");
+        spg.base_stats["mass_2"] = 3000f;
+        spg.base_stats["stamina"] = 500f;
+        spg.base_stats["scale"] = 0.2f;
+        spg.base_stats["size"] = 1f;
+        spg.base_stats["mass"] = 1000f;
+        spg.base_stats["health"] = 1500f;
+        spg.base_stats["speed"] = 15f;
+        spg.base_stats["armor"] = 10f;
+        spg.base_stats["attack_speed"] = 0f;
+        spg.base_stats["damage"] = 700f;
+        spg.base_stats["knockback"] = 4f;
+        spg.base_stats["accuracy"] = 0.1f;
+        spg.base_stats["targets"] = 2f;
+        spg.base_stats["area_of_effect"] = 4f;
+        spg.base_stats["range"] = 100f;
+        spg.inspect_avatar_scale = 2f;
+        spg.default_attack = "artillery_cannon";
+        spg.name_locale = "spawn_spg";
+        spg.power_id = "spawn_spg";
+        spg.color = white;
+        spg.job = AssetLibrary<ActorAsset>.a<string>("decision");
+        spg.addDecision("check_swearing");
+        spg.addDecision("warrior_try_join_army_group");
+        spg.addDecision("artillery_strike");
+        spg.addDecision("warrior_army_captain_idle_walking_city");
+        spg.addDecision("warrior_army_captain_waiting");
+        spg.addDecision("warrior_army_leader_move_random");
+        spg.addDecision("warrior_army_leader_move_to_attack_target");
+        spg.addDecision("warrior_army_follow_leader");
+        spg.addDecision("warrior_random_move");
+        spg.addDecision("check_warrior_transport");
+        spg.addDecision("swim_to_island");
+        spg.removeTrait("block");
+        spg.removeTrait("deflect_projectile");
     }
 }

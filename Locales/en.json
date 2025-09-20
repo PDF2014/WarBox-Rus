@@ -46,6 +46,8 @@
     "spawn_apc_description": "Spawn a lightly armored personnel carrier",
     "spawn_ifv": "IFV",
     "spawn_ifv_description": "Spawn an armored fighting vehicle",
+    "spawn_spg": "SPG",
+    "spawn_spg_description": "Spawn a self-propelled artillery gun",
 
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",
@@ -64,5 +66,6 @@
 
     "auto_layout_window_text_1_key": "i dont know what to put here",
     "auto_layout_window_text_2_key": "so heres some filler text",
-    "cant_spawn_unit_kingdom": "You must spawn this unit within a kingdom."
+    "cant_spawn_unit_kingdom": "You must spawn this unit within a kingdom.",
+    "artillery_strike": "Artillery"
 }

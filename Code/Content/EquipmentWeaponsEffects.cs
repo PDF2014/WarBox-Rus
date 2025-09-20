@@ -8,14 +8,14 @@ internal static class WarBoxEWE
 {
     public static void Init()
     {
-        AddCombatActions();
+        AddActions();
         AddTerraformOptions();
         AddProjectiles();
         AddGuns();
         AddVehicleWeapons();
     }
 
-    private static void AddCombatActions()
+    private static void AddActions()
     {
         CombatActionAsset atgm = new CombatActionAsset
         {
@@ -33,6 +33,21 @@ internal static class WarBoxEWE
             pools = AssetLibrary<CombatActionAsset>.a<CombatActionPool>(CombatActionPool.BEFORE_ATTACK_RANGE)
         };
         AssetManager.combat_action_library.add(atgm);
+
+        DecisionAsset artillery_strike = new DecisionAsset
+        {
+            id = "artillery_strike",
+            priority = NeuroLayer.Layer_2_Moderate,
+            unique = true,
+            cooldown = 1,
+            weight = 1f,
+            path_icon = "ui/icons/tank",
+            action_check_launch = delegate (Actor pActor)
+            {
+                return WarBoxActions.LaunchArtilleryStrike(pActor, null);
+            }
+        };
+        AssetManager.decisions_library.add(artillery_strike);
     }
 
     private static void AddGuns()
@@ -106,7 +121,7 @@ internal static class WarBoxEWE
         EquipmentAsset autorifle = CreateGun(
             id: "autorifle",
             stats: stats_autorifle,
-            equipment_value: 70,
+            equipment_value: 67,
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
@@ -220,7 +235,7 @@ internal static class WarBoxEWE
         tank_cannon.has_locales = false;
         tank_cannon.projectile = "tank_shell";
         tank_cannon.base_stats["projectiles"] = 1f;
-        tank_cannon.base_stats["recoil"] = 1f;
+        tank_cannon.base_stats["recoil"] = 0.5f;
         tank_cannon.path_slash_animation = "effects/gunshots/shot_gun";
         tank_cannon.show_in_meta_editor = false;
         tank_cannon.show_in_knowledge_window = false;
@@ -231,6 +246,11 @@ internal static class WarBoxEWE
 
         EquipmentAsset machine_gun = AssetManager.items.clone("machine_gun", "auto_cannon");
         machine_gun.projectile = "shotgun_bullet";
+
+        EquipmentAsset artillery_cannon = AssetManager.items.clone("artillery_cannon", "tank_cannon");
+        artillery_cannon.projectile = "cannon_shell";
+        artillery_cannon.path_slash_animation = "effects/slashes/slash_cannonball";
+        artillery_cannon.base_stats["recoil"] = 0.75f;
     }
 
     private static void AddTerraformOptions()
@@ -281,7 +301,7 @@ internal static class WarBoxEWE
         AssetManager.projectiles.add(new ProjectileAsset
         {
             id = "cannon_shell",
-            speed = 40f,
+            speed = 50f,
             texture = "pr_shell",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",

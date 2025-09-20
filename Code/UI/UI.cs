@@ -50,6 +50,7 @@ internal static class WarBoxUI
         CreateVehicleButton("spawn_tank");
         CreateVehicleButton("spawn_apc");
         CreateVehicleButton("spawn_ifv");
+        CreateVehicleButton("spawn_spg");
 
         CreateWarriorButton("pistol");
         CreateWarriorButton("smg");
