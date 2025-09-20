@@ -48,20 +48,7 @@ public class WarBox : BasicMod<WarBox>, IReloadable
         }
 
         WarBoxContent.Init();
-        WarBoxUI.Init();
-
-        harmony = new Harmony("com.Erex147.WarBox");
-        Assembly assembly = Assembly.GetExecutingAssembly();
-
-        try
-        {
-            harmony.PatchAll(assembly);
-        }
-        catch (Exception e)
-        {
-            WarBox.LogError(e.ToString());
-        }
-        
+        WarBoxUI.Init();     
     }
 
     public static void Called()

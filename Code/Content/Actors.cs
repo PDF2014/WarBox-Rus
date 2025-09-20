@@ -13,7 +13,7 @@ internal static class WarBoxActors
 
     private static void AddVehicles()
     {
-        var base_warunit = AssetManager.actor_library.clone("base_warunit", "$basic_unit$");
+        ActorAsset base_warunit = AssetManager.actor_library.clone("base_warunit", "$basic_unit$");
         base_warunit.is_humanoid = false;
         base_warunit.civ = false;
         base_warunit.experience_given = 20;

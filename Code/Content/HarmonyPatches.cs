@@ -9,6 +9,25 @@ using UnityEngine.UI;
 
 namespace WarBox.Content;
 
+internal static class WarBoxPatches
+{
+    internal static Harmony harmony;
+    public static void Init()
+    {
+        harmony = new Harmony("com.Erex147.WarBox");
+        Assembly assembly = Assembly.GetExecutingAssembly();
+
+        try
+        {
+            harmony.PatchAll(assembly);
+        }
+        catch (Exception e)
+        {
+            WarBox.LogError(e.ToString());
+        }
+    }
+}
+
 [HarmonyPatch(typeof(City), "update")]
 public static class Patch_CityUpdate //adding units according to population
 {

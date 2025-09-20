@@ -20,16 +20,15 @@ internal static class WarBoxEWE
         CombatActionAsset atgm = new CombatActionAsset
         {
             id = "combat_launch_atgm",
-            cost_stamina = 100,
-            chance = 0.1f,
-            cooldown = 10f,
+            cost_stamina = 50,
+            chance = 0.3f,
+            cooldown = 20f,
             rate = 1,
             action_actor_target_position = WarBoxActions.LaunchATGM,
             can_do_action = delegate (Actor pSelf, BaseSimObject pAttackTarget)
             {
                 float num = Toolbox.SquaredDistVec2Float(pSelf.current_position, pAttackTarget.current_position);
-                WarBox.LogInfo((num > 1f && num < 2500f).ToString());
-                return num > 1f && num < 2500f;
+                return num > 10f && num < 1000f;
             },
             pools = AssetLibrary<CombatActionAsset>.a<CombatActionPool>(CombatActionPool.BEFORE_ATTACK_RANGE)
         };

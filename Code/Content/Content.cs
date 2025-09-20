@@ -14,5 +14,6 @@ internal static class WarBoxContent
         WarBoxCulture.Init();
         WarBoxGodPowers.Init();
         WarBoxActors.Init();
+        WarBoxPatches.Init();
     }
 }

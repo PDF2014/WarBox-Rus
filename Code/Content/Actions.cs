@@ -18,8 +18,6 @@ internal static class WarBoxActions
 
     public static bool LaunchATGM(Actor pSelf, Vector2 pTarget, WorldTile pTile = null)
     {
-        WarBox.LogInfo("ATGM by:" + pSelf.name);
-
         Vector2Int pos = pTile.pos;
         Vector3 vector = pSelf.current_position;
         float pDist = Vector2.Distance(vector, pos);
