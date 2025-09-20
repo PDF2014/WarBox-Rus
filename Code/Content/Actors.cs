@@ -51,7 +51,6 @@ internal static class WarBoxActors
         base_warunit.animation_walk = ActorAnimationSequences.walk_0_3;
         base_warunit.animation_idle = ActorAnimationSequences.walk_0;
         base_warunit.animation_swim = ActorAnimationSequences.swim_0_3;
-        base_warunit.name_template_sets = AssetLibrary<ActorAsset>.a<string>("assimilator_set");
         base_warunit.kingdom_id_civilization = string.Empty;
         base_warunit.build_order_template_id = string.Empty;
         base_warunit.disable_jump_animation = true;
@@ -214,6 +213,8 @@ internal static class WarBoxActors
         ifv.addTrait("atgm_launcher");
 
         ActorAsset spg = AssetManager.actor_library.clone("warbox_spg", "warbox_tank");
+        spg.texture_asset = new ActorTextureSubAsset("actors/spg/", false);
+        spg.icon = "spg";
         spg.base_stats["mass_2"] = 3000f;
         spg.base_stats["stamina"] = 500f;
         spg.base_stats["scale"] = 0.2f;
@@ -234,6 +235,7 @@ internal static class WarBoxActors
         spg.name_locale = "spawn_spg";
         spg.power_id = "spawn_spg";
         spg.color = white;
+        spg.animation_swim_speed = 0.5f;
         spg.job = AssetLibrary<ActorAsset>.a<string>("decision");
         spg.addDecision("check_swearing");
         spg.addDecision("warrior_try_join_army_group");
