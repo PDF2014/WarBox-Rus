@@ -31,9 +31,6 @@ internal static class WarBoxActions
         return true;
     }
 
-    private const float ARMY_PROBABILITY = 0.33f;
-    private const float BUILDING_PROBABILITY = 0f;
-
     public static bool LaunchArtilleryStrike(BaseSimObject pTarget, WorldTile pTile = null)
     {
         if (pTarget == null || !pTarget.isActor())
@@ -64,6 +61,13 @@ internal static class WarBoxActions
                         var building = targetCity.buildings.GetRandom();
                         if (building != null && building.current_tile != null)
                             attackPos = building.current_tile.pos;
+                    }
+                    if (attackPos == null && targetCity.hasLeader() && targetCity.leader.isAlive()) attackPos = targetCity.leader.current_position;
+                    if (attackPos == null && enemyKingdom.hasKing() && enemyKingdom.king.isAlive()) attackPos = enemyKingdom.king.current_position;
+                    if (attackPos == null)
+                    {
+                        WorldTile tile = targetCity.getTile();
+                        if (tile != null) attackPos = tile.pos;
                     }
 
                     if (attackPos == null) continue;

@@ -6,6 +6,7 @@ using System.Reflection;
 using ai.behaviours;
 using System;
 using UnityEngine.UI;
+using UnityEngine;
 
 namespace WarBox.Content;
 
@@ -25,6 +26,55 @@ internal static class WarBoxPatches
         {
             WarBox.LogError(e.ToString());
         }
+
+        AssetManager.combat_action_library.get("combat_attack_range").action = attackRangeAction;
+    }
+
+    public static bool attackRangeAction(AttackData pData) // replaces default range action
+    {
+        Actor actor = pData.initiator.a;
+        BaseSimObject target = pData.target;
+        string projectile_id = pData.projectile_id;
+        _ = actor.actor_scale;
+        float scaleMod = actor.getScaleMod();
+        float num = actor.stats["size"];
+        int num2 = (int)actor.stats["projectiles"];
+        Vector2 vector;
+        if (target == null)
+        {
+            vector = pData.hit_position;
+        }
+        else
+        {
+            vector = AssetManager.combat_action_library.getAttackTargetPosition(pData);
+            vector.y += 0.2f * scaleMod;
+        }
+        float num3 = actor.stats["accuracy"];
+        float pMaxExclusive = Toolbox.DistVec2Float(actor.current_position, vector) / num3 * 0.25f;
+        pMaxExclusive = Randy.randomFloat(0f, pMaxExclusive);
+        pMaxExclusive = Mathf.Clamp(pMaxExclusive, 0f, 2f);
+        float pStartPosZ = (actor.getActorAsset().very_high_flyer == true) ? 8f : 0.6f * scaleMod;//;
+        float pTargetZ = 0f;
+        float value = 0f;
+        for (int i = 0; i < num2; i++)
+        {
+            Vector2 vector2 = new Vector2(vector.x, vector.y);
+            if (num3 < 10f)
+            {
+                Vector2 innacuracyVector = AssetManager.combat_action_library.getInnacuracyVector(num3);
+                innacuracyVector *= pMaxExclusive;
+                vector2 += innacuracyVector;
+            }
+            Vector3 newPoint = Toolbox.getNewPoint(actor.current_position.x, actor.current_position.y, vector2.x, vector2.y, num * scaleMod);
+            newPoint.y += actor.getHeight();
+            if (target != null && target.isInAir())
+            {
+                pTargetZ = target.getHeight();
+            }
+            value = World.world.projectiles.spawn(actor, target, projectile_id, newPoint, vector2, pTargetZ, pStartPosZ, pData.kill_action, pData.kingdom).getLaunchAngle();
+        }
+        actor.spawnSlash(vector, null, 2f, pTargetZ, (actor.getActorAsset().very_high_flyer == true) ? pStartPosZ : 0f, value);
+        return true;
     }
 }
 
@@ -63,7 +113,7 @@ public static class Patch_CityUpdate //adding units according to population
             else if (buildingAsset.type == "type_lightfactory")
             {
                 float random = Randy.random();
-                if (random >= 0.5f) can_produce.Add(building.current_tile, "warbox_spg");
+                if (random >= 0.9f) can_produce.Add(building.current_tile, "warbox_spg");
                 else can_produce.Add(building.current_tile, "warbox_apc");
             }
         }

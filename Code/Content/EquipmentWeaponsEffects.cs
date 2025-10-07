@@ -37,7 +37,7 @@ internal static class WarBoxEWE
         DecisionAsset artillery_strike = new DecisionAsset
         {
             id = "artillery_strike",
-            priority = NeuroLayer.Layer_2_Moderate,
+            priority = NeuroLayer.Layer_4_Critical,
             unique = true,
             cooldown = 1,
             weight = 1f,
@@ -251,6 +251,14 @@ internal static class WarBoxEWE
         artillery_cannon.projectile = "cannon_shell";
         artillery_cannon.path_slash_animation = "effects/slashes/slash_cannonball";
         artillery_cannon.base_stats["recoil"] = 0.75f;
+
+        EquipmentAsset rocket_pod = AssetManager.items.clone("rocket_pod", "$range");
+        rocket_pod.has_locales = false;
+        rocket_pod.projectile = "rocket_projectile";
+        rocket_pod.base_stats["projectiles"] = 1f;
+        rocket_pod.path_slash_animation = "effects/gunshots/shot_gun";
+        rocket_pod.show_in_meta_editor = false;
+        rocket_pod.show_in_knowledge_window = false;
     }
 
     private static void AddTerraformOptions()
@@ -266,6 +274,22 @@ internal static class WarBoxEWE
             explode_tile = true,
             explosion_pixel_effect = true,
             explode_strength = 1,
+            shake = false,
+            remove_tornado = true,
+            remove_frozen = true,
+        });
+
+        AssetManager.terraform.add(new TerraformOptions
+        {
+            id = "rocket",
+            flash = true,
+            damage_buildings = true,
+            damage = 500,
+            apply_force = true,
+            explode_and_set_random_fire = true,
+            explode_tile = true,
+            explosion_pixel_effect = true,
+            explode_strength = 4,
             shake = false,
             remove_tornado = true,
             remove_frozen = true,
@@ -293,9 +317,31 @@ internal static class WarBoxEWE
             draw_light_size = 0.1f,
             sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
-            terraform_option = "rpg",
+            terraform_option = "rocket",
             terraform_range = 4,
-            can_be_blocked = true,
+            can_be_blocked = false,
+            can_be_collided = false,
+        });
+
+        AssetManager.projectiles.add(new ProjectileAsset
+        {
+            id = "rocket_projectile",
+            speed = 45f,
+            texture = "pr_rocket",
+            look_at_target = true,
+            texture_shadow = "shadows/projectiles/shadow_arrow",
+            end_effect = "fx_fireball_explosion",
+            hit_shake = false,
+            scale_start = 0.025f,
+            scale_target = 0.025f,
+            draw_light_area = true,
+            draw_light_size = 0.2f,
+            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
+            terraform_option = "rpg",
+            terraform_range = 5,
+            can_be_blocked = false,
+            can_be_collided = false,
         });
 
         AssetManager.projectiles.add(new ProjectileAsset
@@ -315,6 +361,7 @@ internal static class WarBoxEWE
             terraform_option = "soft_grenade",
             terraform_range = 6,
             can_be_blocked = false,
+            can_be_collided = false,
         });
 
         AssetManager.projectiles.add(new ProjectileAsset
@@ -334,6 +381,7 @@ internal static class WarBoxEWE
             terraform_option = "soft_grenade",
             terraform_range = 3,
             can_be_blocked = false,
+            can_be_collided = false,
         });
 
         AssetManager.projectiles.add(new ProjectileAsset
@@ -350,7 +398,10 @@ internal static class WarBoxEWE
             sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             can_be_blocked = false,
+            can_be_collided = false,
         });
+
+        AssetManager.projectiles.get("shotgun_bullet").can_be_collided = false;
     }
 
     private static EquipmentAsset CreateGun(string id, BaseStats stats, string projectile = "shotgun_bullet", int equipment_value = 100, string name = "", string description = "", int goldCost = 0, string resource1 = "none", int resource1Cost = 0, string resource2 = "none", int resource2Cost = 0)

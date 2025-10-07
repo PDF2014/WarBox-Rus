@@ -3,11 +3,8 @@ A Worldbox mod that adds primarily warfare content.
 [![](https://gamebanana.com/mods/embeddables/616451?type=large)](https://gamebanana.com/mods/616451)
 
 # Next update:
-* Gun soldier spawning
-* ~~Fix annoying ui bug (hopefully)~~ can't fix just yet
-* More Units - APC, IFV, Self propelled artillery
-* Visual improvements
-* Code refactors
+* Airports
+* Naval base (probably later idk)
 
 # Ideas
 * Propaganda tower: inspires all units in a city

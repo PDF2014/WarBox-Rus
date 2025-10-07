@@ -48,6 +48,8 @@
     "spawn_ifv_description": "Spawn an armored fighting vehicle",
     "spawn_spg": "SPG",
     "spawn_spg_description": "Spawn a self-propelled artillery gun",
+    "spawn_helicopter": "Helicopter",
+    "spawn_helicopter_description": "Spawn a high flying helicopter",
 
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",

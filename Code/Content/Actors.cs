@@ -129,10 +129,11 @@ internal static class WarBoxActors
         base_warunit.visible_on_minimap = false;
         base_warunit.color = white;
         base_warunit.death_animation_angle = false;
-        base_warunit.shadow = false;
+        //base_warunit.shadow = false;
         base_warunit.addTrait("warbox_unit");
         base_warunit.addTrait("fire_blood");
         base_warunit.addTrait("immune");
+        base_warunit.texture_asset.loadShadow();
 
         ActorAsset tank = AssetManager.actor_library.clone("warbox_tank", "base_warunit");
         tank.texture_asset = new ActorTextureSubAsset("actors/tank/", false);
@@ -165,6 +166,7 @@ internal static class WarBoxActors
         tank.name_template_sets = AssetLibrary<ActorAsset>.a<string>("tank_set");
         tank.addTrait("block");
         tank.addTrait("deflect_projectile");
+        tank.texture_asset.loadShadow();
 
         ActorAsset apc = AssetManager.actor_library.clone("warbox_apc", "warbox_tank");
         apc.texture_asset = new ActorTextureSubAsset("actors/apc/", false);
@@ -189,6 +191,7 @@ internal static class WarBoxActors
         apc.addTrait("dash");
         apc.removeTrait("block");
         apc.removeTrait("deflect_projectile");
+        apc.texture_asset.loadShadow();
 
         ActorAsset ifv = AssetManager.actor_library.clone("warbox_ifv", "warbox_tank");
         ifv.texture_asset = new ActorTextureSubAsset("actors/ifv/", false);
@@ -211,6 +214,7 @@ internal static class WarBoxActors
         ifv.color = white;
         ifv.addTrait("dodge");
         ifv.addTrait("atgm_launcher");
+        ifv.texture_asset.loadShadow();
 
         ActorAsset spg = AssetManager.actor_library.clone("warbox_spg", "warbox_tank");
         spg.texture_asset = new ActorTextureSubAsset("actors/spg/", false);
@@ -220,7 +224,7 @@ internal static class WarBoxActors
         spg.base_stats["scale"] = 0.2f;
         spg.base_stats["size"] = 1f;
         spg.base_stats["mass"] = 1000f;
-        spg.base_stats["health"] = 1500f;
+        spg.base_stats["health"] = 700f;
         spg.base_stats["speed"] = 15f;
         spg.base_stats["armor"] = 10f;
         spg.base_stats["attack_speed"] = 0f;
@@ -229,7 +233,8 @@ internal static class WarBoxActors
         spg.base_stats["accuracy"] = 0.1f;
         spg.base_stats["targets"] = 2f;
         spg.base_stats["area_of_effect"] = 4f;
-        spg.base_stats["range"] = 100f;
+        spg.base_stats["range"] = 1000f;
+        spg.base_stats["stamina"] = 1000f;
         spg.inspect_avatar_scale = 2f;
         spg.default_attack = "artillery_cannon";
         spg.name_locale = "spawn_spg";
@@ -240,15 +245,58 @@ internal static class WarBoxActors
         spg.addDecision("check_swearing");
         spg.addDecision("warrior_try_join_army_group");
         spg.addDecision("artillery_strike");
-        spg.addDecision("warrior_army_captain_idle_walking_city");
-        spg.addDecision("warrior_army_captain_waiting");
-        spg.addDecision("warrior_army_leader_move_random");
-        spg.addDecision("warrior_army_leader_move_to_attack_target");
-        spg.addDecision("warrior_army_follow_leader");
+        spg.addDecision("city_idle_walking");
         spg.addDecision("warrior_random_move");
-        spg.addDecision("check_warrior_transport");
         spg.addDecision("swim_to_island");
         spg.removeTrait("block");
         spg.removeTrait("deflect_projectile");
+        spg.texture_asset.loadShadow();
+
+        ActorAsset helicopter = AssetManager.actor_library.clone("warbox_helicopter", "base_warunit");
+        helicopter.texture_asset = new ActorTextureSubAsset("actors/helicopter/", false);
+        helicopter.icon = "helicopter";
+        helicopter.die_in_lava = false;
+        helicopter.animation_speed_based_on_walk_speed = false;
+        helicopter.animation_walk_speed = 10f;
+        helicopter.animation_idle_speed = 10f;
+        helicopter.animation_swim_speed = 10f;
+        helicopter.base_stats["mass_2"] = 2000f;
+        helicopter.base_stats["stamina"] = 1000f;
+        helicopter.base_stats["scale"] = 0.2f;
+        helicopter.base_stats["size"] = 1f;
+        helicopter.base_stats["mass"] = 1000f;
+        helicopter.base_stats["health"] = 1500f;
+        helicopter.base_stats["speed"] = 60f;
+        helicopter.base_stats["armor"] = 10f;
+        helicopter.base_stats["attack_speed"] = 0.3f;
+        helicopter.base_stats["damage"] = 1000f;
+        helicopter.base_stats["knockback"] = 2f;
+        helicopter.base_stats["accuracy"] = 0.7f;
+        helicopter.base_stats["targets"] = 1f;
+        helicopter.base_stats["area_of_effect"] = 0.5f;
+        helicopter.base_stats["range"] = 40f;
+        helicopter.inspect_avatar_scale = 0.5f;
+        helicopter.sound_hit = "event:/SFX/HIT/HitMetal";
+        helicopter.default_attack = "rocket_pod";
+        helicopter.shadow_texture = "unitShadow_6";
+        helicopter.special = true;
+        helicopter.can_flip = true;
+        helicopter.has_advanced_textures = false;
+        helicopter.color = white;
+        helicopter.animation_walk = ActorAnimationSequences.walk_0_3;
+        helicopter.animation_idle = ActorAnimationSequences.walk_0_3;
+        helicopter.animation_swim = ActorAnimationSequences.walk_0_3;
+        helicopter.actor_size = ActorSize.S17_Dragon;
+        helicopter.name_locale = "spawn_helicopter";
+        helicopter.power_id = "spawn_helicopter";
+        helicopter.flying = true;
+        helicopter.very_high_flyer = true;
+        helicopter.die_on_blocks = false;
+        helicopter.ignore_blocks = true;
+        helicopter.shadow_texture = "unitShadow_8";
+        helicopter.addDecision("burn_tumors");
+        helicopter.addTrait("fire_proof");
+        helicopter.addTrait("freeze_proof");
+        helicopter.texture_asset.loadShadow();
     }
 }
