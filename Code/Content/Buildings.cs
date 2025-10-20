@@ -92,8 +92,8 @@ internal static class WarBoxBuildings
         heavy_factory.build_road_to = true;
         heavy_factory.base_stats["health"] = 2000f;
         heavy_factory.smoke = true;
-        heavy_factory.smoke_interval = 2.5f;
-        heavy_factory.smoke_offset = new Vector2Int(2, 3);
+        heavy_factory.smoke_interval = 1f;
+        heavy_factory.smoke_offset = new Vector2Int(100, 100);
         heavy_factory.priority = 9999;
         heavy_factory.type = "type_heavyfactory";
         heavy_factory.fundament = new BuildingFundament(3, 3, 4, 1);
@@ -117,6 +117,12 @@ internal static class WarBoxBuildings
         light_factory.cost = new ConstructionCost(10, 45, 0, 0);
         light_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         light_factory.type = "type_lightfactory";
+
+        BuildingAsset helipad = AssetManager.buildings.clone("helipad", "heavy_factory");
+        helipad.sprite_path = "buildings/helipad";
+        helipad.cost = new ConstructionCost(10, 45, 0, 0);
+        helipad.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        helipad.type = "type_helipad";
     }
 
     private static void AddBuildingOrders()
@@ -140,6 +146,10 @@ internal static class WarBoxBuildings
             civ.addBuilding("order_light_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
+
+            civ.addBuilding("order_helipad", 1);
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
         }
     }
 
@@ -149,7 +159,8 @@ internal static class WarBoxBuildings
         {
             {"order_artillery_bunker", "artillery_bunker"},
             {"order_heavy_factory", "heavy_factory"},
-            {"order_light_factory", "light_factory"}
+            {"order_light_factory", "light_factory"},
+            {"order_helipad", "helipad"}
         };
 
         foreach (var arch in AssetManager.architecture_library.list)

@@ -28,9 +28,17 @@ internal static class WarBoxPatches
         }
 
         AssetManager.combat_action_library.get("combat_attack_range").action = attackRangeAction;
+        AssetManager.decisions_library.get("city_idle_walking").action_check_launch = delegate (Actor pActor)
+        {
+            if (!pActor.hasCity())
+            {
+                return false;
+            }
+            return pActor.city.hasZones();
+        };
     }
 
-    public static bool attackRangeAction(AttackData pData) // replaces default range action
+    private static bool attackRangeAction(AttackData pData) // replaces default range action
     {
         Actor actor = pData.initiator.a;
         BaseSimObject target = pData.target;
@@ -76,6 +84,15 @@ internal static class WarBoxPatches
         actor.spawnSlash(vector, null, 2f, pTargetZ, (actor.getActorAsset().very_high_flyer == true) ? pStartPosZ : 0f, value);
         return true;
     }
+
+    private static bool city_idle_walking(Actor pActor)
+    {
+        if (!pActor.hasCity())
+        {
+            return false;
+        }
+        return pActor.city.hasZones();
+    }
 }
 
 [HarmonyPatch(typeof(City), "update")]
@@ -115,6 +132,10 @@ public static class Patch_CityUpdate //adding units according to population
                 float random = Randy.random();
                 if (random >= 0.9f) can_produce.Add(building.current_tile, "warbox_spg");
                 else can_produce.Add(building.current_tile, "warbox_apc");
+            }
+            else if (buildingAsset.type == "type_helipad")
+            {
+                can_produce.Add(building.current_tile, "warbox_helicopter");
             }
         }
 

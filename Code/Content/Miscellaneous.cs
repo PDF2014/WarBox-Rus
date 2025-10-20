@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace WarBox.Content;
 
 internal static class WarBoxMisc
@@ -20,25 +22,52 @@ internal static class WarBoxMisc
         gun_namegenerator.addTemplate("Part_group");
         AssetManager.name_generator.add(gun_namegenerator);
 
-        NameGeneratorAsset tank_namegenerator = new NameGeneratorAsset
+        CreateNameSet(new NameGeneratorAsset
         {
-            id = "tank_name"
-        };
-        tank_namegenerator.addOnomastic("`0_###u|0:unit`");
-        AssetManager.name_generator.add(tank_namegenerator);
+            id = "tank_name",
+            onomastics_templates = new List<string> { "`0_###u|0:tank`" }
+        });
 
-        NameSetAsset tank_nameset = new NameSetAsset
+        CreateNameSet(new NameGeneratorAsset
         {
-            id = "tank_set",
-            city = "tank_name",
-            clan = "tank_name",
-            culture = "tank_name",
-            family = "tank_name",
-            kingdom = "tank_name",
-            language = "tank_name",
-            unit = "tank_name",
-            religion = "tank_name"
-        };
-        AssetManager.name_sets.add(tank_nameset);
+            id = "apc_name",
+            onomastics_templates = new List<string> { "`0_###u|0:apc`" }
+        });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "ifv_name",
+            onomastics_templates = new List<string> { "`0_###u|0:ifv`" }
+        });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "spg_name",
+            onomastics_templates = new List<string> { "`0_###u|0:spg`" }
+        });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "heli_name",
+            onomastics_templates = new List<string> { "`0_###u|0:heli`" }
+        });
+    }
+
+    private static void CreateNameSet(NameGeneratorAsset name_generator)
+    {
+        AssetManager.name_generator.add(name_generator);
+        string id = name_generator.id;
+        AssetManager.name_sets.add(new NameSetAsset
+        {
+            id = id,
+            city = id,
+            clan = id,
+            culture = id,
+            family = id,
+            kingdom = id,
+            language = id,
+            unit = id,
+            religion = id
+        });
     }
 }

@@ -163,7 +163,7 @@ internal static class WarBoxActors
         tank.color = white;
         tank.name_locale = "spawn_tank";
         tank.power_id = "spawn_tank";
-        tank.name_template_sets = AssetLibrary<ActorAsset>.a<string>("tank_set");
+        tank.name_template_sets = AssetLibrary<ActorAsset>.a<string>("tank_name");
         tank.addTrait("block");
         tank.addTrait("deflect_projectile");
         tank.texture_asset.loadShadow();
@@ -187,6 +187,7 @@ internal static class WarBoxActors
         apc.power_id = "spawn_apc";
         apc.animation_swim_speed = 0.5f;
         apc.color = white;
+        apc.name_template_sets = AssetLibrary<ActorAsset>.a<string>("apc_name");
         apc.addTrait("dodge");
         apc.addTrait("dash");
         apc.removeTrait("block");
@@ -212,6 +213,7 @@ internal static class WarBoxActors
         ifv.power_id = "spawn_ifv";
         ifv.animation_swim_speed = 0.5f;
         ifv.color = white;
+        ifv.name_template_sets = AssetLibrary<ActorAsset>.a<string>("ifv_name");
         ifv.addTrait("dodge");
         ifv.addTrait("atgm_launcher");
         ifv.texture_asset.loadShadow();
@@ -241,11 +243,12 @@ internal static class WarBoxActors
         spg.power_id = "spawn_spg";
         spg.color = white;
         spg.animation_swim_speed = 0.5f;
+        spg.name_template_sets = AssetLibrary<ActorAsset>.a<string>("spg_name");
         spg.job = AssetLibrary<ActorAsset>.a<string>("decision");
         spg.addDecision("check_swearing");
         spg.addDecision("warrior_try_join_army_group");
         spg.addDecision("artillery_strike");
-        spg.addDecision("city_idle_walking");
+        //spg.addDecision("city_idle_walking");
         spg.addDecision("warrior_random_move");
         spg.addDecision("swim_to_island");
         spg.removeTrait("block");
@@ -294,6 +297,8 @@ internal static class WarBoxActors
         helicopter.die_on_blocks = false;
         helicopter.ignore_blocks = true;
         helicopter.shadow_texture = "unitShadow_8";
+        helicopter.color = white;
+        helicopter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("heli_name");
         helicopter.addDecision("burn_tumors");
         helicopter.addTrait("fire_proof");
         helicopter.addTrait("freeze_proof");

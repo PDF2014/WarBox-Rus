@@ -39,6 +39,8 @@
     "heavy_factory_description": "Spawn a factory that produces heavy vehicles",
     "light_factory": "Light Factory",
     "light_factory_description": "Spawn a factory that produces light vehicles",
+    "helipad": "Helipad",
+    "helipad_description": "Spawn a factory that helicopters",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",

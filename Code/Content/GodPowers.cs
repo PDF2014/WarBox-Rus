@@ -20,6 +20,7 @@ internal static class WarBoxGodPowers
         CreateDrop("spawn_artillery_bunker", "artillery_bunker");
         CreateDrop("spawn_heavy_factory", "heavy_factory");
         CreateDrop("spawn_light_factory", "light_factory");
+        CreateDrop("spawn_helipad", "helipad");
     }
 
     private static void AddPowers()
@@ -28,6 +29,7 @@ internal static class WarBoxGodPowers
         CreateBuilder("artillery_bunker_builder", "Artillery Bunker", "spawn_artillery_bunker");
         CreateBuilder("heavy_factory_builder", "Heavy Factory", "spawn_heavy_factory");
         CreateBuilder("light_factory_builder", "Light Factory", "spawn_light_factory");
+        CreateBuilder("helipad_builder", "Helipad", "spawn_helipad");
 
         CreateVehiclePower("spawn_tank", "warbox_tank");
         CreateVehiclePower("spawn_apc", "warbox_apc");
@@ -53,6 +55,7 @@ internal static class WarBoxGodPowers
             dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
             dropField.SetValue(AssetManager.powers.get("heavy_factory_builder"), AssetManager.drops.get("spawn_heavy_factory"));
             dropField.SetValue(AssetManager.powers.get("light_factory_builder"), AssetManager.drops.get("spawn_light_factory"));
+            dropField.SetValue(AssetManager.powers.get("helipad_builder"), AssetManager.drops.get("spawn_helipad"));
         }
     }
 
