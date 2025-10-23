@@ -35,12 +35,13 @@
     "bunker_description": "Spawn a bunker fortification",
     "artillery_bunker": "Artillery Bunker",
     "artillery_bunker_description": "Spawn a bunker fortification with an artillery cannon",
+    
     "heavy_factory": "Heavy Factory",
     "heavy_factory_description": "Spawn a factory that produces heavy vehicles",
     "light_factory": "Light Factory",
     "light_factory_description": "Spawn a factory that produces light vehicles",
-    "helipad": "Helipad",
-    "helipad_description": "Spawn a factory that helicopters",
+    "light_aircraft_factory": "Light Aircraft Factory",
+    "light_aircraft_factory_description": "Spawn a factory that produces light aircraft",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",

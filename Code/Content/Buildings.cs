@@ -96,7 +96,7 @@ internal static class WarBoxBuildings
         heavy_factory.smoke_offset = new Vector2Int(100, 100);
         heavy_factory.priority = 9999;
         heavy_factory.type = "type_heavyfactory";
-        heavy_factory.fundament = new BuildingFundament(3, 3, 4, 1);
+        heavy_factory.fundament = new BuildingFundament(5, 5, 4, 1);
         heavy_factory.cost = new ConstructionCost(20, 80, 0, 0);
         heavy_factory.tower = false;
         heavy_factory.sprite_path = "buildings/heavy_factory";
@@ -115,6 +115,7 @@ internal static class WarBoxBuildings
         BuildingAsset light_factory = AssetManager.buildings.clone("light_factory", "heavy_factory");
         light_factory.sprite_path = "buildings/light_factory";
         light_factory.cost = new ConstructionCost(10, 45, 0, 0);
+        light_factory.fundament = new BuildingFundament(3, 3, 3, 1);
         light_factory.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         light_factory.type = "type_lightfactory";
 
