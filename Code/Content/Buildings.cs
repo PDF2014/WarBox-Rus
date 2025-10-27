@@ -88,7 +88,7 @@ internal static class WarBoxBuildings
         heavy_factory.has_sprites_main_disabled = false;
         heavy_factory.has_sprites_main = true;
         heavy_factory.draw_light_area = true;
-        heavy_factory.draw_light_size = 1f;
+        heavy_factory.draw_light_size = 0.25f;
         heavy_factory.build_road_to = true;
         heavy_factory.base_stats["health"] = 2000f;
         heavy_factory.smoke = true;
@@ -123,7 +123,8 @@ internal static class WarBoxBuildings
         laf.sprite_path = "buildings/light_aircraft_factory";
         laf.cost = new ConstructionCost(10, 45, 0, 0);
         laf.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
-        laf.type = "type_light_aircraft_factory";
+        laf.smoke = false;
+        laf.type = "type_lightaircraftfactory";
     }
 
     private static void AddBuildingOrders()

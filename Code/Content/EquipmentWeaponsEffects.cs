@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ai.behaviours;
 using NeoModLoader.api.attributes;
 using UnityEngine;
 
@@ -34,6 +35,12 @@ internal static class WarBoxEWE
         };
         AssetManager.combat_action_library.add(atgm);
 
+        BehaviourTaskActor idkyet = new BehaviourTaskActor
+        {
+            id = "artillery_strike"
+        };
+        AssetManager.tasks_actor.add(idkyet);
+
         DecisionAsset artillery_strike = new DecisionAsset
         {
             id = "artillery_strike",
@@ -42,6 +49,7 @@ internal static class WarBoxEWE
             cooldown = 1,
             weight = 1f,
             path_icon = "ui/icons/tank",
+            task_id = "artillery_strike",
             action_check_launch = delegate (Actor pActor)
             {
                 return WarBoxActions.LaunchArtilleryStrike(pActor, null);
@@ -356,7 +364,7 @@ internal static class WarBoxEWE
             scale_start = 0.08f,
             scale_target = 0.08f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/ExplosionSmall",
+            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 6,
@@ -376,7 +384,7 @@ internal static class WarBoxEWE
             scale_start = 0.04f,
             scale_target = 0.04f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/ExplosionSmall",
+            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 3,

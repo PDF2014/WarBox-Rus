@@ -298,6 +298,7 @@ internal static class WarBoxActors
         helicopter.ignore_blocks = true;
         helicopter.shadow_texture = "unitShadow_8";
         helicopter.color = white;
+        helicopter.cost = new ConstructionCost(5, 0, 8, 5);
         helicopter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("heli_name");
         helicopter.addDecision("burn_tumors");
         helicopter.addTrait("fire_proof");

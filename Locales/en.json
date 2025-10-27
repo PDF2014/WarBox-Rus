@@ -9,7 +9,6 @@
     "warbox_army_limits": "Enable army limits",
     "warbox_army_limits Description": "Enable armies count cap",
 
-
     "culture_trait_craft_firearms": "Gun",
     "culture_trait_craft_firearms_info": "Allows for the production of guns",
 
@@ -72,5 +71,6 @@
     "auto_layout_window_text_1_key": "i dont know what to put here",
     "auto_layout_window_text_2_key": "so heres some filler text",
     "cant_spawn_unit_kingdom": "You must spawn this unit within a kingdom.",
-    "artillery_strike": "Artillery"
+    "artillery_strike": "Artillery",
+    "task_unit_artillery_strike": "Artillery Strike"
 }
