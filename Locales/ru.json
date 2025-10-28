@@ -9,7 +9,6 @@
     "warbox_army_limits": "Ограничение армии",
     "warbox_army_limits Description": "Включить лимит количества армий",
 
-
     "culture_trait_craft_firearms": "Огнестрельное оружие",
     "culture_trait_craft_firearms_info": "Позволяет производить огнестрельное оружие",
 
@@ -35,10 +34,13 @@
     "bunker_description": "Создаёт укреплённый бункер",
     "artillery_bunker": "Артиллерийский бункер",
     "artillery_bunker_description": "Создаёт бункер с артиллерийской пушкой",
+    
     "heavy_factory": "Тяжёлый завод",
     "heavy_factory_description": "Создаёт завод, производящий тяжёлую технику",
     "light_factory": "Лёгкий завод",
     "light_factory_description": "Создаёт завод, производящий лёгкую технику",
+    "light_aircraft_factory": "Лёгкий авиазавод",
+    "light_aircraft_factory_description": "Создаёт завод, производящий лёгкие летательные аппараты",
 
     "spawn_tank": "Танк",
     "spawn_tank_description": "Создаёт сильно бронированный танк",
@@ -48,6 +50,8 @@
     "spawn_ifv_description": "Создаёт боевую машину пехоты",
     "spawn_spg": "САУ",
     "spawn_spg_description": "Создаёт самоходную артиллерийскую установку",
+    "spawn_helicopter": "Вертолёт",
+    "spawn_helicopter_description": "Создаёт высоко летающий вертолёт",
 
     "spawn_warrior_pistol": "Стрелок",
     "spawn_warrior_pistol_description": "Создаёт лёгкого стрелка",
@@ -67,5 +71,6 @@
     "auto_layout_window_text_1_key": "Не знаю, что сюда поставить",
     "auto_layout_window_text_2_key": "Так что вот немного текста-заполнителя",
     "cant_spawn_unit_kingdom": "Вы должны создать этого юнита внутри королевства.",
-    "artillery_strike": "Артиллерийский удар"
+    "artillery_strike": "Артиллерия",
+    "task_unit_artillery_strike": "Артиллерийский удар"
 }
