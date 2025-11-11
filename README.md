@@ -4,9 +4,11 @@ A Worldbox mod that adds primarily warfare content.
 
 # Next update:
 * Heavy Aircraft Factory
+* Naval base (100%)
 
 # Ideas
 * Propaganda tower: inspires all units in a city
 * ATC: upgrade for airport, allows higher tier planes.
 * Nuclear silo: launches nukes,  (provided it has resources, very expensive)
 * Naval base: produces warships
+* APC becomes functional and carries troops

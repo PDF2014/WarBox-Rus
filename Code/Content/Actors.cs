@@ -24,7 +24,7 @@ internal static class WarBoxActors
         base_warunit.base_stats["stamina"] = 500f;
         base_warunit.base_stats["lifespan"] = 500f;
         base_warunit.base_stats["scale"] = 0.2f;
-        base_warunit.base_stats["size"] = 1f;
+        base_warunit.base_stats["size"] = 0.5f;
         base_warunit.base_stats["mass"] = 1000f;
         base_warunit.base_stats["health"] = 300f;
         base_warunit.base_stats["speed"] = 10f;
@@ -142,7 +142,8 @@ internal static class WarBoxActors
         tank.sound_hit = "event:/SFX/HIT/HitMetal";
         tank.animation_walk = ActorAnimationSequences.walk_0_3;
         tank.animation_idle = Toolbox.a("idle_0");
-        tank.animation_swim = ActorAnimationSequences.swim_0_3;
+        tank.animation_swim = ActorAnimationSequences.swim_0_1;
+        tank.animation_swim_speed = 0.5f;
         tank.default_attack = "tank_cannon";
         tank.base_stats["mass_2"] = 5000f;
         tank.base_stats["stamina"] = 500f;
@@ -185,7 +186,6 @@ internal static class WarBoxActors
         apc.default_attack = "machine_gun";
         apc.name_locale = "spawn_apc";
         apc.power_id = "spawn_apc";
-        apc.animation_swim_speed = 0.5f;
         apc.color = white;
         apc.name_template_sets = AssetLibrary<ActorAsset>.a<string>("apc_name");
         apc.addTrait("dodge");
@@ -211,7 +211,6 @@ internal static class WarBoxActors
         ifv.default_attack = "auto_cannon";
         ifv.name_locale = "spawn_ifv";
         ifv.power_id = "spawn_ifv";
-        ifv.animation_swim_speed = 0.5f;
         ifv.color = white;
         ifv.name_template_sets = AssetLibrary<ActorAsset>.a<string>("ifv_name");
         ifv.addTrait("dodge");
@@ -242,7 +241,6 @@ internal static class WarBoxActors
         spg.name_locale = "spawn_spg";
         spg.power_id = "spawn_spg";
         spg.color = white;
-        spg.animation_swim_speed = 0.5f;
         spg.name_template_sets = AssetLibrary<ActorAsset>.a<string>("spg_name");
         spg.job = AssetLibrary<ActorAsset>.a<string>("decision");
         spg.addDecision("check_swearing");
@@ -304,5 +302,28 @@ internal static class WarBoxActors
         helicopter.addTrait("fire_proof");
         helicopter.addTrait("freeze_proof");
         helicopter.texture_asset.loadShadow();
+
+        ActorAsset bomber = AssetManager.actor_library.clone("warbox_bomber", "warbox_helicopter");;
+        bomber.texture_asset = new ActorTextureSubAsset("actors/helicopter/", false);
+        bomber.name_locale = "spawn_bomber";
+        bomber.power_id = "spawn_bomber";
+        bomber.base_stats["mass_2"] = 2000f;
+        bomber.base_stats["stamina"] = 1000f;
+        bomber.base_stats["scale"] = 0.2f;
+        bomber.base_stats["size"] = 1f;
+        bomber.base_stats["mass"] = 1000f;
+        bomber.base_stats["health"] = 1500f;
+        bomber.base_stats["speed"] = 60f;
+        bomber.base_stats["armor"] = 10f;
+        bomber.base_stats["attack_speed"] = -10f;
+        bomber.base_stats["damage"] = 1000f;
+        bomber.base_stats["knockback"] = 2f;
+        bomber.base_stats["accuracy"] = 0.1f;
+        bomber.base_stats["targets"] = 10f;
+        bomber.base_stats["area_of_effect"] = 0.5f;
+        bomber.base_stats["range"] = -10f;
+        bomber.default_attack = "bomb_bay";
+        bomber.base_stats["attack_speed"] = -5f;
+        bomber.texture_asset.loadShadow();
     }
 }
