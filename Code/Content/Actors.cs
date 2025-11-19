@@ -277,6 +277,7 @@ internal static class WarBoxActors
         helicopter.base_stats["area_of_effect"] = 0.5f;
         helicopter.base_stats["range"] = 15f;
         helicopter.inspect_avatar_scale = 0.5f;
+        helicopter.default_height = 8f;
         helicopter.sound_hit = "event:/SFX/HIT/HitMetal";
         helicopter.default_attack = "rocket_pod";
         helicopter.shadow_texture = "unitShadow_6";

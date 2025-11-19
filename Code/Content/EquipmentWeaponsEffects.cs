@@ -138,7 +138,7 @@ internal static class WarBoxEWE
         stats_autorifle["projectiles"] = 1;
         stats_autorifle["accuracy"] = 10f;
         stats_autorifle["range"] = 20f;
-        stats_autorifle["damage"] = 60f;
+        stats_autorifle["damage"] = 45f;
         stats_autorifle["attack_speed"] = 3.5f;
 
         EquipmentAsset autorifle = CreateGun(

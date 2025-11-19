@@ -105,6 +105,7 @@ public static class Patch_CityUpdate //adding units according to population
         if (!WarBox.warbox_factories) return;
         if (__instance == null) return;
         if (!times.ContainsKey(__instance.id)) times[__instance.id] = 20f;
+        if (!__instance.isAlive() == false) return;
 
         if (times[__instance.id] > 0)
         {
