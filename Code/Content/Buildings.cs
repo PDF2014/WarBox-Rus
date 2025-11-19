@@ -125,6 +125,13 @@ internal static class WarBoxBuildings
         laf.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         laf.smoke = false;
         laf.type = "type_lightaircraftfactory";
+
+        BuildingAsset haf = AssetManager.buildings.clone("heavy_aircraft_factory", "light_aircraft_factory"); // HAF: Heavy aircraft factory
+        haf.sprite_path = "buildings/heavy_aircraft_factory";
+        haf.cost = new ConstructionCost(20, 60, 0, 0);
+        haf.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        haf.smoke = false;
+        haf.type = "type_heavyaircraftfactory";
     }
 
     private static void AddBuildingOrders()
@@ -152,6 +159,10 @@ internal static class WarBoxBuildings
             civ.addBuilding("order_light_aircraft_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
+
+            civ.addBuilding("order_heavy_aircraft_factory", 1);
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
         }
     }
 
@@ -162,13 +173,13 @@ internal static class WarBoxBuildings
             {"order_artillery_bunker", "artillery_bunker"},
             {"order_heavy_factory", "heavy_factory"},
             {"order_light_factory", "light_factory"},
-            {"order_light_aircraft_factory", "light_aircraft_factory"}
+            {"order_light_aircraft_factory", "light_aircraft_factory"},
+            {"order_heavy_aircraft_factory", "heavy_aircraft_factory"}
         };
 
         foreach (var arch in AssetManager.architecture_library.list)
         {
-            if (arch.building_ids_for_construction == null)
-                arch.building_ids_for_construction = new Dictionary<string, string>();
+            arch.building_ids_for_construction ??= new Dictionary<string, string>();
             foreach (var kvp in customOrders)
             {
                 if (!arch.building_ids_for_construction.ContainsKey(kvp.Key))

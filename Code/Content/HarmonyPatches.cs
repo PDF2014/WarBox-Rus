@@ -130,12 +130,16 @@ public static class Patch_CityUpdate //adding units according to population
             else if (buildingAsset.type == "type_lightfactory")
             {
                 float random = Randy.random();
-                if (random >= 0.9f) can_produce.Add(building.current_tile, "warbox_spg");
+                if (random >= 0.6f) can_produce.Add(building.current_tile, "warbox_spg");
                 else can_produce.Add(building.current_tile, "warbox_apc");
             }
             else if (buildingAsset.type == "type_lightaircraftfactory")
             {
                 can_produce.Add(building.current_tile, "warbox_helicopter");
+            }
+            else if (buildingAsset.type == "type_heavyaircraftfactory")
+            {
+                can_produce.Add(building.current_tile, "warbox_bomber");
             }
         }
 

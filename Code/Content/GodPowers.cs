@@ -22,6 +22,7 @@ internal static class WarBoxGodPowers
         CreateDrop("spawn_light_factory", "light_factory");
         CreateDrop("spawn_heavy_factory", "heavy_factory");
         CreateDrop("spawn_light_aircraft_factory", "light_aircraft_factory");
+        CreateDrop("spawn_heavy_aircraft_factory", "heavy_aircraft_factory");
     }
 
     private static void AddPowers()
@@ -31,6 +32,7 @@ internal static class WarBoxGodPowers
         CreateBuilder("heavy_factory_builder", "Heavy Factory", "spawn_heavy_factory");
         CreateBuilder("light_factory_builder", "Light Factory", "spawn_light_factory");
         CreateBuilder("light_aircraft_factory_builder", "Light Aircraft Factory", "spawn_light_aircraft_factory");
+        CreateBuilder("heavy_aircraft_factory_builder", "Heavy Aircraft Factory", "spawn_heavy_aircraft_factory");
 
         CreateVehiclePower("spawn_tank", "warbox_tank");
         CreateVehiclePower("spawn_apc", "warbox_apc");

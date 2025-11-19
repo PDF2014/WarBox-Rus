@@ -41,6 +41,8 @@
     "light_factory_description": "Spawn a factory that produces light vehicles",
     "light_aircraft_factory": "Light Aircraft Factory",
     "light_aircraft_factory_description": "Spawn a factory that produces light aircraft",
+    "heavy_aircraft_factory": "Heavy Aircraft Factory",
+    "heavy_aircraft_factory_description": "Spawn a factory that produces heavy aircraft",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",
@@ -52,6 +54,8 @@
     "spawn_spg_description": "Spawn a self-propelled artillery gun",
     "spawn_helicopter": "Helicopter",
     "spawn_helicopter_description": "Spawn a high flying helicopter",
+    "spawn_bomber": "Bomber",
+    "spawn_bomber_description": "Spawn a high flying bomber that drops devastating bombs",
 
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",

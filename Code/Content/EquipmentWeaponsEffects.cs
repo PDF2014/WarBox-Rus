@@ -91,7 +91,7 @@ internal static class WarBoxEWE
             name: "Pistol",
             description: "A very handy semi-automatic firearm",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 3
+            resource1: "common_metals", resource1Cost: 1
         );
 
         // SMG
@@ -110,8 +110,8 @@ internal static class WarBoxEWE
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 4,
-            resource2: "wood", resource2Cost: 2
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 1
         );
 
         // Rifle
@@ -129,8 +129,8 @@ internal static class WarBoxEWE
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Automatic Rifle
@@ -148,8 +148,8 @@ internal static class WarBoxEWE
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Sniper Rifle
@@ -168,7 +168,7 @@ internal static class WarBoxEWE
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
+            resource1: "common_metals", resource1Cost: 1,
             resource2: "wood", resource2Cost: 3
         );
 
@@ -187,8 +187,8 @@ internal static class WarBoxEWE
             name: "Shotgun",
             description: "A shotgun firing many pellets, dangerous up close",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 2
         );
 
         // RPG
@@ -207,9 +207,8 @@ internal static class WarBoxEWE
             name: "Rocket Launcher",
             projectile: "rpg_projectile",
             description: "A launcher firing rocket propelled grenades",
-            goldCost: 0,
-            resource1: "common_metals", resource1Cost: 9,
-            resource2: "gems", resource2Cost: 4
+            goldCost: 1,
+            resource1: "common_metals", resource1Cost: 4
         );
     }
 
@@ -371,7 +370,7 @@ internal static class WarBoxEWE
             sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
-            terraform_range = 6,
+            terraform_range = 4,
             can_be_blocked = false,
             can_be_collided = false,
         });
