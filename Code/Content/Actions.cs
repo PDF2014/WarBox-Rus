@@ -74,7 +74,7 @@ internal static class WarBoxActions
 
                     Vector3 selfPos = caster.current_position;
                     float dist = Vector2.Distance(selfPos, attackPos.Value);
-                    if (dist < 100f || dist > 300f)
+                    if (dist < 100f || dist > 225f)
                         continue;
 
                     // projectile calculations untouched

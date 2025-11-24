@@ -48,7 +48,7 @@ internal static class WarBoxEWE
             unique = true,
             cooldown = 1,
             weight = 1f,
-            path_icon = "ui/icons/tank",
+            path_icon = "ui/icons/actors/spg",
             task_id = "artillery_strike",
             action_check_launch = delegate (Actor pActor)
             {
@@ -262,7 +262,7 @@ internal static class WarBoxEWE
             damage = 100,
             apply_force = true,
             explode_and_set_random_fire = false,
-            explode_tile = true,
+            explode_tile = false,
             explosion_pixel_effect = true,
             explode_strength = 1,
             shake = false,
@@ -278,7 +278,7 @@ internal static class WarBoxEWE
             damage = 500,
             apply_force = true,
             explode_and_set_random_fire = true,
-            explode_tile = true,
+            explode_tile = false,
             explosion_pixel_effect = true,
             explode_strength = 4,
             shake = false,

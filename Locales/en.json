@@ -56,6 +56,8 @@
     "spawn_helicopter_description": "Spawn a high flying helicopter",
     "spawn_bomber": "Bomber",
     "spawn_bomber_description": "Spawn a high flying bomber that drops devastating bombs",
+    "spawn_fighter": "Fighter",
+    "spawn_fighter_description": "Spawn a high flying fighter jet",
 
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",

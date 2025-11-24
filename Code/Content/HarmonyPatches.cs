@@ -61,7 +61,7 @@ internal static class WarBoxPatches
         float pMaxExclusive = Toolbox.DistVec2Float(actor.current_position, vector) / num3 * 0.25f;
         pMaxExclusive = Randy.randomFloat(0f, pMaxExclusive);
         pMaxExclusive = Mathf.Clamp(pMaxExclusive, 0f, 2f);
-        float pStartPosZ = (actor.getActorAsset().very_high_flyer == true) ? 8f : 0.6f * scaleMod;//;
+        float pStartPosZ = (actor.getActorAsset().very_high_flyer == true) ? 3f : 0.6f * scaleMod;
         float pTargetZ = 0f;
         float value = 0f;
         for (int i = 0; i < num2; i++)

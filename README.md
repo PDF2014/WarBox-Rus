@@ -9,7 +9,8 @@ A Worldbox mod that adds primarily warfare content.
 # Ideas
 * Propaganda tower: inspires all units in a city
 * Hospital: heals all units in the army gradually
-* ATC: upgrade for airport, allows higher tier planes.
 * Nuclear silo: launches nukes,  (provided it has resources, very expensive)
 * Naval base: produces warships
 * APC becomes functional and carries troops
+* vehicle remnants
+* actual army control

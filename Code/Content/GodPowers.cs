@@ -40,6 +40,7 @@ internal static class WarBoxGodPowers
         CreateVehiclePower("spawn_spg", "warbox_spg");
         CreateVehiclePower("spawn_helicopter", "warbox_helicopter");
         CreateVehiclePower("spawn_bomber", "warbox_bomber");
+        CreateVehiclePower("spawn_fighter", "warbox_fighter");
 
         CreateWarriorPower("spawn_warrior_pistol", "pistol");
         CreateWarriorPower("spawn_warrior_smg", "smg");
@@ -61,6 +62,7 @@ internal static class WarBoxGodPowers
             dropField.SetValue(AssetManager.powers.get("light_factory_builder"), AssetManager.drops.get("spawn_light_factory"));
             dropField.SetValue(AssetManager.powers.get("heavy_factory_builder"), AssetManager.drops.get("spawn_heavy_factory"));
             dropField.SetValue(AssetManager.powers.get("light_aircraft_factory_builder"), AssetManager.drops.get("spawn_light_aircraft_factory"));
+            dropField.SetValue(AssetManager.powers.get("heavy_aircraft_factory_builder"), AssetManager.drops.get("spawn_heavy_aircraft_factory"));
         }
     }
 

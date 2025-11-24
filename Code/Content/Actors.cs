@@ -5,6 +5,7 @@ namespace WarBox.Content;
 internal static class WarBoxActors
 {
     private static readonly UnityEngine.Color white = new UnityEngine.Color(1f, 1f, 1f);
+    private static readonly string[] idle_0_9 = Toolbox.a("idle_0", "idle_1", "idle_2", "idle_3", "idle_4", "idle_5", "idle_6", "idle_7", "idle_8", "idle_9");
 
     public static void Init()
     {
@@ -129,7 +130,6 @@ internal static class WarBoxActors
         base_warunit.visible_on_minimap = false;
         base_warunit.color = white;
         base_warunit.death_animation_angle = false;
-        //base_warunit.shadow = false;
         base_warunit.addTrait("warbox_unit");
         base_warunit.addTrait("fire_blood");
         base_warunit.addTrait("immune");
@@ -280,7 +280,6 @@ internal static class WarBoxActors
         helicopter.default_height = 8f;
         helicopter.sound_hit = "event:/SFX/HIT/HitMetal";
         helicopter.default_attack = "rocket_pod";
-        helicopter.shadow_texture = "unitShadow_6";
         helicopter.special = true;
         helicopter.can_flip = true;
         helicopter.has_advanced_textures = false;
@@ -305,8 +304,8 @@ internal static class WarBoxActors
         helicopter.texture_asset.loadShadow();
 
         ActorAsset bomber = AssetManager.actor_library.clone("warbox_bomber", "warbox_helicopter");
-        bomber.icon = "actors/bomber";
-        bomber.texture_asset = new ActorTextureSubAsset("actors/helicopter/", false);
+        bomber.icon = "actors/fighter";
+        bomber.texture_asset = new ActorTextureSubAsset("actors/fighter/", false);
         bomber.name_locale = "spawn_bomber";
         bomber.power_id = "spawn_bomber";
         bomber.base_stats["mass_2"] = 2000f;
@@ -318,6 +317,13 @@ internal static class WarBoxActors
         bomber.base_stats["speed"] = 60f;
         bomber.base_stats["armor"] = 10f;
         bomber.base_stats["attack_speed"] = -10f;
+        bomber.default_height = 12f;
+        bomber.animation_walk = ActorAnimationSequences.idle_0_3;
+        bomber.animation_idle = ActorAnimationSequences.idle_0_3;
+        bomber.animation_swim = ActorAnimationSequences.idle_0_3;
+        bomber.animation_speed_based_on_walk_speed = false;
+        bomber.animation_walk_speed = 0.25f;
+        bomber.animation_idle_speed = 0.25f;
         bomber.base_stats["damage"] = 1000f;
         bomber.base_stats["knockback"] = 2f;
         bomber.base_stats["accuracy"] = 0.1f;
@@ -326,11 +332,12 @@ internal static class WarBoxActors
         bomber.base_stats["range"] = -10f;
         bomber.default_attack = "bomb_bay";
         bomber.base_stats["attack_speed"] = -5f;
+        bomber.name_template_sets = AssetLibrary<ActorAsset>.a<string>("bomber_name");
         bomber.texture_asset.loadShadow();
 
         ActorAsset fighter = AssetManager.actor_library.clone("warbox_fighter", "warbox_helicopter");
         fighter.icon = "actors/fighter";
-        fighter.texture_asset = new ActorTextureSubAsset("actors/helicopter/", false);
+        fighter.texture_asset = new ActorTextureSubAsset("actors/fighter/", false);
         fighter.name_locale = "spawn_fighter";
         fighter.power_id = "spawn_fighter";
         fighter.base_stats["mass_2"] = 1500f;
@@ -338,17 +345,25 @@ internal static class WarBoxActors
         fighter.base_stats["scale"] = 0.2f;
         fighter.base_stats["size"] = 1f;
         fighter.base_stats["mass"] = 1000f;
-        fighter.base_stats["health"] = 1200f;
+        fighter.base_stats["health"] = 800f;
         fighter.base_stats["speed"] = 80f;
         fighter.base_stats["armor"] = 5f;
-        fighter.base_stats["attack_speed"] = 0.5f;
+        fighter.base_stats["attack_speed"] = 10f;
         fighter.base_stats["damage"] = 65f;
         fighter.base_stats["knockback"] = 2f;
         fighter.base_stats["accuracy"] = 0.5f;
         fighter.base_stats["targets"] = 1f;
         fighter.base_stats["area_of_effect"] = 0.5f;
-        fighter.base_stats["range"] = 30f;
+        fighter.base_stats["range"] = 15f;
+        fighter.default_height = 12f;
         fighter.default_attack = "machine_gun";
+        fighter.animation_walk = ActorAnimationSequences.idle_0_3;
+        fighter.animation_idle = ActorAnimationSequences.idle_0_3;
+        fighter.animation_swim = ActorAnimationSequences.idle_0_3;
+        fighter.animation_speed_based_on_walk_speed = false;
+        fighter.animation_walk_speed = 0.25f;
+        fighter.animation_idle_speed = 0.25f;
+        fighter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("fighter_name");
         fighter.texture_asset.loadShadow();
     }
 }
