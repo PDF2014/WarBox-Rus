@@ -51,6 +51,18 @@ internal static class WarBoxMisc
             id = "heli_name",
             onomastics_templates = new List<string> { "`0_###u|0:heli`" }
         });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "bomber_name",
+            onomastics_templates = new List<string> { "`0_###u|0:bomber`" }
+        });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "fighter_name",
+            onomastics_templates = new List<string> { "`0_###u|0:fighter`" }
+        });
     }
 
     private static void CreateNameSet(NameGeneratorAsset name_generator)

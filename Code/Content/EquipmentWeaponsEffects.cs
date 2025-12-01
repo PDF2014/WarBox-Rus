@@ -48,7 +48,7 @@ internal static class WarBoxEWE
             unique = true,
             cooldown = 1,
             weight = 1f,
-            path_icon = "ui/icons/tank",
+            path_icon = "ui/icons/actors/spg",
             task_id = "artillery_strike",
             action_check_launch = delegate (Actor pActor)
             {
@@ -60,6 +60,21 @@ internal static class WarBoxEWE
 
     private static void AddGuns()
     {
+        if (!AssetManager.items.equipment_by_subtypes.ContainsKey("gun"))
+        {
+            AssetManager.items.equipment_by_subtypes.Add("gun", new List<EquipmentAsset>());
+        }
+
+        if (!AssetManager.items.pot_equipment_by_groups_all.ContainsKey("firearm"))
+        {
+            AssetManager.items.pot_equipment_by_groups_all.Add("firearm", new List<EquipmentAsset>());
+        }
+
+        if (!AssetManager.items.pot_equipment_by_groups_unlocked.ContainsKey("firearm"))
+        {
+            AssetManager.items.pot_equipment_by_groups_unlocked.Add("firearm", new List<EquipmentAsset>());
+        }
+
         // Pistol 
         BaseStats stats_pistol = new BaseStats();
         stats_pistol["projectiles"] = 1;
@@ -76,7 +91,7 @@ internal static class WarBoxEWE
             name: "Pistol",
             description: "A very handy semi-automatic firearm",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 3
+            resource1: "common_metals", resource1Cost: 1
         );
 
         // SMG
@@ -95,8 +110,8 @@ internal static class WarBoxEWE
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 4,
-            resource2: "wood", resource2Cost: 2
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 1
         );
 
         // Rifle
@@ -114,8 +129,8 @@ internal static class WarBoxEWE
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Automatic Rifle
@@ -123,7 +138,7 @@ internal static class WarBoxEWE
         stats_autorifle["projectiles"] = 1;
         stats_autorifle["accuracy"] = 10f;
         stats_autorifle["range"] = 20f;
-        stats_autorifle["damage"] = 60f;
+        stats_autorifle["damage"] = 45f;
         stats_autorifle["attack_speed"] = 3.5f;
 
         EquipmentAsset autorifle = CreateGun(
@@ -133,8 +148,8 @@ internal static class WarBoxEWE
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Sniper Rifle
@@ -153,7 +168,7 @@ internal static class WarBoxEWE
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
+            resource1: "common_metals", resource1Cost: 1,
             resource2: "wood", resource2Cost: 3
         );
 
@@ -172,8 +187,8 @@ internal static class WarBoxEWE
             name: "Shotgun",
             description: "A shotgun firing many pellets, dangerous up close",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 5,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 1,
+            resource2: "wood", resource2Cost: 2
         );
 
         // RPG
@@ -192,49 +207,9 @@ internal static class WarBoxEWE
             name: "Rocket Launcher",
             projectile: "rpg_projectile",
             description: "A launcher firing rocket propelled grenades",
-            goldCost: 0,
-            resource1: "common_metals", resource1Cost: 9,
-            resource2: "gems", resource2Cost: 4
+            goldCost: 1,
+            resource1: "common_metals", resource1Cost: 4
         );
-
-        if (!AssetManager.items.equipment_by_subtypes.ContainsKey("gun"))
-        {
-            AssetManager.items.equipment_by_subtypes.Add("gun", new List<EquipmentAsset>());
-        }
-
-        if (!AssetManager.items.pot_equipment_by_groups_all.ContainsKey("firearm"))
-        {
-            AssetManager.items.pot_equipment_by_groups_all.Add("firearm", new List<EquipmentAsset>());
-        }
-
-        if (!AssetManager.items.pot_equipment_by_groups_unlocked.ContainsKey("firearm"))
-        {
-            AssetManager.items.pot_equipment_by_groups_unlocked.Add("firearm", new List<EquipmentAsset>());
-        }
-
-        AssetManager.items.equipment_by_subtypes["gun"].Add(pistol);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(smg);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(rifle);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(autorifle);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(sniperrifle);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(shotgun);
-        AssetManager.items.equipment_by_subtypes["gun"].Add(rpg);
-
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(pistol);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(smg);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(rifle);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(autorifle);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(sniperrifle);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(shotgun);
-        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(rpg);
-
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(pistol);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(smg);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(rifle);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(autorifle);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(sniperrifle);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(shotgun);
-        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(rpg);
     }
 
     private static void AddVehicleWeapons()
@@ -267,6 +242,14 @@ internal static class WarBoxEWE
         rocket_pod.path_slash_animation = "effects/gunshots/shot_gun";
         rocket_pod.show_in_meta_editor = false;
         rocket_pod.show_in_knowledge_window = false;
+
+        EquipmentAsset bomb_bay = AssetManager.items.clone("bomb_bay", "$range");
+        bomb_bay.has_locales = false;
+        bomb_bay.projectile = "drop_bomb";
+        bomb_bay.base_stats["projectiles"] = 1f;
+        bomb_bay.path_slash_animation = "event:/SFX/DROPS/DropLaunchGrenade";
+        bomb_bay.show_in_meta_editor = false;
+        bomb_bay.show_in_knowledge_window = false;
     }
 
     private static void AddTerraformOptions()
@@ -279,7 +262,7 @@ internal static class WarBoxEWE
             damage = 100,
             apply_force = true,
             explode_and_set_random_fire = false,
-            explode_tile = true,
+            explode_tile = false,
             explosion_pixel_effect = true,
             explode_strength = 1,
             shake = false,
@@ -295,7 +278,7 @@ internal static class WarBoxEWE
             damage = 500,
             apply_force = true,
             explode_and_set_random_fire = true,
-            explode_tile = true,
+            explode_tile = false,
             explosion_pixel_effect = true,
             explode_strength = 4,
             shake = false,
@@ -347,6 +330,26 @@ internal static class WarBoxEWE
             sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "rpg",
+            terraform_range = 4,
+            can_be_blocked = false,
+            can_be_collided = false,
+        });
+
+         AssetManager.projectiles.add(new ProjectileAsset
+        {
+            id = "drop_bomb",
+            speed = 10f,
+            texture = "pr_bomb",
+            look_at_target = true,
+            texture_shadow = "shadows/projectiles/shadow_arrow",
+            end_effect = "fx_fireball_explosion",
+            hit_shake = false,
+            scale_start = 0.08f,
+            scale_target = 0.08f,
+            draw_light_area = false,
+            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
+            sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
+            terraform_option = "soft_grenade",
             terraform_range = 5,
             can_be_blocked = false,
             can_be_collided = false,
@@ -367,7 +370,7 @@ internal static class WarBoxEWE
             sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
-            terraform_range = 6,
+            terraform_range = 4,
             can_be_blocked = false,
             can_be_collided = false,
         });
@@ -435,6 +438,10 @@ internal static class WarBoxEWE
 
         gun.setCost(goldCost, resource1, resource1Cost, resource2, resource2Cost);
         gun.gameplay_sprites = new Sprite[] { SpriteTextureLoader.getSprite("weapons/" + id) };
+
+        AssetManager.items.equipment_by_subtypes["gun"].Add(gun);
+        AssetManager.items.pot_equipment_by_groups_all["firearm"].Add(gun);
+        AssetManager.items.pot_equipment_by_groups_unlocked["firearm"].Add(gun);
 
         return gun;
     }

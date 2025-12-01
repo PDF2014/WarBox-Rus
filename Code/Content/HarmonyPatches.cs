@@ -61,7 +61,7 @@ internal static class WarBoxPatches
         float pMaxExclusive = Toolbox.DistVec2Float(actor.current_position, vector) / num3 * 0.25f;
         pMaxExclusive = Randy.randomFloat(0f, pMaxExclusive);
         pMaxExclusive = Mathf.Clamp(pMaxExclusive, 0f, 2f);
-        float pStartPosZ = (actor.getActorAsset().very_high_flyer == true) ? 8f : 0.6f * scaleMod;//;
+        float pStartPosZ = (actor.getActorAsset().very_high_flyer == true) ? 3f : 0.6f * scaleMod;
         float pTargetZ = 0f;
         float value = 0f;
         for (int i = 0; i < num2; i++)
@@ -105,6 +105,7 @@ public static class Patch_CityUpdate //adding units according to population
         if (!WarBox.warbox_factories) return;
         if (__instance == null) return;
         if (!times.ContainsKey(__instance.id)) times[__instance.id] = 20f;
+        if (!__instance.isAlive() == false) return;
 
         if (times[__instance.id] > 0)
         {
@@ -130,12 +131,16 @@ public static class Patch_CityUpdate //adding units according to population
             else if (buildingAsset.type == "type_lightfactory")
             {
                 float random = Randy.random();
-                if (random >= 0.9f) can_produce.Add(building.current_tile, "warbox_spg");
+                if (random >= 0.6f) can_produce.Add(building.current_tile, "warbox_spg");
                 else can_produce.Add(building.current_tile, "warbox_apc");
             }
             else if (buildingAsset.type == "type_lightaircraftfactory")
             {
                 can_produce.Add(building.current_tile, "warbox_helicopter");
+            }
+            else if (buildingAsset.type == "type_heavyaircraftfactory")
+            {
+                can_produce.Add(building.current_tile, "warbox_bomber");
             }
         }
 
