@@ -41,6 +41,8 @@
     "light_factory_description": "Создаёт завод, производящий лёгкую технику",
     "light_aircraft_factory": "Лёгкий авиазавод",
     "light_aircraft_factory_description": "Создаёт завод, производящий лёгкие летательные аппараты",
+    "heavy_aircraft_factory": "Тяжёлый авизавод",
+    "heavy_aircraft_factory_description": "Создаёт завод, производящий тяжёлые летательные аппараты",
 
     "spawn_tank": "Танк",
     "spawn_tank_description": "Создаёт сильно бронированный танк",
@@ -52,6 +54,10 @@
     "spawn_spg_description": "Создаёт самоходную артиллерийскую установку",
     "spawn_helicopter": "Вертолёт",
     "spawn_helicopter_description": "Создаёт высоко летающий вертолёт",
+    "spawn_bomber": "Бамбардировщик",
+    "spawn_bomber_description": "Создайте высоко летающий бомбардировщик, сбрасывающий разрушительные бомбы.",
+    "spawn_fighter": "Истрибитель",
+    "spawn_fighter_description": "Создайте высоко летящий истребитель.",
 
     "spawn_warrior_pistol": "Стрелок",
     "spawn_warrior_pistol_description": "Создаёт лёгкого стрелка",
