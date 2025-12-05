@@ -305,7 +305,7 @@ internal static class WarBoxActors
 
         ActorAsset bomber = AssetManager.actor_library.clone("warbox_bomber", "warbox_helicopter");
         bomber.icon = "actors/bomber";
-        bomber.texture_asset = new ActorTextureSubAsset("actors/fighter/", false);
+        bomber.texture_asset = new ActorTextureSubAsset("actors/bomber/", false);
         bomber.name_locale = "spawn_bomber";
         bomber.power_id = "spawn_bomber";
         bomber.base_stats["mass_2"] = 2000f;
@@ -322,8 +322,8 @@ internal static class WarBoxActors
         bomber.animation_idle = ActorAnimationSequences.idle_0_3;
         bomber.animation_swim = ActorAnimationSequences.idle_0_3;
         bomber.animation_speed_based_on_walk_speed = false;
-        bomber.animation_walk_speed = 0.5f;
-        bomber.animation_idle_speed = 0.5f;
+        bomber.animation_walk_speed = 0.95f;
+        bomber.animation_idle_speed = 0.95f;
         bomber.base_stats["damage"] = 1000f;
         bomber.base_stats["knockback"] = 2f;
         bomber.base_stats["accuracy"] = 0.1f;
@@ -361,8 +361,8 @@ internal static class WarBoxActors
         fighter.animation_idle = ActorAnimationSequences.idle_0_3;
         fighter.animation_swim = ActorAnimationSequences.idle_0_3;
         fighter.animation_speed_based_on_walk_speed = false;
-        fighter.animation_walk_speed = 0.5f;
-        fighter.animation_idle_speed = 0.5f;
+        fighter.animation_walk_speed = 0.95f;
+        fighter.animation_idle_speed = 0.95f;
         fighter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("fighter_name");
         fighter.addTrait("atgm_launcher");
         fighter.texture_asset.loadShadow();
