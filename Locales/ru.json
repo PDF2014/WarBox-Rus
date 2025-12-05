@@ -8,6 +8,8 @@
     "warbox_enable_factories Description": "Переключить производство военных юнитов в городах",
     "warbox_army_limits": "Ограничение армии",
     "warbox_army_limits Description": "Включить лимит количества армий",
+    "warbox_army_per_pop": "Население на одного солдата",
+    "warbox_army_per_pop Description": "Количество населения, необходимое для появления одного солдата",
 
     "culture_trait_craft_firearms": "Огнестрельное оружие",
     "culture_trait_craft_firearms_info": "Позволяет производить огнестрельное оружие",
@@ -80,3 +82,4 @@
     "artillery_strike": "Артиллерия",
     "task_unit_artillery_strike": "Артиллерийский удар"
 }
+
