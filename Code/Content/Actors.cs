@@ -284,9 +284,9 @@ internal static class WarBoxActors
         helicopter.can_flip = true;
         helicopter.has_advanced_textures = false;
         helicopter.color = white;
-        helicopter.animation_walk = ActorAnimationSequences.walk_0_3;
-        helicopter.animation_idle = ActorAnimationSequences.walk_0_3;
-        helicopter.animation_swim = ActorAnimationSequences.walk_0_3;
+        helicopter.animation_walk = ActorAnimationSequences.idle_0_3;
+        helicopter.animation_idle = ActorAnimationSequences.idle_0_3;
+        helicopter.animation_swim = ActorAnimationSequences.idle_0_3;
         helicopter.actor_size = ActorSize.S17_Dragon;
         helicopter.name_locale = "spawn_helicopter";
         helicopter.power_id = "spawn_helicopter";
@@ -304,14 +304,14 @@ internal static class WarBoxActors
         helicopter.texture_asset.loadShadow();
 
         ActorAsset bomber = AssetManager.actor_library.clone("warbox_bomber", "warbox_helicopter");
-        bomber.icon = "actors/fighter";
+        bomber.icon = "actors/bomber";
         bomber.texture_asset = new ActorTextureSubAsset("actors/fighter/", false);
         bomber.name_locale = "spawn_bomber";
         bomber.power_id = "spawn_bomber";
         bomber.base_stats["mass_2"] = 2000f;
         bomber.base_stats["stamina"] = 1000f;
         bomber.base_stats["scale"] = 0.2f;
-        bomber.base_stats["size"] = 1f;
+        bomber.base_stats["size"] = 1.5f;
         bomber.base_stats["mass"] = 1000f;
         bomber.base_stats["health"] = 1500f;
         bomber.base_stats["speed"] = 60f;
@@ -322,8 +322,8 @@ internal static class WarBoxActors
         bomber.animation_idle = ActorAnimationSequences.idle_0_3;
         bomber.animation_swim = ActorAnimationSequences.idle_0_3;
         bomber.animation_speed_based_on_walk_speed = false;
-        bomber.animation_walk_speed = 0.25f;
-        bomber.animation_idle_speed = 0.25f;
+        bomber.animation_walk_speed = 0.5f;
+        bomber.animation_idle_speed = 0.5f;
         bomber.base_stats["damage"] = 1000f;
         bomber.base_stats["knockback"] = 2f;
         bomber.base_stats["accuracy"] = 0.1f;
@@ -361,9 +361,10 @@ internal static class WarBoxActors
         fighter.animation_idle = ActorAnimationSequences.idle_0_3;
         fighter.animation_swim = ActorAnimationSequences.idle_0_3;
         fighter.animation_speed_based_on_walk_speed = false;
-        fighter.animation_walk_speed = 0.25f;
-        fighter.animation_idle_speed = 0.25f;
+        fighter.animation_walk_speed = 0.5f;
+        fighter.animation_idle_speed = 0.5f;
         fighter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("fighter_name");
+        fighter.addTrait("atgm_launcher");
         fighter.texture_asset.loadShadow();
     }
 }

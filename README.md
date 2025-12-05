@@ -14,3 +14,5 @@ A Worldbox mod that adds primarily warfare content.
 * APC becomes functional and carries troops
 * vehicle remnants
 * actual army control
+* flamethrower
+* new armors and equipments

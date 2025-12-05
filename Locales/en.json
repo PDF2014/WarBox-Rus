@@ -8,6 +8,8 @@
     "warbox_enable_factories Description": "Toggle the production of military units in cities",
     "warbox_army_limits": "Enable army limits",
     "warbox_army_limits Description": "Enable armies count cap",
+    "warbox_army_per_pop": "Population per army unit",
+    "warbox_army_per_pop Description": "Number of population required to spawn a military unit",
 
     "culture_trait_craft_firearms": "Gun",
     "culture_trait_craft_firearms_info": "Allows for the production of guns",

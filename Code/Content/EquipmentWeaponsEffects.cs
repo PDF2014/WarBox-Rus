@@ -106,7 +106,7 @@ internal static class WarBoxEWE
         EquipmentAsset smg = CreateGun(
             id: "smg",
             stats: stats_smg,
-            equipment_value: 65,
+            equipment_value: 67,
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
@@ -125,7 +125,7 @@ internal static class WarBoxEWE
         EquipmentAsset rifle = CreateGun(
             id: "rifle",
             stats: stats_rifle,
-            equipment_value: 70,
+            equipment_value: 65,
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
@@ -164,7 +164,7 @@ internal static class WarBoxEWE
         EquipmentAsset sniperrifle = CreateGun(
             id: "sniperrifle",
             stats: stats_sniperrifle,
-            equipment_value: 65,
+            equipment_value: 67,
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,

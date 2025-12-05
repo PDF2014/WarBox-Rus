@@ -13,6 +13,15 @@
             "IconPath": "ui/Icons/iconArmyList",
             "BoolVal": true,
             "Callback": "WarBoxActions:ToggleArmyLimit"
+        },
+        {
+            "Id": "warbox_army_per_pop",
+            "Type": "INT_SLIDER",
+            "IconPath": "ui/Icons/iconArmyList",
+            "IntVal": 25,
+            "MinIntVal": 5,
+            "MaxIntVal": 100,
+            "Callback": "WarBoxActions:UpdateArmyPerPop"
         }
     ]
 }

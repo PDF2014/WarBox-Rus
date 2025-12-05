@@ -19,6 +19,7 @@ public class WarBox : BasicMod<WarBox>, IReloadable
 
     public static bool warbox_factories = true;
     public static bool warbox_army_limits = true;
+    public static int warbox_army_per_pop = 25;
 
     [Hotfixable]
     public void Reload()

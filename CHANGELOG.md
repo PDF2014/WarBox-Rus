@@ -10,3 +10,4 @@
 + balanced auto rifle
 the assets in this mod need lots of metal, so if you want you can add some ore drops on the kingdoms
 + realistic aircraft height, people shoot the helicopters instead of the shadow
++ added configuration to control how many vehicles per unit population

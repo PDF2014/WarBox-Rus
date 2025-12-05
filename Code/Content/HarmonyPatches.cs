@@ -105,7 +105,7 @@ public static class Patch_CityUpdate //adding units according to population
         if (!WarBox.warbox_factories) return;
         if (__instance == null) return;
         if (!times.ContainsKey(__instance.id)) times[__instance.id] = 20f;
-        if (!__instance.isAlive() == false) return;
+        if (__instance.isAlive() == false) return;
 
         if (times[__instance.id] > 0)
         {
@@ -122,25 +122,27 @@ public static class Patch_CityUpdate //adding units according to population
             BuildingAsset buildingAsset = building.asset;
             if (buildingAsset == null) continue;
 
-            if (buildingAsset.type == "type_heavyfactory")
+            if (buildingAsset.type == "type_heavyfactory") // heavy vehicles
             {
                 float random = Randy.random();
                 if (random >= 0.55f) can_produce.Add(building.current_tile, "warbox_ifv");
                 else can_produce.Add(building.current_tile, "warbox_tank");
             }
-            else if (buildingAsset.type == "type_lightfactory")
+            else if (buildingAsset.type == "type_lightfactory") // light vehicles
             {
                 float random = Randy.random();
                 if (random >= 0.6f) can_produce.Add(building.current_tile, "warbox_spg");
                 else can_produce.Add(building.current_tile, "warbox_apc");
             }
-            else if (buildingAsset.type == "type_lightaircraftfactory")
+            else if (buildingAsset.type == "type_lightaircraftfactory") // light helicopters
             {
                 can_produce.Add(building.current_tile, "warbox_helicopter");
             }
-            else if (buildingAsset.type == "type_heavyaircraftfactory")
+            else if (buildingAsset.type == "type_heavyaircraftfactory") // heavy planes
             {
-                can_produce.Add(building.current_tile, "warbox_bomber");
+                float random = Randy.random();
+                if (random >= 0.6f) can_produce.Add(building.current_tile, "warbox_bomber");
+                else can_produce.Add(building.current_tile, "warbox_fighter");
             }
         }
 
@@ -149,11 +151,11 @@ public static class Patch_CityUpdate //adding units according to population
         int people = __instance.getPopulationPeople();
         int total_vehicles = 0;
 
-        int vehicle_count = Math.Max(people / 25, 0);
+        int vehicle_count = Math.Max(people / WarBox.warbox_army_per_pop, 0);
         foreach (Actor actor in __instance.units) if (actor.hasTrait("warbox_unit")) total_vehicles++;
 
 
-        if (total_vehicles > vehicle_count) return;
+        if (total_vehicles >= vehicle_count) return;
 
         foreach (KeyValuePair<WorldTile, string> pair in can_produce)
         {
