@@ -20,3 +20,8 @@ A Worldbox mod that adds primarily warfare content.
 * heavy vehicles remove biome
 * better soldier ai
 * blood
+* Research lab
+* Soldier roles (Medics [can restore health and cure diseases], Assault units [can shoot while running], Sniper [prioritize maintaining distance from all enemies rather than targeting one and rushing into enemy territory])
+* Army branches (Land, Sea, and Air forces)
+* Army rally call (transfer current tasks to nearby units and directly follow the army leader)
+* Kingdom trait "Border Blockade" (prevents enemy armies from directly entering the territory, with the nearest friendly forces responding quickly if they do)
