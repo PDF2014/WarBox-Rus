@@ -79,8 +79,6 @@
     "spawn_warrior_rpg": "炮兵",
     "spawn_warrior_rpg_description": "生成一名手持火箭筒的士兵",
 
-    "auto_layout_window_text_1_key": "我不知道該放什麼內容",
-    "auto_layout_window_text_2_key": "所以這裏是一些佔位文本",
     "cant_spawn_unit_kingdom": "請將單位放置在在王國境內",
     "artillery_strike": "火炮打擊",
     "task_unit_artillery_strike": "火炮打擊"

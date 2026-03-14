@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ai.behaviours;
 using NeoModLoader.api.attributes;
 using UnityEngine;
+using WarBox.Behaviour;
 
 namespace WarBox.Content;
 
@@ -35,45 +36,66 @@ internal static class WarBoxEWE
         };
         AssetManager.combat_action_library.add(atgm);
 
-        BehaviourTaskActor idkyet = new BehaviourTaskActor
-        {
-            id = "artillery_strike"
-        };
-        AssetManager.tasks_actor.add(idkyet);
+        // BehaviourTaskActor idkyet = new BehaviourTaskActor
+        // {
+        //     id = "artillery_strike"
+        // };
+        // AssetManager.tasks_actor.add(idkyet);
 
-        DecisionAsset artillery_strike = new DecisionAsset
+        // DecisionAsset artillery_strike = new DecisionAsset
+        // {
+        //     id = "artillery_strike",
+        //     priority = NeuroLayer.Layer_4_Critical,
+        //     unique = true,
+        //     cooldown = 10,
+        //     weight = 1f,
+        //     path_icon = "ui/icons/actors/spg",
+        //     task_id = "artillery_strike",
+        //     action_check_launch = delegate (Actor pActor)
+        //     {
+        //         if (pActor == null) return false;
+        //         if (!pActor.isAlive() || !pActor.kingdom.hasEnemies()) return false;
+        //         if (pActor.getStamina() < 100) return false;
+        //         if (!pActor.isWarrior()) return false;
+        //         return true;
+        //         //return WarBoxActions.LaunchArtilleryStrike(pActor, null);
+        //     }
+        // };
+        // AssetManager.decisions_library.add(artillery_strike);
+
+        DecisionAsset warBoatAttackDecision = new DecisionAsset
         {
-            id = "artillery_strike",
-            priority = NeuroLayer.Layer_4_Critical,
-            unique = true,
+            id = "warBoatAttackDecision",
+            priority = NeuroLayer.Layer_1_Low,
+            path_icon = "ui/icons/WarBoat",
             cooldown = 1,
-            weight = 1f,
-            path_icon = "ui/icons/actors/spg",
-            task_id = "artillery_strike",
-            action_check_launch = delegate (Actor pActor)
-            {
-                return WarBoxActions.LaunchArtilleryStrike(pActor, null);
-            }
+            unique = true,
+            weight = 1f
         };
-        AssetManager.decisions_library.add(artillery_strike);
+        AssetManager.decisions_library.add(warBoatAttackDecision);
+
+        BehaviourTaskActor warBoatAttackTask = new BehaviourTaskActor
+        {
+            id = "warBoatAttackDecision"
+        };
+        warBoatAttackTask.setIcon("ui/icons/WarBoat");
+        warBoatAttackTask.addBeh(new BehWarBoatFindTarget());
+        warBoatAttackTask.addBeh(new BehGoToTileTarget());
+        warBoatAttackTask.addBeh(new BehWarBoatAttack());
+        warBoatAttackTask.addBeh(new BehEndJob());
+        AssetManager.tasks_actor.add(warBoatAttackTask);
     }
 
     private static void AddGuns()
     {
         if (!AssetManager.items.equipment_by_subtypes.ContainsKey("gun"))
-        {
             AssetManager.items.equipment_by_subtypes.Add("gun", new List<EquipmentAsset>());
-        }
 
         if (!AssetManager.items.pot_equipment_by_groups_all.ContainsKey("firearm"))
-        {
             AssetManager.items.pot_equipment_by_groups_all.Add("firearm", new List<EquipmentAsset>());
-        }
 
         if (!AssetManager.items.pot_equipment_by_groups_unlocked.ContainsKey("firearm"))
-        {
             AssetManager.items.pot_equipment_by_groups_unlocked.Add("firearm", new List<EquipmentAsset>());
-        }
 
         // Pistol 
         BaseStats stats_pistol = new BaseStats();
@@ -87,7 +109,7 @@ internal static class WarBoxEWE
         EquipmentAsset pistol = CreateGun(
             id: "pistol",
             stats: stats_pistol,
-            equipment_value: 60,
+            equipment_value: 700,
             name: "Pistol",
             description: "A very handy semi-automatic firearm",
             goldCost: 0,
@@ -106,12 +128,12 @@ internal static class WarBoxEWE
         EquipmentAsset smg = CreateGun(
             id: "smg",
             stats: stats_smg,
-            equipment_value: 65,
+            equipment_value: 725,
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
-            resource2: "wood", resource2Cost: 1
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Rifle
@@ -125,11 +147,11 @@ internal static class WarBoxEWE
         EquipmentAsset rifle = CreateGun(
             id: "rifle",
             stats: stats_rifle,
-            equipment_value: 66,
+            equipment_value: 750,
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
+            resource1: "common_metals", resource1Cost: 2,
             resource2: "wood", resource2Cost: 2
         );
 
@@ -144,7 +166,7 @@ internal static class WarBoxEWE
         EquipmentAsset autorifle = CreateGun(
             id: "autorifle",
             stats: stats_autorifle,
-            equipment_value: 68,
+            equipment_value: 775,
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
@@ -164,12 +186,12 @@ internal static class WarBoxEWE
         EquipmentAsset sniperrifle = CreateGun(
             id: "sniperrifle",
             stats: stats_sniperrifle,
-            equipment_value: 65,
+            equipment_value: 750,
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Shotgun (does not actually replace ingame shotgun)
@@ -183,11 +205,11 @@ internal static class WarBoxEWE
         EquipmentAsset shotgun = CreateGun(
             id: "shotgunreplace",
             stats: stats_shotgun,
-            equipment_value: 60,
+            equipment_value: 650,
             name: "Shotgun",
             description: "A shotgun firing many pellets, dangerous up close",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
+            resource1: "common_metals", resource1Cost: 2,
             resource2: "wood", resource2Cost: 2
         );
 
@@ -203,7 +225,7 @@ internal static class WarBoxEWE
         EquipmentAsset rpg = CreateGun(
             id: "rpg",
             stats: stats_rpg,
-            equipment_value: 55,
+            equipment_value: 725,
             name: "Rocket Launcher",
             projectile: "rpg_projectile",
             description: "A launcher firing rocket propelled grenades",
@@ -335,7 +357,7 @@ internal static class WarBoxEWE
             can_be_collided = false,
         });
 
-         AssetManager.projectiles.add(new ProjectileAsset
+        AssetManager.projectiles.add(new ProjectileAsset
         {
             id = "drop_bomb",
             speed = 10f,

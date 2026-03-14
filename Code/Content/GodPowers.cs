@@ -7,11 +7,15 @@ namespace WarBox.Content;
 
 internal static class WarBoxGodPowers
 {
+    private static FieldInfo dropField;
+
     public static void Init()
     {
+        dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
+
         AddDrops();
         AddPowers();
-        Cache();
+        //Cache();
     }
 
     private static void AddDrops()
@@ -23,16 +27,18 @@ internal static class WarBoxGodPowers
         CreateDrop("spawn_heavy_factory", "heavy_factory");
         CreateDrop("spawn_light_aircraft_factory", "light_aircraft_factory");
         CreateDrop("spawn_heavy_aircraft_factory", "heavy_aircraft_factory");
+        CreateDrop("spawn_shipyard", "shipyard");
     }
-
+    
     private static void AddPowers()
     {
-        CreateBuilder("bunker_builder", "Bunker", "spawn_bunker");
-        CreateBuilder("artillery_bunker_builder", "Artillery Bunker", "spawn_artillery_bunker");
-        CreateBuilder("heavy_factory_builder", "Heavy Factory", "spawn_heavy_factory");
-        CreateBuilder("light_factory_builder", "Light Factory", "spawn_light_factory");
-        CreateBuilder("light_aircraft_factory_builder", "Light Aircraft Factory", "spawn_light_aircraft_factory");
-        CreateBuilder("heavy_aircraft_factory_builder", "Heavy Aircraft Factory", "spawn_heavy_aircraft_factory");
+        CreateBuilderPower("bunker_builder", "Bunker", "spawn_bunker");
+        CreateBuilderPower("artillery_bunker_builder", "Artillery Bunker", "spawn_artillery_bunker");
+        CreateBuilderPower("heavy_factory_builder", "Heavy Factory", "spawn_heavy_factory");
+        CreateBuilderPower("light_factory_builder", "Light Factory", "spawn_light_factory");
+        CreateBuilderPower("light_aircraft_factory_builder", "Light Aircraft Factory", "spawn_light_aircraft_factory");
+        CreateBuilderPower("heavy_aircraft_factory_builder", "Heavy Aircraft Factory", "spawn_heavy_aircraft_factory");
+        CreateBuilderPower("shipyard_builder", "Shipyard", "spawn_shipyard");
 
         CreateVehiclePower("spawn_tank", "warbox_tank");
         CreateVehiclePower("spawn_apc", "warbox_apc");
@@ -49,21 +55,6 @@ internal static class WarBoxGodPowers
         CreateWarriorPower("spawn_warrior_autorifle", "autorifle");
         CreateWarriorPower("spawn_warrior_sniperrifle", "sniperrifle");
         CreateWarriorPower("spawn_warrior_rpg", "rpg");
-    }
-
-    private static void Cache()
-    {
-        FieldInfo dropField = typeof(GodPower).GetField("cached_drop_asset", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (dropField != null)
-        {
-            dropField.SetValue(AssetManager.powers.get("bunker_builder"), AssetManager.drops.get("spawn_bunker"));
-            dropField.SetValue(AssetManager.powers.get("artillery_bunker_builder"), AssetManager.drops.get("spawn_artillery_bunker"));
-            
-            dropField.SetValue(AssetManager.powers.get("light_factory_builder"), AssetManager.drops.get("spawn_light_factory"));
-            dropField.SetValue(AssetManager.powers.get("heavy_factory_builder"), AssetManager.drops.get("spawn_heavy_factory"));
-            dropField.SetValue(AssetManager.powers.get("light_aircraft_factory_builder"), AssetManager.drops.get("spawn_light_aircraft_factory"));
-            dropField.SetValue(AssetManager.powers.get("heavy_aircraft_factory_builder"), AssetManager.drops.get("spawn_heavy_aircraft_factory"));
-        }
     }
 
     private static bool StuffDrop(WorldTile pTile, GodPower pPower)
@@ -196,7 +187,7 @@ internal static class WarBoxGodPowers
         vehicle.click_action = new PowerActionWithID(SpawnVehicle);
     }
     
-    private static void CreateBuilder(string id, string name, string drop_id)
+    private static void CreateBuilderPower(string id, string name, string drop_id)
     {
         GodPower builder = AssetManager.powers.clone(id, "$template_drop_building$");
         builder.name = name;
@@ -209,6 +200,7 @@ internal static class WarBoxGodPowers
         {
             return (bool)AssetManager.powers.CallMethod("loopWithCurrentBrushPowerForDropsFull", pTile, pPower);
         });
+        dropField.SetValue(AssetManager.powers.get(id), AssetManager.drops.get(drop_id));
     }
 
     private static void CreateDrop(string id, string building_id){

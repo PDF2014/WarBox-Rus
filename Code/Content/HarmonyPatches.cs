@@ -75,10 +75,7 @@ internal static class WarBoxPatches
             }
             Vector3 newPoint = Toolbox.getNewPoint(actor.current_position.x, actor.current_position.y, vector2.x, vector2.y, num * scaleMod);
             newPoint.y += actor.getHeight();
-            if (target != null && target.isInAir())
-            {
-                pTargetZ = target.getHeight();
-            }
+            if (target != null && target.isInAir()) pTargetZ = target.getHeight();
             value = World.world.projectiles.spawn(actor, target, projectile_id, newPoint, vector2, pTargetZ, pStartPosZ, pData.kill_action, pData.kingdom).getLaunchAngle();
         }
         actor.spawnSlash(vector, null, 2f, pTargetZ, (actor.getActorAsset().very_high_flyer == true) ? pStartPosZ : 0f, value);
@@ -87,10 +84,7 @@ internal static class WarBoxPatches
 
     private static bool city_idle_walking(Actor pActor)
     {
-        if (!pActor.hasCity())
-        {
-            return false;
-        }
+        if (!pActor.hasCity()) return false;
         return pActor.city.hasZones();
     }
 }
@@ -103,9 +97,15 @@ public static class Patch_CityUpdate //adding units according to population
     static void Prefix(City __instance, float pElapsed)
     {
         if (!WarBox.warbox_factories) return;
+        if (World.world.isPaused()) return;
         if (__instance == null) return;
         if (!times.ContainsKey(__instance.id)) times[__instance.id] = 20f;
-        if (__instance.isAlive() == false) return;
+
+        if (__instance.isAlive() == false)
+        {
+            times.Remove(__instance.id);
+            return;
+        }
 
         if (times[__instance.id] > 0)
         {
@@ -122,24 +122,30 @@ public static class Patch_CityUpdate //adding units according to population
             BuildingAsset buildingAsset = building.asset;
             if (buildingAsset == null) continue;
 
-            if (buildingAsset.type == "type_heavyfactory") // heavy vehicles
+            switch (buildingAsset.type)
             {
-                if (Randy.randomChance(0.55f)) can_produce.Add(building.current_tile, "warbox_ifv");
-                else can_produce.Add(building.current_tile, "warbox_tank");
-            }
-            else if (buildingAsset.type == "type_lightfactory") // light vehicles
-            {
-                if (Randy.randomChance(0.6f)) can_produce.Add(building.current_tile, "warbox_spg");
-                else can_produce.Add(building.current_tile, "warbox_apc");
-            }
-            else if (buildingAsset.type == "type_lightaircraftfactory") // light helicopters
-            {
-                can_produce.Add(building.current_tile, "warbox_helicopter");
-            }
-            else if (buildingAsset.type == "type_heavyaircraftfactory") // heavy planes
-            {
-                if (Randy.randomChance(0.6f)) can_produce.Add(building.current_tile, "warbox_bomber");
-                else can_produce.Add(building.current_tile, "warbox_fighter");
+                case "type_lightfactory": // light vehicles
+                    if (Randy.randomChance(0.6f)) can_produce.Add(building.current_tile, "warbox_spg");
+                    else can_produce.Add(building.current_tile, "warbox_apc");
+                    break;
+                case "type_heavyfactory": // heavy vehicles
+                    if (Randy.randomChance(0.55f)) can_produce.Add(building.current_tile, "warbox_ifv");
+                    else can_produce.Add(building.current_tile, "warbox_tank");
+                    break;
+                case "type_lightaircraftfactory": // light helicopters
+                    can_produce.Add(building.current_tile, "warbox_helicopter");
+                    break;
+                case "type_heavyaircraftfactory": // heavy planes
+                    if (Randy.randomChance(0.6f)) can_produce.Add(building.current_tile, "warbox_bomber");
+                    else can_produce.Add(building.current_tile, "warbox_fighter");
+                    break;
+                case "type_shipyard": // boats
+                    Building docks = __instance.getBuildingOfType("type_docks");
+                    if (docks == null) break;
+                    can_produce.Add(docks.current_tile, "warbox_destroyer");
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -148,10 +154,10 @@ public static class Patch_CityUpdate //adding units according to population
         int people = __instance.getPopulationPeople();
         int total_vehicles = 0;
 
-        int vehicle_count = Math.Max(people / WarBox.warbox_army_per_pop, 0);
+        int vehicle_count = people / WarBox.warbox_army_per_pop;
+        if (vehicle_count <= 0) return;
+
         foreach (Actor actor in __instance.units) if (actor.hasTrait("warbox_unit")) total_vehicles++;
-
-
         if (total_vehicles >= vehicle_count) return;
 
         foreach (KeyValuePair<WorldTile, string> pair in can_produce)
@@ -163,8 +169,8 @@ public static class Patch_CityUpdate //adding units according to population
 
             ActorAsset asset = AssetManager.actor_library.get(pair.Value);
             if (asset == null) continue;
-            if (__instance.getResourcesAmount("common_metals") < asset.cost.common_metals) continue;
-            __instance.takeResource("common_metals", asset.cost.common_metals);
+            if (!__instance.hasEnoughResourcesFor(asset.cost)) continue;
+            __instance.spendResourcesForBuildingAsset(asset.cost);
 
             Actor unit = World.world.units.createNewUnit(
                 pair.Value,
@@ -183,13 +189,49 @@ public static class Patch_CityUpdate //adding units according to population
     }
 }
 
-[HarmonyPatch(typeof(City), "checkIfWarriorStillOk")]
+[HarmonyPatch(typeof(CityBehBuild), nameof(CityBehBuild.canUseBuildAsset))]
+public static class Patch_CityGetLimitOfBuildingsType_Patch
+{
+    readonly static List<string> types = new List<string> { "type_lightfactory", "type_heavyfactory", "type_lightaircraftfactory", "type_heavyaircraftfactory", "type_shipyard" };
+
+    static void Postfix(BuildOrder pBuildAsset, City pCity, ref bool __result)
+    {
+        BuildingAsset buildingAsset = pBuildAsset.getBuildingAsset(pCity);
+        if (types.Contains(buildingAsset.type) && pCity.hasCulture() && !pCity.culture.hasTrait("vehicle_factories")) __result = false;
+    }
+}
+
+[HarmonyPatch(typeof(City), "isArmyFull")]
 public static class Patch_CityCheckWarrior
 {
-    static bool Prefix()
+    static void Postfix(City __instance, ref bool __result)
     {
-        if (WarBox.warbox_army_limits == true) return true;
-        return false;
+        if (WarBox.warbox_army_limits == false) __result = false;
+    }
+}
+
+[HarmonyPatch(typeof(City), "setLeader")]
+public static class Patch_City_Exclude_WarBoxUnit_Leader
+{
+    static bool Prefix(City __instance, Actor pActor, bool pNew)
+    {
+        if (pActor.hasTrait("warbox_unit"))
+            return false;
+        return true;
+    }
+}
+
+[HarmonyPatch(typeof(City), nameof(City.findKingdomToJoinAfterCapture))]
+public static class Patch_City_FindKingdomToJoinAfterCapture
+{
+    static bool Prefix(City __instance, Kingdom pKingdom, ListPool<War> pWars, ref Kingdom __result)
+    {
+        if (WarBox.warbox_force_capture == true)
+        {
+            __result = pKingdom;
+            return false;
+        }
+        return true;
     }
 }
 
@@ -222,21 +264,23 @@ public static class Patch_Actor_AddStatusEffect_DontGetAngry // idiots shoot eac
     }
 }
 
+[HarmonyPatch(typeof(Actor), nameof(Actor.setAttackTarget))]
+public static class Actor_setAttackTarget_Patch
+{
+    static bool Prefix(Actor __instance, BaseSimObject pAttackTarget)
+    {
+        bool flag1 = pAttackTarget.a != null; // has actor
+        bool flag2 = pAttackTarget.kingdom == __instance.kingdom; // is same kingdom
+        bool flag3 = __instance.isWarrior(); // is warrior
+        bool flag4 = __instance.hasTrait("warbox_unit"); // is a vehicle
+        return !(flag1 && flag2 && (flag3 || flag4)); // don't attack if has actor, same kingdom and is warrior or vehicle
+    }
+}
+
 [HarmonyPatch(typeof(Kingdom), "setKing")]
 public static class Patch_Kingdom_Exclude_WarBoxUnit_King
 {
     static bool Prefix(Kingdom __instance, Actor pActor, bool pFromLoad)
-    {
-        if (pActor.hasTrait("warbox_unit"))
-            return false;
-        return true;
-    }
-}
-
-[HarmonyPatch(typeof(City), "setLeader")]
-public static class Patch_City_Exclude_WarBoxUnit_Leader
-{
-    static bool Prefix(City __instance, Actor pActor, bool pNew)
     {
         if (pActor.hasTrait("warbox_unit"))
             return false;
@@ -435,5 +479,84 @@ public static class Patch_ItemCrafting_ExcludeWarBoxUnit
             return false;
 
         return true;
+    }
+}
+
+[HarmonyPatch(typeof(Docks))]
+public static class Patch_Docks_BuildBoatFromHere
+{
+    // [HarmonyPrefix]
+    // [HarmonyPatch("buildBoatFromHere")]
+    // static bool buildBoat(Docks __instance, City pCity, ref Actor __result)
+    // {
+    //     Building shipyard = __instance.building.city.getBuildingOfType("type_shipyard");
+    //     if (shipyard != null)
+    //     {
+    //         List<string> availableBoatTypes = new List<string>();
+
+    //         if (__instance.countBoatTypes("destroyer") < 10)
+    //             availableBoatTypes.Add("destroyer");
+
+    //         if (availableBoatTypes.Count == 0)
+    //         {
+    //             __result = null;
+    //             return false;
+    //         }
+
+    //         if (!pCity.hasEnoughResourcesFor(new ConstructionCost(0, 0, 0, 1)))
+    //         {
+    //             __result = null;
+    //             return false;
+    //         }
+
+    //         if (__instance.tiles_ocean.Count == 0)
+    //         {
+    //             __instance.recalculateOceanTiles();
+    //             __result = null;
+    //             return false;
+    //         }
+
+    //         WorldTile tTile = __instance.tiles_ocean.GetRandom();
+    //         if (!tTile.region.island.goodForDocks())
+    //         {
+    //             __result = null;
+    //             return false;
+    //         }
+
+    //         string selectedBoatAssetId = availableBoatTypes[Randy.randomInt(0, availableBoatTypes.Count)];
+    //         Actor tNewBoat = World.world.units.createNewUnit(selectedBoatAssetId, tTile);
+
+    //         if (tNewBoat == null)
+    //         {
+    //             __result = null;
+    //             return false;
+    //         }
+
+    //         __instance.addBoatToDock(tNewBoat);
+    //         tNewBoat.setHomeBuilding(__instance.building);
+    //         tNewBoat.setKingdom(pCity.kingdom);
+    //         tNewBoat.setCity(pCity);
+    //         //pCity.makeWarrior(tNewBoat);
+    //         pCity.spendResourcesForBuildingAsset(tNewBoat.asset.cost);
+    //         __result = tNewBoat;
+    //         return false;
+    //     }
+    //     return true;
+    // }
+
+    [HarmonyPrefix]
+    [HarmonyPatch("isFull")]
+    public static bool isFull(Docks __instance, string pType, ref bool __result)
+    {
+        __result = __instance.countBoatTypes(pType) >= 1000;
+        return false;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch("isOverfilled")]
+    public static bool isOverfilled(Docks __instance, string pType, ref bool __result)
+    {
+        __result = __instance.countBoatTypes(pType) > 1000;
+        return false;
     }
 }

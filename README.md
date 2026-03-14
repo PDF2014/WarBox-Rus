@@ -19,7 +19,6 @@ A Worldbox mod that adds primarily warfare content.
 * new armors and equipments
 * heavy vehicles remove biome
 * better soldier ai
-* blood
 * Research lab
 * Soldier roles (Medics [can restore health and cure diseases], Assault units [can shoot while running], Sniper [prioritize maintaining distance from all enemies rather than targeting one and rushing into enemy territory])
 * Army branches (Land, Sea, and Air forces)

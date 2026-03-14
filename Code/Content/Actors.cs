@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WarBox.Content;
 
 internal static class WarBoxActors
 {
     private static readonly UnityEngine.Color white = new UnityEngine.Color(1f, 1f, 1f);
-    private static readonly string[] idle_0_9 = Toolbox.a("idle_0", "idle_1", "idle_2", "idle_3", "idle_4", "idle_5", "idle_6", "idle_7", "idle_8", "idle_9");
 
     public static void Init()
     {
@@ -187,6 +187,7 @@ internal static class WarBoxActors
         apc.name_locale = "spawn_apc";
         apc.power_id = "spawn_apc";
         apc.color = white;
+        apc.cost = new ConstructionCost(0, 0, 2, 0);
         apc.name_template_sets = AssetLibrary<ActorAsset>.a<string>("apc_name");
         apc.addTrait("dodge");
         apc.addTrait("dash");
@@ -241,6 +242,7 @@ internal static class WarBoxActors
         spg.name_locale = "spawn_spg";
         spg.power_id = "spawn_spg";
         spg.color = white;
+        spg.cost = new ConstructionCost(0, 0, 2, 0);
         spg.name_template_sets = AssetLibrary<ActorAsset>.a<string>("spg_name");
         spg.job = AssetLibrary<ActorAsset>.a<string>("decision");
         spg.addDecision("check_swearing");
@@ -366,5 +368,56 @@ internal static class WarBoxActors
         fighter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("fighter_name");
         fighter.addTrait("atgm_launcher");
         fighter.texture_asset.loadShadow();
+
+        ActorAsset destroyer = AssetManager.actor_library.clone("warbox_destroyer", "$boat$");
+        destroyer.id = "destroyer";
+        destroyer.boat_type = "destroyer";
+        destroyer.can_be_inspected = true;
+        destroyer.addDecision("warBoatAttackDecision");
+        destroyer.has_avatar_prefab = false;
+        destroyer.get_override_avatar_frames = (Actor pActor) => new Sprite[] { SpriteTextureLoader.getSprite("actors/avatars/destroyer_avatar") };
+        destroyer.has_override_avatar_frames = true;
+        destroyer.inspect_avatar_scale = 4f;
+        destroyer.inspect_avatar_offset_y = 6f;
+        destroyer.base_stats["armor"] = 30f;
+        destroyer.base_stats["attack_speed"] = 0.3f;
+        destroyer.base_stats["damage"] = 100f;
+        destroyer.base_stats["knockback"] = 2f;
+        destroyer.base_stats["accuracy"] = 0.7f;
+        destroyer.base_stats["targets"] = 1f;
+        destroyer.base_stats["area_of_effect"] = 0.5f;
+        destroyer.base_stats["range"] = 20f;
+        destroyer.base_stats["scale"] = 0.25f;
+        destroyer.base_stats["lifespan"] = 500f;
+        destroyer.base_stats["health"] = 2000f;
+        destroyer.base_stats["mass_2"] = 3000f;
+        destroyer.base_stats["stamina"] = 1000f;
+        destroyer.base_stats["speed"] = 40f;
+        destroyer.animation_speed_based_on_walk_speed = false;
+        destroyer.can_flip = true;
+        destroyer.check_flip = (BaseSimObject _, WorldTile _) => true;
+        destroyer.is_boat = true;
+        destroyer.die_in_lava = false;
+        destroyer.has_override_sprite = false;
+        destroyer.inspect_avatar_scale = 1f;
+        destroyer.sound_hit = "event:/SFX/HIT/HitMetal";
+        destroyer.sound_spawn = null;
+        destroyer.sound_idle_loop = null;
+        destroyer.sound_death = null;
+        destroyer.default_attack = "tank_cannon";
+        destroyer.icon = "iconBoat";
+        destroyer.shadow_texture = "unitShadow_6";
+        destroyer.cost = new ConstructionCost(1, 0, 0, 1);
+        destroyer.texture_asset = new ActorTextureSubAsset("actors/destroyer/", false);
+        destroyer.special = true;
+        destroyer.has_advanced_textures = false;
+        destroyer.draw_boat_mark = true;
+        destroyer.actor_size = ActorSize.S16_Buffalo;
+        destroyer.animation_walk = ActorAnimationSequences.walk_0;
+        destroyer.animation_idle = ActorAnimationSequences.walk_0;
+        destroyer.animation_swim = ActorAnimationSequences.swim_0_3;
+        destroyer.addTrait("light_lamp");
+        destroyer.addTrait("warbox_unit");
+        AssetManager.actor_library.add(destroyer);
     }
 }

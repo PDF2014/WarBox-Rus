@@ -1,0 +1,2 @@
+# For translators
+You will notice that in some places, a personalized text (quotes, funny speeches et cetera) is written in place of actual description to add a little more enthusiasm to the text. Feel free to add such quotes in your languages. Do keep in mind that text that requires definite knowledge (button text, item description) may not be changed.
