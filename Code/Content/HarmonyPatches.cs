@@ -198,7 +198,7 @@ public static class Patch_CityUpdate //adding units according to population
 [HarmonyPatch(typeof(CityBehBuild), nameof(CityBehBuild.canUseBuildAsset))]
 public static class Patch_CityGetLimitOfBuildingsType_Patch
 {
-    readonly static List<string> types = new List<string> { "type_lightfactory", "type_heavyfactory", "type_lightaircraftfactory", "type_heavyaircraftfactory", "type_shipyard" };
+    readonly static List<string> types = new List<string> { "type_lightfactory", "type_heavyfactory", "type_lightaircraftfactory", "type_heavyaircraftfactory", "type_lightshipyard", "type_heavyshipyard", "type_artillerybunker" };
 
     static void Postfix(BuildOrder pBuildAsset, City pCity, ref bool __result)
     {
@@ -221,7 +221,7 @@ public static class Patch_City_Exclude_WarBoxUnit_Leader
 {
     static bool Prefix(City __instance, Actor pActor, bool pNew)
     {
-        if (pActor.hasTrait("warbox_unit") || pActor.hasTrait("boat"))
+        if (pActor.hasTrait("warbox_unit"))
             return false;
         return true;
     }

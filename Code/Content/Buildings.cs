@@ -69,6 +69,7 @@ internal static class WarBoxBuildings
         artillery_bunker.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingStone";
         artillery_bunker.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
         artillery_bunker.max_houses = 1;
+        artillery_bunker.type = "type_artillerybunker";
 
         BuildingAsset heavy_factory = AssetManager.buildings.clone("heavy_factory", "$building_civ_human$");
         heavy_factory.can_be_upgraded = false;
