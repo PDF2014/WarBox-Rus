@@ -139,10 +139,16 @@ public static class Patch_CityUpdate //adding units according to population
                     if (Randy.randomChance(0.6f)) can_produce.Add(building.current_tile, "warbox_bomber");
                     else can_produce.Add(building.current_tile, "warbox_fighter");
                     break;
-                case "type_shipyard": // boats
+                case "type_lightshipyard": // light boats
                     Building docks = __instance.getBuildingOfType("type_docks");
                     if (docks == null) break;
-                    can_produce.Add(docks.current_tile, "warbox_destroyer");
+                    can_produce.Add(docks.current_tile, "warbox_gunboat");
+                    break;
+                case "type_heavyshipyard": // heavy boats
+                    Building docks2 = __instance.getBuildingOfType("type_docks");
+                    if (docks2 == null) break;
+                    can_produce.Add(docks2.current_tile, "warbox_gunboat");
+                    //can_produce.Add(docks2.current_tile, "warbox_destroyer");
                     break;
                 default:
                     break;
@@ -215,7 +221,7 @@ public static class Patch_City_Exclude_WarBoxUnit_Leader
 {
     static bool Prefix(City __instance, Actor pActor, bool pNew)
     {
-        if (pActor.hasTrait("warbox_unit"))
+        if (pActor.hasTrait("warbox_unit") || pActor.hasTrait("boat"))
             return false;
         return true;
     }
@@ -485,65 +491,6 @@ public static class Patch_ItemCrafting_ExcludeWarBoxUnit
 [HarmonyPatch(typeof(Docks))]
 public static class Patch_Docks_BuildBoatFromHere
 {
-    // [HarmonyPrefix]
-    // [HarmonyPatch("buildBoatFromHere")]
-    // static bool buildBoat(Docks __instance, City pCity, ref Actor __result)
-    // {
-    //     Building shipyard = __instance.building.city.getBuildingOfType("type_shipyard");
-    //     if (shipyard != null)
-    //     {
-    //         List<string> availableBoatTypes = new List<string>();
-
-    //         if (__instance.countBoatTypes("destroyer") < 10)
-    //             availableBoatTypes.Add("destroyer");
-
-    //         if (availableBoatTypes.Count == 0)
-    //         {
-    //             __result = null;
-    //             return false;
-    //         }
-
-    //         if (!pCity.hasEnoughResourcesFor(new ConstructionCost(0, 0, 0, 1)))
-    //         {
-    //             __result = null;
-    //             return false;
-    //         }
-
-    //         if (__instance.tiles_ocean.Count == 0)
-    //         {
-    //             __instance.recalculateOceanTiles();
-    //             __result = null;
-    //             return false;
-    //         }
-
-    //         WorldTile tTile = __instance.tiles_ocean.GetRandom();
-    //         if (!tTile.region.island.goodForDocks())
-    //         {
-    //             __result = null;
-    //             return false;
-    //         }
-
-    //         string selectedBoatAssetId = availableBoatTypes[Randy.randomInt(0, availableBoatTypes.Count)];
-    //         Actor tNewBoat = World.world.units.createNewUnit(selectedBoatAssetId, tTile);
-
-    //         if (tNewBoat == null)
-    //         {
-    //             __result = null;
-    //             return false;
-    //         }
-
-    //         __instance.addBoatToDock(tNewBoat);
-    //         tNewBoat.setHomeBuilding(__instance.building);
-    //         tNewBoat.setKingdom(pCity.kingdom);
-    //         tNewBoat.setCity(pCity);
-    //         //pCity.makeWarrior(tNewBoat);
-    //         pCity.spendResourcesForBuildingAsset(tNewBoat.asset.cost);
-    //         __result = tNewBoat;
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
     [HarmonyPrefix]
     [HarmonyPatch("isFull")]
     public static bool isFull(Docks __instance, string pType, ref bool __result)

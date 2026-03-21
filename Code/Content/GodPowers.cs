@@ -27,7 +27,8 @@ internal static class WarBoxGodPowers
         CreateDrop("spawn_heavy_factory", "heavy_factory");
         CreateDrop("spawn_light_aircraft_factory", "light_aircraft_factory");
         CreateDrop("spawn_heavy_aircraft_factory", "heavy_aircraft_factory");
-        CreateDrop("spawn_shipyard", "shipyard");
+        CreateDrop("spawn_light_shipyard", "light_shipyard");
+        CreateDrop("spawn_heavy_shipyard", "heavy_shipyard");
     }
     
     private static void AddPowers()
@@ -38,7 +39,8 @@ internal static class WarBoxGodPowers
         CreateBuilderPower("light_factory_builder", "Light Factory", "spawn_light_factory");
         CreateBuilderPower("light_aircraft_factory_builder", "Light Aircraft Factory", "spawn_light_aircraft_factory");
         CreateBuilderPower("heavy_aircraft_factory_builder", "Heavy Aircraft Factory", "spawn_heavy_aircraft_factory");
-        CreateBuilderPower("shipyard_builder", "Shipyard", "spawn_shipyard");
+        CreateBuilderPower("light_shipyard_builder", "Light Shipyard", "spawn_light_shipyard");
+        CreateBuilderPower("heavy_shipyard_builder", "Heavy Shipyard", "spawn_heavy_shipyard");
 
         CreateVehiclePower("spawn_tank", "warbox_tank");
         CreateVehiclePower("spawn_apc", "warbox_apc");
@@ -47,6 +49,7 @@ internal static class WarBoxGodPowers
         CreateVehiclePower("spawn_helicopter", "warbox_helicopter");
         CreateVehiclePower("spawn_bomber", "warbox_bomber");
         CreateVehiclePower("spawn_fighter", "warbox_fighter");
+        CreateVehiclePower("spawn_gunboat", "warbox_gunboat");
 
         CreateWarriorPower("spawn_warrior_pistol", "pistol");
         CreateWarriorPower("spawn_warrior_smg", "smg");

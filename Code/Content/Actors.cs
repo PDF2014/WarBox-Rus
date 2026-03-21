@@ -334,6 +334,7 @@ internal static class WarBoxActors
         bomber.base_stats["range"] = -10f;
         bomber.default_attack = "bomb_bay";
         bomber.base_stats["attack_speed"] = -5f;
+        bomber.color = white;
         bomber.name_template_sets = AssetLibrary<ActorAsset>.a<string>("bomber_name");
         bomber.texture_asset.loadShadow();
 
@@ -366,58 +367,95 @@ internal static class WarBoxActors
         fighter.animation_walk_speed = 0.95f;
         fighter.animation_idle_speed = 0.95f;
         fighter.name_template_sets = AssetLibrary<ActorAsset>.a<string>("fighter_name");
+        fighter.color = white;
         fighter.addTrait("atgm_launcher");
         fighter.texture_asset.loadShadow();
 
-        ActorAsset destroyer = AssetManager.actor_library.clone("warbox_destroyer", "$boat$");
-        destroyer.id = "destroyer";
-        destroyer.boat_type = "destroyer";
-        destroyer.can_be_inspected = true;
-        destroyer.addDecision("warBoatAttackDecision");
-        destroyer.has_avatar_prefab = false;
-        destroyer.get_override_avatar_frames = (Actor pActor) => new Sprite[] { SpriteTextureLoader.getSprite("actors/avatars/destroyer_avatar") };
-        destroyer.has_override_avatar_frames = true;
-        destroyer.inspect_avatar_scale = 4f;
-        destroyer.inspect_avatar_offset_y = 6f;
-        destroyer.base_stats["armor"] = 30f;
-        destroyer.base_stats["attack_speed"] = 0.3f;
-        destroyer.base_stats["damage"] = 100f;
-        destroyer.base_stats["knockback"] = 2f;
-        destroyer.base_stats["accuracy"] = 0.7f;
-        destroyer.base_stats["targets"] = 1f;
-        destroyer.base_stats["area_of_effect"] = 0.5f;
-        destroyer.base_stats["range"] = 20f;
-        destroyer.base_stats["scale"] = 0.25f;
-        destroyer.base_stats["lifespan"] = 500f;
-        destroyer.base_stats["health"] = 2000f;
-        destroyer.base_stats["mass_2"] = 3000f;
-        destroyer.base_stats["stamina"] = 1000f;
-        destroyer.base_stats["speed"] = 40f;
-        destroyer.animation_speed_based_on_walk_speed = false;
-        destroyer.can_flip = true;
-        destroyer.check_flip = (BaseSimObject _, WorldTile _) => true;
-        destroyer.is_boat = true;
-        destroyer.die_in_lava = false;
-        destroyer.has_override_sprite = false;
-        destroyer.inspect_avatar_scale = 1f;
-        destroyer.sound_hit = "event:/SFX/HIT/HitMetal";
-        destroyer.sound_spawn = null;
-        destroyer.sound_idle_loop = null;
-        destroyer.sound_death = null;
-        destroyer.default_attack = "tank_cannon";
-        destroyer.icon = "iconBoat";
-        destroyer.shadow_texture = "unitShadow_6";
-        destroyer.cost = new ConstructionCost(1, 0, 0, 1);
-        destroyer.texture_asset = new ActorTextureSubAsset("actors/destroyer/", false);
-        destroyer.special = true;
-        destroyer.has_advanced_textures = false;
-        destroyer.draw_boat_mark = true;
-        destroyer.actor_size = ActorSize.S16_Buffalo;
-        destroyer.animation_walk = ActorAnimationSequences.walk_0;
-        destroyer.animation_idle = ActorAnimationSequences.walk_0;
-        destroyer.animation_swim = ActorAnimationSequences.swim_0_3;
-        destroyer.addTrait("light_lamp");
-        destroyer.addTrait("warbox_unit");
-        AssetManager.actor_library.add(destroyer);
+        ActorAsset gunboat = AssetManager.actor_library.clone("warbox_gunboat", "base_warunit");
+        gunboat.id = "gunboat";
+        gunboat.boat_type = "gunboat";
+        gunboat.name_locale = "spawn_gunboat";
+        gunboat.power_id = "spawn_gunboat";
+        gunboat.can_be_inspected = true;
+        gunboat.has_avatar_prefab = false;
+        gunboat.get_override_avatar_frames = (Actor pActor) => new Sprite[] { SpriteTextureLoader.getSprite("actors/avatars/gunboat_avatar") };
+        gunboat.has_override_avatar_frames = true;
+        gunboat.inspect_avatar_scale = 10f;
+        gunboat.inspect_avatar_offset_y = -4f;
+        gunboat.base_stats["armor"] = 10f;
+        gunboat.base_stats["attack_speed"] = 10f;
+        gunboat.base_stats["damage"] = 70f;
+        gunboat.base_stats["knockback"] = 0f;
+        gunboat.base_stats["accuracy"] = 0.7f;
+        gunboat.base_stats["targets"] = 1f;
+        gunboat.base_stats["area_of_effect"] = 0.5f;
+        gunboat.base_stats["range"] = 20f;
+        gunboat.base_stats["scale"] = 0.35f;
+        gunboat.base_stats["lifespan"] = 500f;
+        gunboat.base_stats["health"] = 500f;
+        gunboat.base_stats["mass_2"] = 500f;
+        gunboat.base_stats["stamina"] = 1000f;
+        gunboat.base_stats["speed"] = 50f;
+        gunboat.animation_speed_based_on_walk_speed = false;
+        gunboat.can_flip = true;
+        gunboat.check_flip = (BaseSimObject _, WorldTile _) => true;
+        gunboat.is_boat = true;
+        gunboat.die_in_lava = false;
+        gunboat.has_override_sprite = true;
+        gunboat.inspect_avatar_scale = 1f;
+        gunboat.sound_hit = "event:/SFX/HIT/HitMetal";
+        gunboat.sound_spawn = null;
+        gunboat.sound_idle_loop = null;
+        gunboat.sound_death = null;
+        gunboat.default_attack = "machine_gun";
+        gunboat.icon = "iconBoat";
+        gunboat.shadow = false;
+        gunboat.cost = new ConstructionCost(0, 0, 1, 0);
+        gunboat.special = true;
+        gunboat.job = AssetLibrary<ActorAsset>.a<string>("decision");
+        gunboat.addDecision("boat_danger_check");
+        gunboat.addDecision("boat_idle");
+        gunboat.addDecision("boat_check_limits");
+        gunboat.addDecision("ship_attack");
+        gunboat.has_advanced_textures = false;
+        gunboat.draw_boat_mark = true;
+        gunboat.actor_size = ActorSize.S16_Buffalo;
+        gunboat.force_ocean_creature = true;
+        gunboat.addTrait("light_lamp");
+        gunboat.addTrait("warbox_unit");
+        gunboat.addTrait("atgm_launcher");
+        gunboat.addTrait("boat");
+        gunboat.color = white;
+        gunboat.name_template_sets = AssetLibrary<ActorAsset>.a<string>("boat_name");
+        gunboat.get_override_sprite = delegate(Actor pActor)
+        {
+            Boat simpleComponent = pActor.getSimpleComponent<Boat>();
+            AnimationDataBoat animationDataBoat = simpleComponent.getAnimationDataBoat();
+            ActorAnimation value = animationDataBoat.normal;
+            if (!pActor.isAlive())
+            {
+                value = animationDataBoat.broken;
+            }
+            else if (pActor.position_height != 0f || pActor.isInMagnet())
+            {
+                value = animationDataBoat.normal;
+            }
+            else if (!animationDataBoat.dict.TryGetValue(simpleComponent.last_movement_angle, out value))
+            {
+                int closestAngle = Toolbox.getClosestAngle(simpleComponent.last_movement_angle, animationDataBoat);
+                animationDataBoat.dict.TryGetValue(closestAngle, out value);
+            }
+            if (value == null)
+            {
+                value = animationDataBoat.normal;
+            }
+            Sprite result = value.frames[0];
+            if (value.frames.Length != 0)
+            {
+                result = AnimationHelper.getSpriteFromList(0, value.frames, pActor.asset.animation_swim_speed);
+            }
+            return result;
+        };
+        gunboat.texture_asset.loadShadow();
     }
 }

@@ -67,6 +67,12 @@ internal static class WarBoxMisc
             id = "fighter_name",
             onomastics_templates = new List<string> { "`0_###u|0:fighter`" }
         });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "boat_name",
+            onomastics_templates = new List<string> { "`0_###u|0:ns`" }
+        });
     }
 
     private static void AddTasks()
@@ -116,7 +122,7 @@ internal static class WarBoxMisc
         DecisionAsset ship_attack_decision = new DecisionAsset
         {
             id = "ship_attack",
-            priority = NeuroLayer.Layer_1_Low,
+            priority = NeuroLayer.Layer_4_Critical,
             path_icon = "ui/icons/actors/spg",
             cooldown = 1,
             unique = true,

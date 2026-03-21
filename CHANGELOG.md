@@ -6,3 +6,5 @@
 + added infos for traits
 + added mod config for force capture of cities
 + moved some code around
++ added patrol boat
++ will add destroyer and other boats

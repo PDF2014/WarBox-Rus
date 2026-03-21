@@ -11,7 +11,7 @@ internal static class WarBoxEWE
     public static void Init()
     {
         AddActions();
-        AddTerraformOptions();
+        AddEffects();
         AddProjectiles();
         AddGuns();
         AddVehicleWeapons();
@@ -35,55 +35,6 @@ internal static class WarBoxEWE
             pools = AssetLibrary<CombatActionAsset>.a<CombatActionPool>(CombatActionPool.BEFORE_ATTACK_RANGE)
         };
         AssetManager.combat_action_library.add(atgm);
-
-        // BehaviourTaskActor idkyet = new BehaviourTaskActor
-        // {
-        //     id = "artillery_strike"
-        // };
-        // AssetManager.tasks_actor.add(idkyet);
-
-        // DecisionAsset artillery_strike = new DecisionAsset
-        // {
-        //     id = "artillery_strike",
-        //     priority = NeuroLayer.Layer_4_Critical,
-        //     unique = true,
-        //     cooldown = 10,
-        //     weight = 1f,
-        //     path_icon = "ui/icons/actors/spg",
-        //     task_id = "artillery_strike",
-        //     action_check_launch = delegate (Actor pActor)
-        //     {
-        //         if (pActor == null) return false;
-        //         if (!pActor.isAlive() || !pActor.kingdom.hasEnemies()) return false;
-        //         if (pActor.getStamina() < 100) return false;
-        //         if (!pActor.isWarrior()) return false;
-        //         return true;
-        //         //return WarBoxActions.LaunchArtilleryStrike(pActor, null);
-        //     }
-        // };
-        // AssetManager.decisions_library.add(artillery_strike);
-
-        DecisionAsset warBoatAttackDecision = new DecisionAsset
-        {
-            id = "warBoatAttackDecision",
-            priority = NeuroLayer.Layer_1_Low,
-            path_icon = "ui/icons/WarBoat",
-            cooldown = 1,
-            unique = true,
-            weight = 1f
-        };
-        AssetManager.decisions_library.add(warBoatAttackDecision);
-
-        BehaviourTaskActor warBoatAttackTask = new BehaviourTaskActor
-        {
-            id = "warBoatAttackDecision"
-        };
-        warBoatAttackTask.setIcon("ui/icons/WarBoat");
-        warBoatAttackTask.addBeh(new BehWarBoatFindTarget());
-        warBoatAttackTask.addBeh(new BehGoToTileTarget());
-        warBoatAttackTask.addBeh(new BehWarBoatAttack());
-        warBoatAttackTask.addBeh(new BehEndJob());
-        AssetManager.tasks_actor.add(warBoatAttackTask);
     }
 
     private static void AddGuns()
@@ -274,7 +225,7 @@ internal static class WarBoxEWE
         bomb_bay.show_in_knowledge_window = false;
     }
 
-    private static void AddTerraformOptions()
+    private static void AddEffects()
     {
         AssetManager.terraform.add(new TerraformOptions
         {
@@ -311,6 +262,9 @@ internal static class WarBoxEWE
         TerraformOptions soft_grenade = AssetManager.terraform.clone("soft_grenade", "grenade");
         soft_grenade.shake = false;
         soft_grenade.explode_and_set_random_fire = false;
+
+        EffectAsset silent_fireball = AssetManager.effects_library.clone("silent_fireball", "fx_fireball_explosion");
+        silent_fireball.sound_launch = null;
     }
 
     private static void AddProjectiles()
@@ -322,13 +276,13 @@ internal static class WarBoxEWE
             texture = "pr_rpg",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.075f,
             scale_target = 0.075f,
             draw_light_area = true,
             draw_light_size = 0.1f,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "rocketlaunch",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "rocket",
             terraform_range = 4,
@@ -343,13 +297,13 @@ internal static class WarBoxEWE
             texture = "pr_rocket",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.025f,
             scale_target = 0.025f,
             draw_light_area = true,
             draw_light_size = 0.2f,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "rocketlaunch",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "rpg",
             terraform_range = 4,
@@ -364,7 +318,7 @@ internal static class WarBoxEWE
             texture = "pr_bomb",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.08f,
             scale_target = 0.08f,
@@ -384,12 +338,12 @@ internal static class WarBoxEWE
             texture = "pr_shell",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.08f,
             scale_target = 0.08f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
+            sound_launch = "cannon2",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 4,
@@ -404,12 +358,12 @@ internal static class WarBoxEWE
             texture = "pr_shell",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.04f,
             scale_target = 0.04f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
+            sound_launch = "cannon1",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 3,
@@ -428,7 +382,7 @@ internal static class WarBoxEWE
             scale_start = 0.03f,
             scale_target = 0.03f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "cannon1",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             can_be_blocked = false,
             can_be_collided = false,

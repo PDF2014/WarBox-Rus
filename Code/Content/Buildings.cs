@@ -122,30 +122,24 @@ internal static class WarBoxBuildings
         haf.smoke = false;
         haf.type = "type_heavyaircraftfactory";
 
-        BuildingAsset shipyard = AssetManager.buildings.clone("shipyard", "docks_human");
-        shipyard.priority = 100;
-        shipyard.group = "human";
-        shipyard.civ_kingdom = "human";
-        shipyard.type = "type_shipyard";
-        shipyard.docks = false;
-        shipyard.cost = new ConstructionCost(20, 60, 3, 2);
-        shipyard.sound_idle = "event:/SFX/BUILDINGS_IDLE/IdleTemple";
-        shipyard.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingStone";
-        shipyard.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
-        shipyard.base_stats["health"] = 10000f;
-        shipyard.burnable = false;
-        shipyard.sprite_path = "buildings/shipyard";
-        shipyard.has_sprites_main_disabled = false;
-        shipyard.has_sprites_main = true;
-        shipyard.has_sprites_ruin = true;
-        shipyard.setShadow(0.5f, 0.23f, 0.27f);
-        shipyard.has_sprite_construction = false;
-        shipyard.can_be_upgraded = false;
-        shipyard.tower = true;
-        shipyard.tower_projectile = "cannon_shell";
-        shipyard.tower_projectile_amount = 2;
-        shipyard.has_sprites_special = false;
-        shipyard.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        BuildingAsset light_shipyard = AssetManager.buildings.clone("light_shipyard", "heavy_factory");
+        light_shipyard.sprite_path = "buildings/light_shipyard";
+        light_shipyard.cost = new ConstructionCost(10, 45, 0, 0);
+        light_shipyard.fundament = new BuildingFundament(3, 3, 3, 1);
+        light_shipyard.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        light_shipyard.type = "type_lightshipyard";
+        light_shipyard.can_be_upgraded = true;
+        light_shipyard.upgrade_level = 0;
+        light_shipyard.upgrade_to = "heavy_shipyard";
+
+        BuildingAsset heavy_shipyard = AssetManager.buildings.clone("heavy_shipyard", "heavy_factory");
+        heavy_shipyard.sprite_path = "buildings/heavy_shipyard";
+        heavy_shipyard.cost = new ConstructionCost(20, 80, 0, 0);
+        heavy_shipyard.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        heavy_shipyard.type = "type_heavyshipyard";
+        heavy_shipyard.can_be_upgraded = false;
+        heavy_shipyard.upgrade_level = 1;
+        heavy_shipyard.upgraded_from = "light_shipyard";
 
         foreach (ActorAsset race in AssetManager.actor_library.list.Where(race => race.architecture_id != string.Empty && race.canBecomeSapient() == true)) // this does double work for actors that have both non-spaient and sapient
         {
@@ -189,7 +183,11 @@ internal static class WarBoxBuildings
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
 
-            civ.addBuilding("order_shipyard", 1);
+            civ.addBuilding("order_light_shipyard", 1);
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_docks_0");
+
+            civ.addUpgrade("order_light_shipyard");
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_docks_0");
         }
@@ -200,7 +198,7 @@ internal static class WarBoxBuildings
         var customOrders = new Dictionary<string, string>
         {
             {"order_artillery_bunker", "artillery_bunker"},
-            {"order_shipyard", "shipyard"},
+            {"order_light_shipyard", "light_shipyard"},
             {"order_heavy_factory", "heavy_factory"},
             {"order_light_factory", "light_factory"},
             {"order_light_aircraft_factory", "light_aircraft_factory"},

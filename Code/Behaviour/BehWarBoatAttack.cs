@@ -7,7 +7,6 @@ public class BehWarBoatAttack : BehBoat
 {
     public override BehResult execute(Actor pActor)
     {
-
         foreach (var actor in World.world.units)
         {
             if (actor.isAlive() && actor.kingdom != null && actor.kingdom.isEnemy(pActor.kingdom))

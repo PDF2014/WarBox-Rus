@@ -55,8 +55,10 @@
     "light_aircraft_factory_description": "Spawn a factory that produces light aircraft",
     "heavy_aircraft_factory": "Heavy Aircraft Factory",
     "heavy_aircraft_factory_description": "Spawn a factory that produces heavy aircraft",
-    "shipyard": "Shipyard",
-    "shipyard_description": "Spawn a shipyard that produces naval vessels",
+    "light_shipyard": "Light Shipyard",
+    "light_shipyard_description": "Spawn a shipyard that produces small naval vessels",
+    "heavy_shipyard": "Heavy Shipyard",
+    "heavy_shipyard_description": "Spawn a shipyard that produces large naval vessels",
 
     "spawn_tank": "Tank",
     "spawn_tank_description": "Spawn a heavily armored tank vehicle",
@@ -72,6 +74,8 @@
     "spawn_bomber_description": "Spawn a high flying bomber that drops devastating bombs",
     "spawn_fighter": "Fighter",
     "spawn_fighter_description": "Spawn a high flying fighter jet",
+    "spawn_gunboat": "Gunboat",
+    "spawn_gunboat_description": "Spawn a small naval vessel armed with a machine gun",
 
     "spawn_warrior_pistol": "Skirmisher",
     "spawn_warrior_pistol_description": "Spawn a light skirmisher",
@@ -89,6 +93,10 @@
     "spawn_warrior_rpg_description": "Spawn a rocketeer",
 
     "cant_spawn_unit_kingdom": "You must spawn this unit within a kingdom.",
+
     "artillery_strike": "Artillery",
-    "task_unit_artillery_strike": "Artillery Strike"
+    "ship_attack": "Ship Attack",
+
+    "task_unit_artillery_strike": "Artillery Strike",
+    "task_unit_ship_attack": "Ship Attack"
 }
