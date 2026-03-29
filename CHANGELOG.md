@@ -1,13 +1,11 @@
-+ revamp tank sprites
-+ revamp apc sprites
-+ revamp ifv sprites
-+ revamp spg sprites
-+ revamp helicopter sprites
-+ added bomber, fighter
-+ attempted nerf of spg and helicopter
-+ for the love of god, correct version number
-+ made vehicle cheaper
-+ balanced auto rifle
-the assets in this mod need lots of metal, so if you want you can add some ore drops on the kingdoms
-+ realistic aircraft height, people shoot the helicopters instead of the shadow
-+ added configuration to control how many vehicles per unit population
++ made it so that warriors or vehicles will not commit friendly fire
++ added factory culture trait
++ army limits should be working proper now
++ added shipyard, it requires docks to work
++ updated trait textures
++ added infos for traits
++ added mod config for force capture of cities
++ moved some code around
++ added patrol boat
++ will add destroyer and other boats
++ idk

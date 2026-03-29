@@ -19,6 +19,7 @@ public class WarBox : BasicMod<WarBox>, IReloadable
 
     public static bool warbox_factories = true;
     public static bool warbox_army_limits = true;
+    public static bool warbox_force_capture = false;
     public static int warbox_army_per_pop = 25;
 
     [Hotfixable]
@@ -42,11 +43,6 @@ public class WarBox : BasicMod<WarBox>, IReloadable
     {
         prefab_library = new GameObject("PrefabLibrary").transform;
         prefab_library.SetParent(transform);
-
-        if (Environment.UserName == "sourojeetshyam")
-        {
-            Config.isEditor = true;
-        }
 
         WarBoxContent.Init();
         WarBoxUI.Init();     

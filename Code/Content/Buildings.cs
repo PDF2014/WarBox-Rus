@@ -18,17 +18,6 @@ internal static class WarBoxBuildings
 
     private static void AddBuildings()
     {
-        foreach (ActorAsset race in AssetManager.actor_library.list.Where(race => race.architecture_id != string.Empty && race.canBecomeSapient() == true)) // this does double work for actors that have both non-spaient and sapient
-        {
-            BuildingAsset watch_tower = AssetManager.buildings.get($"watch_tower_{race.architecture_id}");
-            if (watch_tower != null)
-            {
-                watch_tower.can_be_upgraded = true;
-                watch_tower.upgrade_level = 1;
-                watch_tower.upgrade_to = "bunker";
-            }
-        }
-
         BuildingAsset bunker = AssetManager.buildings.clone("bunker", "$building_civ_human$");
         bunker.upgrade_level = 2;
         bunker.can_be_upgraded = false;
@@ -80,6 +69,7 @@ internal static class WarBoxBuildings
         artillery_bunker.sound_built = "event:/SFX/BUILDINGS/SpawnBuildingStone";
         artillery_bunker.sound_destroyed = "event:/SFX/BUILDINGS/DestroyBuildingStone";
         artillery_bunker.max_houses = 1;
+        artillery_bunker.type = "type_artillerybunker";
 
         BuildingAsset heavy_factory = AssetManager.buildings.clone("heavy_factory", "$building_civ_human$");
         heavy_factory.can_be_upgraded = false;
@@ -132,6 +122,36 @@ internal static class WarBoxBuildings
         haf.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
         haf.smoke = false;
         haf.type = "type_heavyaircraftfactory";
+
+        BuildingAsset light_shipyard = AssetManager.buildings.clone("light_shipyard", "heavy_factory");
+        light_shipyard.sprite_path = "buildings/light_shipyard";
+        light_shipyard.cost = new ConstructionCost(10, 45, 0, 0);
+        light_shipyard.fundament = new BuildingFundament(3, 3, 3, 1);
+        light_shipyard.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        light_shipyard.type = "type_lightshipyard";
+        light_shipyard.can_be_upgraded = true;
+        light_shipyard.upgrade_level = 0;
+        light_shipyard.upgrade_to = "heavy_shipyard";
+
+        BuildingAsset heavy_shipyard = AssetManager.buildings.clone("heavy_shipyard", "heavy_factory");
+        heavy_shipyard.sprite_path = "buildings/heavy_shipyard";
+        heavy_shipyard.cost = new ConstructionCost(20, 80, 0, 0);
+        heavy_shipyard.atlas_asset = AssetManager.dynamic_sprites_library.get("buildings");
+        heavy_shipyard.type = "type_heavyshipyard";
+        heavy_shipyard.can_be_upgraded = false;
+        heavy_shipyard.upgrade_level = 1;
+        heavy_shipyard.upgraded_from = "light_shipyard";
+
+        foreach (ActorAsset race in AssetManager.actor_library.list.Where(race => race.architecture_id != string.Empty && race.canBecomeSapient() == true)) // this does double work for actors that have both non-spaient and sapient
+        {
+            BuildingAsset watch_tower = AssetManager.buildings.get($"watch_tower_{race.architecture_id}");
+            if (watch_tower != null)
+            {
+                watch_tower.can_be_upgraded = true;
+                watch_tower.upgrade_level = 1;
+                watch_tower.upgrade_to = "bunker";
+            }
+        }
     }
 
     private static void AddBuildingOrders()
@@ -163,6 +183,14 @@ internal static class WarBoxBuildings
             civ.addBuilding("order_heavy_aircraft_factory", 1);
             order = civ.list.Last();
             order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_hall_0");
+
+            civ.addBuilding("order_light_shipyard", 1);
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_docks_0");
+
+            civ.addUpgrade("order_light_shipyard");
+            order = civ.list.Last();
+            order.requirements_orders = AssetLibrary<CityBuildOrderAsset>.a<string>("order_docks_0");
         }
     }
 
@@ -171,6 +199,7 @@ internal static class WarBoxBuildings
         var customOrders = new Dictionary<string, string>
         {
             {"order_artillery_bunker", "artillery_bunker"},
+            {"order_light_shipyard", "light_shipyard"},
             {"order_heavy_factory", "heavy_factory"},
             {"order_light_factory", "light_factory"},
             {"order_light_aircraft_factory", "light_aircraft_factory"},

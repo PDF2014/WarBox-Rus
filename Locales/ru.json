@@ -76,8 +76,6 @@
     "spawn_warrior_rpg": "Ракетчик",
     "spawn_warrior_rpg_description": "Создаёт бойца с РПГ",
 
-    "auto_layout_window_text_1_key": "Не знаю, что сюда поставить",
-    "auto_layout_window_text_2_key": "Так что вот немного текста-заполнителя",
     "cant_spawn_unit_kingdom": "Вы должны создать этого юнита внутри королевства.",
     "artillery_strike": "Артиллерия",
     "task_unit_artillery_strike": "Артиллерийский удар"

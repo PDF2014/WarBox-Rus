@@ -48,6 +48,8 @@ internal static class WarBoxUI
         CreateBuilderButton("heavy_factory_builder");
         CreateBuilderButton("light_aircraft_factory_builder");
         CreateBuilderButton("heavy_aircraft_factory_builder");
+        CreateBuilderButton("light_shipyard_builder");
+        CreateBuilderButton("heavy_shipyard_builder");
 
         CreateVehicleButton("spawn_tank");
         CreateVehicleButton("spawn_apc");
@@ -56,6 +58,7 @@ internal static class WarBoxUI
         CreateVehicleButton("spawn_helicopter");
         CreateVehicleButton("spawn_bomber");
         CreateVehicleButton("spawn_fighter");
+        CreateVehicleButton("spawn_gunboat");
 
         CreateWarriorButton("pistol");
         CreateWarriorButton("smg");

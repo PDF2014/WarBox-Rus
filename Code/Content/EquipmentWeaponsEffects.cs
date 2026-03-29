@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ai.behaviours;
 using NeoModLoader.api.attributes;
 using UnityEngine;
+using WarBox.Behaviour;
 
 namespace WarBox.Content;
 
@@ -10,7 +11,7 @@ internal static class WarBoxEWE
     public static void Init()
     {
         AddActions();
-        AddTerraformOptions();
+        AddEffects();
         AddProjectiles();
         AddGuns();
         AddVehicleWeapons();
@@ -34,52 +35,24 @@ internal static class WarBoxEWE
             pools = AssetLibrary<CombatActionAsset>.a<CombatActionPool>(CombatActionPool.BEFORE_ATTACK_RANGE)
         };
         AssetManager.combat_action_library.add(atgm);
-
-        BehaviourTaskActor idkyet = new BehaviourTaskActor
-        {
-            id = "artillery_strike"
-        };
-        AssetManager.tasks_actor.add(idkyet);
-
-        DecisionAsset artillery_strike = new DecisionAsset
-        {
-            id = "artillery_strike",
-            priority = NeuroLayer.Layer_4_Critical,
-            unique = true,
-            cooldown = 1,
-            weight = 1f,
-            path_icon = "ui/icons/actors/spg",
-            task_id = "artillery_strike",
-            action_check_launch = delegate (Actor pActor)
-            {
-                return WarBoxActions.LaunchArtilleryStrike(pActor, null);
-            }
-        };
-        AssetManager.decisions_library.add(artillery_strike);
     }
 
     private static void AddGuns()
     {
         if (!AssetManager.items.equipment_by_subtypes.ContainsKey("gun"))
-        {
             AssetManager.items.equipment_by_subtypes.Add("gun", new List<EquipmentAsset>());
-        }
 
         if (!AssetManager.items.pot_equipment_by_groups_all.ContainsKey("firearm"))
-        {
             AssetManager.items.pot_equipment_by_groups_all.Add("firearm", new List<EquipmentAsset>());
-        }
 
         if (!AssetManager.items.pot_equipment_by_groups_unlocked.ContainsKey("firearm"))
-        {
             AssetManager.items.pot_equipment_by_groups_unlocked.Add("firearm", new List<EquipmentAsset>());
-        }
 
         // Pistol 
         BaseStats stats_pistol = new BaseStats();
         stats_pistol["projectiles"] = 1;
         stats_pistol["accuracy"] = -10f;
-        stats_pistol["range"] = 35f;
+        stats_pistol["range"] = 14f;
         stats_pistol["damage"] = 35f;
         stats_pistol["attack_speed"] = 0f;
         stats_pistol["speed"] = 7.5f;
@@ -87,7 +60,7 @@ internal static class WarBoxEWE
         EquipmentAsset pistol = CreateGun(
             id: "pistol",
             stats: stats_pistol,
-            equipment_value: 60,
+            equipment_value: 700,
             name: "Pistol",
             description: "A very handy semi-automatic firearm",
             goldCost: 0,
@@ -106,12 +79,12 @@ internal static class WarBoxEWE
         EquipmentAsset smg = CreateGun(
             id: "smg",
             stats: stats_smg,
-            equipment_value: 67,
+            equipment_value: 725,
             name: "SMG",
             description: "A fast firing sub-machine gun, not very accurate",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
-            resource2: "wood", resource2Cost: 1
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Rifle
@@ -125,11 +98,11 @@ internal static class WarBoxEWE
         EquipmentAsset rifle = CreateGun(
             id: "rifle",
             stats: stats_rifle,
-            equipment_value: 65,
+            equipment_value: 750,
             name: "Rifle",
             description: "A standard bolt-action rifle",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
+            resource1: "common_metals", resource1Cost: 2,
             resource2: "wood", resource2Cost: 2
         );
 
@@ -144,7 +117,7 @@ internal static class WarBoxEWE
         EquipmentAsset autorifle = CreateGun(
             id: "autorifle",
             stats: stats_autorifle,
-            equipment_value: 67,
+            equipment_value: 775,
             name: "Automatic Rifle",
             description: "A repeating rifle, hits fast and hard",
             goldCost: 0,
@@ -164,12 +137,12 @@ internal static class WarBoxEWE
         EquipmentAsset sniperrifle = CreateGun(
             id: "sniperrifle",
             stats: stats_sniperrifle,
-            equipment_value: 67,
+            equipment_value: 750,
             name: "Sniper Rifle",
             description: "A very accurate bolt-action rifle, hits VERY hard",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
-            resource2: "wood", resource2Cost: 3
+            resource1: "common_metals", resource1Cost: 2,
+            resource2: "wood", resource2Cost: 2
         );
 
         // Shotgun (does not actually replace ingame shotgun)
@@ -183,11 +156,11 @@ internal static class WarBoxEWE
         EquipmentAsset shotgun = CreateGun(
             id: "shotgunreplace",
             stats: stats_shotgun,
-            equipment_value: 55,
+            equipment_value: 650,
             name: "Shotgun",
             description: "A shotgun firing many pellets, dangerous up close",
             goldCost: 0,
-            resource1: "common_metals", resource1Cost: 1,
+            resource1: "common_metals", resource1Cost: 2,
             resource2: "wood", resource2Cost: 2
         );
 
@@ -198,12 +171,12 @@ internal static class WarBoxEWE
         stats_rpg["range"] = 40f;
         stats_rpg["damage"] = 10f;
         stats_rpg["attack_speed"] = -10f;
-        stats_rpg["speed"] = -10f;
+        stats_rpg["speed"] = -4.5f;
 
         EquipmentAsset rpg = CreateGun(
             id: "rpg",
             stats: stats_rpg,
-            equipment_value: 55,
+            equipment_value: 725,
             name: "Rocket Launcher",
             projectile: "rpg_projectile",
             description: "A launcher firing rocket propelled grenades",
@@ -252,7 +225,7 @@ internal static class WarBoxEWE
         bomb_bay.show_in_knowledge_window = false;
     }
 
-    private static void AddTerraformOptions()
+    private static void AddEffects()
     {
         AssetManager.terraform.add(new TerraformOptions
         {
@@ -289,6 +262,9 @@ internal static class WarBoxEWE
         TerraformOptions soft_grenade = AssetManager.terraform.clone("soft_grenade", "grenade");
         soft_grenade.shake = false;
         soft_grenade.explode_and_set_random_fire = false;
+
+        EffectAsset silent_fireball = AssetManager.effects_library.clone("silent_fireball", "fx_fireball_explosion");
+        silent_fireball.sound_launch = null;
     }
 
     private static void AddProjectiles()
@@ -300,13 +276,13 @@ internal static class WarBoxEWE
             texture = "pr_rpg",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.075f,
             scale_target = 0.075f,
             draw_light_area = true,
             draw_light_size = 0.1f,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "rocketlaunch",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "rocket",
             terraform_range = 4,
@@ -321,13 +297,13 @@ internal static class WarBoxEWE
             texture = "pr_rocket",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.025f,
             scale_target = 0.025f,
             draw_light_area = true,
             draw_light_size = 0.2f,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "rocketlaunch",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "rpg",
             terraform_range = 4,
@@ -335,14 +311,14 @@ internal static class WarBoxEWE
             can_be_collided = false,
         });
 
-         AssetManager.projectiles.add(new ProjectileAsset
+        AssetManager.projectiles.add(new ProjectileAsset
         {
             id = "drop_bomb",
             speed = 10f,
             texture = "pr_bomb",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.08f,
             scale_target = 0.08f,
@@ -362,12 +338,12 @@ internal static class WarBoxEWE
             texture = "pr_shell",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.08f,
             scale_target = 0.08f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
+            sound_launch = "cannon2",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 4,
@@ -382,12 +358,12 @@ internal static class WarBoxEWE
             texture = "pr_shell",
             look_at_target = true,
             texture_shadow = "shadows/projectiles/shadow_arrow",
-            end_effect = "fx_fireball_explosion",
+            end_effect = "silent_fireball",
             hit_shake = false,
             scale_start = 0.04f,
             scale_target = 0.04f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/EXPLOSIONS/WeaponShotgunStart",
+            sound_launch = "cannon1",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             terraform_option = "soft_grenade",
             terraform_range = 3,
@@ -406,7 +382,7 @@ internal static class WarBoxEWE
             scale_start = 0.03f,
             scale_target = 0.03f,
             draw_light_area = false,
-            sound_launch = "event:/SFX/WEAPONS/WeaponShotgunStart",
+            sound_launch = "cannon1",
             sound_impact = "event:/SFX/WEAPONS/WeaponShotgunLand",
             can_be_blocked = false,
             can_be_collided = false,

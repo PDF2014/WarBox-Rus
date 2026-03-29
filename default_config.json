@@ -7,6 +7,13 @@
             "BoolVal": true,
             "Callback": "WarBoxActions:ToggleFactories"
         },
+         {
+            "Id": "warbox_force_capture",
+            "Type": "SWITCH",
+            "IconPath": "ui/icons/iconKingdom",
+            "BoolVal": false,
+            "Callback": "WarBoxActions:ToggleForceCapture"
+        },
         {
             "Id": "warbox_army_limits",
             "Type": "SWITCH",

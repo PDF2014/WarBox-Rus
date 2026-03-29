@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using ai.behaviours;
+using WarBox.Behaviour;
 
 namespace WarBox.Content;
 
@@ -7,6 +9,8 @@ internal static class WarBoxMisc
     public static void Init()
     {
         AddNameGenerators();
+        AddTasks();
+        AddDecisions();
     }
 
     private static void AddNameGenerators()
@@ -63,6 +67,68 @@ internal static class WarBoxMisc
             id = "fighter_name",
             onomastics_templates = new List<string> { "`0_###u|0:fighter`" }
         });
+
+        CreateNameSet(new NameGeneratorAsset
+        {
+            id = "boat_name",
+            onomastics_templates = new List<string> { "`0_###u|0:ns`" }
+        });
+    }
+
+    private static void AddTasks()
+    {
+        BehaviourTaskActor artillery_task = new BehaviourTaskActor
+        {
+            id = "artillery_strike"
+        };
+        artillery_task.setIcon("ui/icons/actors/spg");
+        artillery_task.addBeh(new BehArtilleryAttack());
+        artillery_task.addBeh(new BehEndJob());
+        AssetManager.tasks_actor.add(artillery_task);
+
+        BehaviourTaskActor ship_attack = new BehaviourTaskActor
+        {
+            id = "ship_attack"
+        };
+        ship_attack.setIcon("ui/icons/actors/spg");
+        ship_attack.addBeh(new BehWarBoatFindTarget());
+        ship_attack.addBeh(new BehGoToTileTarget());
+        ship_attack.addBeh(new BehWarBoatAttack());
+        ship_attack.addBeh(new BehEndJob());
+        AssetManager.tasks_actor.add(ship_attack);
+    }
+
+    private static void AddDecisions()
+    {
+        DecisionAsset artillery_strike = new DecisionAsset
+        {
+            id = "artillery_strike",
+            priority = NeuroLayer.Layer_4_Critical,
+            unique = true,
+            cooldown = 10,
+            weight = 1f,
+            path_icon = "ui/icons/actors/spg",
+            task_id = "artillery_strike",
+            action_check_launch = delegate (Actor pActor)
+            {
+                if (pActor == null) return false;
+                if (!pActor.isAlive() || !pActor.kingdom.hasEnemies()) return false;
+                if (pActor.getStamina() < 100) return false;
+                return true;
+            }
+        };
+        AssetManager.decisions_library.add(artillery_strike);
+
+        DecisionAsset ship_attack_decision = new DecisionAsset
+        {
+            id = "ship_attack",
+            priority = NeuroLayer.Layer_4_Critical,
+            path_icon = "ui/icons/actors/spg",
+            cooldown = 1,
+            unique = true,
+            weight = 1f,
+        };
+        AssetManager.decisions_library.add(ship_attack_decision);
     }
 
     private static void CreateNameSet(NameGeneratorAsset name_generator)
